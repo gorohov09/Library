@@ -28,12 +28,7 @@ namespace Library.WebAPI.Controllers
         {
             var book = await _bookService.GetBookById(id);
 
-            if (book != null)
-            {
-                return Ok(book); 
-            }
-
-            return NotFound();
+            return book != null ? Ok(book) : NotFound();
         }
     }
 }
