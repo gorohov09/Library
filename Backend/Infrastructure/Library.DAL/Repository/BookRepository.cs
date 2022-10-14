@@ -20,5 +20,11 @@ namespace Library.DAL.Repository
 
             return books;
         }
+
+        public async Task<BookEntity> GetBookById (int id)
+        {
+            var book = await _libraryContext.Books.FirstOrDefaultAsync (x => x.Id == id);
+            return book;
+        }
     }
 }
