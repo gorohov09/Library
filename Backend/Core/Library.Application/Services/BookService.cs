@@ -34,5 +34,19 @@ namespace Library.Application.Services
 
             return booksVm;
         }
+
+        public async Task<BookVm> GetBookById(int id)
+        {
+            var book = await _bookRepository.GetBookById(id);
+            var bookVm = new BookVm
+            {
+                Id = book.Id,
+                Description = book.Description,
+                Title = book.Title,
+                CountExamplesAmount = book.CountExamplesAmount,
+            };
+
+            return bookVm;
+        }
     }
 }
