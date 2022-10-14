@@ -17,7 +17,6 @@ namespace Library.DAL.Repository
         public async Task<IEnumerable<BookEntity>> GetAllBooks()
         {
             var books = await _libraryContext.Books.ToListAsync();
-
             return books;
         }
 
