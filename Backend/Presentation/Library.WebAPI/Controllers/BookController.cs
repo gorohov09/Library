@@ -22,5 +22,18 @@ namespace Library.WebAPI.Controllers
             var books = await _bookService.GetAllBooks();
             return Ok(books);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBook(int id)
+        {
+            var book = await _bookService.GetBookById(id);
+
+            if (book != null)
+            {
+                return Ok(book); 
+            }
+
+            return NotFound();
+        }
     }
 }

@@ -38,6 +38,12 @@ namespace Library.Application.Services
         public async Task<BookVm> GetBookById(int id)
         {
             var book = await _bookRepository.GetBookById(id);
+
+            if (book == null)
+            {
+                return null;
+            }
+
             var bookVm = new BookVm
             {
                 Id = book.Id,
