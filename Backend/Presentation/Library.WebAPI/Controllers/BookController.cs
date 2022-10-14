@@ -1,6 +1,4 @@
 ﻿using Library.Application.Interfaces;
-using Library.DAL.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.WebAPI.Controllers

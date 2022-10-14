@@ -1,15 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Library.Domain.Base;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Library.Domain.Entities
 {
-    public class BookEntity
+    public class BookEntity : BaseEntity
     {
-        [Key]
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
         public string Title { get; set; }
 
         public string Description { get; set; }
