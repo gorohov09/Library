@@ -4,26 +4,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Library.Domain.Entities
 {
-    [Table("Book")]
-    public class BookEntity
+    [Table ("BookInstance")]
+    public class BookInsatnceEntity : BaseEntity
     {
-        [Key]
         [Required]
         [Column(TypeName = "char(13)")]
         public string ISBN { get; set; }
 
         [Required]
-        public string Title { get; set; }
-
-        public string Description { get; set; }
+        public int RowNumber { get; set; }
+        
+        [Required]
+        public bool IsAvailable { get; set; } 
 
         [Required]
-        public string Publisher { get; set; }
-
-        [Column(TypeName = "char(4)")]
-        public string Year { get; set; }
-
-        [Required]
-        public string Section { get; set; }
+        [ForeignKey("ISBN")]
+        public BookEntity BookInfo { get; set; }
     }
 }

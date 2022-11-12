@@ -16,13 +16,13 @@ namespace Library.DAL.Repository
 
         public async Task<IEnumerable<BookEntity>> GetAllBooks()
         {
-            var books = await _libraryContext.Books.ToListAsync();
+            var books = await _libraryContext.BookInfos.ToListAsync();
             return books;
         }
 
-        public async Task<BookEntity> GetBookById(int id)
+        public async Task<BookEntity> GetBookByISBN(string ISBN)
         {
-            var book = await _libraryContext.Books.FirstOrDefaultAsync(x => x.Id == id);
+            var book = await _libraryContext.BookInfos.FirstOrDefaultAsync(x => x.ISBN == ISBN);
             return book;
         }
     }

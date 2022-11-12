@@ -10,6 +10,28 @@ namespace Library.DAL.Context
         {
         }
 
-        public DbSet<BookEntity> Books { get; set; }
+        public DbSet<BookEntity> BookInfos { get; set; }
+        public DbSet<BookInsatnceEntity> BookIntances { get; set; }
+        public DbSet<AuthorEntity> Authors { get; set; }
+        public DbSet<BooksAuthorsEntity> BooksAuthors { get; set; }
+        public DbSet<ReaderEntity> Readers { get; set; }
+        public DbSet<LibrarianEntity> Librarians { get; set; }
+        public DbSet<RecordEntity> Records { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<BooksAuthorsEntity>().HasKey(u => new { u.AuthorID, u.ISBN });
+
+            modelBuilder.Entity<ReaderEntity>().HasCheckConstraint("BirthYear", "BirthYear LIKE '[1-2][0,8-9][0-9][0-9]'");
+            modelBuilder.Entity<BookEntity>().HasCheckConstraint("Year", "Year LIKE '[1-2][0-9][0-9][0-9]'");
+
+            modelBuilder.Entity<LibrarianEntity>().HasCheckConstraint("MobilePhone", "MobilePhone LIKE '[8][9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'");
+            modelBuilder.Entity<ReaderEntity>().HasCheckConstraint("MobilePhone", "MobilePhone LIKE '[8][9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'");
+
+            modelBuilder.Entity<ReaderEntity>().HasCheckConstraint("LibraryCard", "LibraryCard LIKE '[1-9][0-9][0-9][0-9][0-9][0-9]'");
+            modelBuilder.Entity<ReaderEntity>().HasCheckConstraint("StudentCard", "StudentCard LIKE '[1-9][0-9][0-9][0-9][0-9][0-9]'");
+        }
+
+
     }
 }
