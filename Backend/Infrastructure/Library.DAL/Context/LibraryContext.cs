@@ -22,6 +22,7 @@ namespace Library.DAL.Context
         {
             //modelBuilder.Entity<BooksAuthorsEntity>().HasKey(u => new { u.AuthorID, u.ISBN });
 
+            //Настройка связи многие-ко-многим между авторами и книгами
             modelBuilder
             .Entity<BookEntity>()
             .HasMany(c => c.Authors)

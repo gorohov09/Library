@@ -25,7 +25,7 @@ namespace Library.Application.Services
                 Year = book.Year,
                 Section = book.Section,
                 Publisher = book.Publisher,
-                Authors = (List<AuthorVm>)book.Authors.Select(author => new AuthorVm
+                Authors = book.Authors.Select(author => new AuthorVm
                 {
                     Id = author.Id,
                     FullName = author.FullName,
