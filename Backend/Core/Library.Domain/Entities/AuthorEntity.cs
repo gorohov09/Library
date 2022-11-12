@@ -15,6 +15,6 @@ namespace Library.Domain.Entities
         public string Country { get; set; }
 
         public IEnumerable<BooksAuthorsEntity> BooksAuthors { get; set; } = new List<BooksAuthorsEntity>();
-        public IEnumerable<BookEntity> Authors { get; set; } = new List<BookEntity>();
+        public IEnumerable<BookEntity> Books { get; set; } = new List<BookEntity>();
     }
 }

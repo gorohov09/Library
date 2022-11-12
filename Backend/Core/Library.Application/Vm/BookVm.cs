@@ -8,5 +8,6 @@
         public string Publisher { get; set; }
         public string Year { get; set; }
         public string Section { get; set; }
+        public List<AuthorVm> Authors { get; set; } = new List<AuthorVm>();
     }
 }
