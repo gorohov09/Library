@@ -16,5 +16,9 @@ namespace Library.Domain.Entities
         
         [Required]
         public bool IsAvailable { get; set; } 
+
+        [Required]
+        [ForeignKey("ISBN")]
+        public BookEntity BookInfo { get; set; }
     }
 }
