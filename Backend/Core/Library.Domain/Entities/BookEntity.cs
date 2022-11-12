@@ -21,7 +21,7 @@ namespace Library.Domain.Entities
         public string Publisher { get; set; }
 
         [Column(TypeName = "char(4)")]
-        public int Year { get; set; }
+        public string Year { get; set; }
 
         [Required]
         public string Section { get; set; }
