@@ -19,10 +19,12 @@ namespace Library.Application.Services
 
             var booksVm = books.Select(book => new BookVm
             {
-                Id = book.Id,
+                ISBN = book.ISBN,
                 Description = book.Description,
                 Title = book.Title,
-                CountExamplesAmount = book.CountExamplesAmount,
+                Year = book.Year,
+                Section = book.Section,
+                Publisher = book.Publisher,
             });
 
             //Бизнес-логика
@@ -30,9 +32,9 @@ namespace Library.Application.Services
             return booksVm;
         }
 
-        public async Task<BookVm> GetBookById(int id)
+        public async Task<BookVm> GetBookByISBN(string ISBN)
         {
-            var book = await _bookRepository.GetBookById(id);
+            var book = await _bookRepository.GetBookByISBN(ISBN);
 
             if (book == null)
             {
@@ -41,10 +43,12 @@ namespace Library.Application.Services
 
             var bookVm = new BookVm
             {
-                Id = book.Id,
+                ISBN = book.ISBN,
                 Description = book.Description,
                 Title = book.Title,
-                CountExamplesAmount = book.CountExamplesAmount,
+                Year = book.Year,
+                Section = book.Section,
+                Publisher = book.Publisher,
             };
 
             return bookVm;

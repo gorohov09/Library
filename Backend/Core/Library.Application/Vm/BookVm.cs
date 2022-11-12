@@ -2,12 +2,11 @@
 {
     public class BookVm
     {
-        public int Id { get; set; }
-
+        public string ISBN { get; set; }
         public string Title { get; set; }
-
         public string Description { get; set; }
-
-        public int CountExamplesAmount { get; set; }
+        public string Publisher { get; set; }
+        public string Year { get; set; }
+        public string Section { get; set; }
     }
 }

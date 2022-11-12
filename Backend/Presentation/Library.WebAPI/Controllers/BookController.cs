@@ -22,9 +22,9 @@ namespace Library.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetBook(int id)
+        public async Task<IActionResult> GetBook(string ISBN)
         {
-            var book = await _bookService.GetBookById(id);
+            var book = await _bookService.GetBookByISBN(ISBN);
 
             return book != null ? Ok(book) : NotFound();
         }
