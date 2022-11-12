@@ -21,7 +21,7 @@ namespace Library.WebAPI.Controllers
             return Ok(books);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{ISBN}")]
         public async Task<IActionResult> GetBook(string ISBN)
         {
             var book = await _bookService.GetBookByISBN(ISBN);

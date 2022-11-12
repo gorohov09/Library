@@ -42,7 +42,7 @@ namespace Library.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 #pragma warning restore 612, 618
         }

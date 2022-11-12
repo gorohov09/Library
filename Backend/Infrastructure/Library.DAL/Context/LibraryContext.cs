@@ -25,11 +25,11 @@ namespace Library.DAL.Context
             modelBuilder.Entity<ReaderEntity>().HasCheckConstraint("BirthYear", "BirthYear LIKE '[1-2][0,8-9][0-9][0-9]'");
             modelBuilder.Entity<BookEntity>().HasCheckConstraint("Year", "Year LIKE '[1-2][0-9][0-9][0-9]'");
 
-            modelBuilder.Entity<LibrarianEntity>().HasCheckConstraint("MobilePhone", "MobilePhone LIKE '89[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'");
-            modelBuilder.Entity<ReaderEntity>().HasCheckConstraint("MobilePhone", "MobilePhone LIKE '89[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'");
+            modelBuilder.Entity<LibrarianEntity>().HasCheckConstraint("MobilePhone", "MobilePhone LIKE '[8][9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'");
+            modelBuilder.Entity<ReaderEntity>().HasCheckConstraint("MobilePhone", "MobilePhone LIKE '[8][9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'");
 
-            modelBuilder.Entity<ReaderEntity>().HasCheckConstraint("LibraryCard", "LibraryCard LIKE [1-9][0-9][0-9][0-9][0-9][0-9]");
-            modelBuilder.Entity<ReaderEntity>().HasCheckConstraint("StudentCard", "StudentCard LIKE [1-9][0-9][0-9][0-9][0-9][0-9]");
+            modelBuilder.Entity<ReaderEntity>().HasCheckConstraint("LibraryCard", "LibraryCard LIKE '[1-9][0-9][0-9][0-9][0-9][0-9]'");
+            modelBuilder.Entity<ReaderEntity>().HasCheckConstraint("StudentCard", "StudentCard LIKE '[1-9][0-9][0-9][0-9][0-9][0-9]'");
         }
 
 
