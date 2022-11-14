@@ -65,6 +65,7 @@ namespace Library.Application.Services
                 }),
                 BookInsatnces = book.BookInsatnces.Select(insatnce => new BookInsatnceVm
                 {
+                    Id = insatnce.Id,
                     RowNumber = insatnce.RowNumber,
                     IsAvailable = insatnce.IsAvailable,
                 })
