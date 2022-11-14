@@ -9,5 +9,6 @@
         public string Year { get; set; }
         public string Section { get; set; }
         public IEnumerable<AuthorVm> Authors { get; set; } = new List<AuthorVm>();
+        public IEnumerable<BookInsatnceVm> BookInsatnces { get; set; } = new List<BookInsatnceVm>();
     }
 }
