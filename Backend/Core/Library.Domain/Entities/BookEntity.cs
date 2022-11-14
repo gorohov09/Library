@@ -25,5 +25,8 @@ namespace Library.Domain.Entities
 
         [Required]
         public string Section { get; set; }
+
+        public IEnumerable<BooksAuthorsEntity> BooksAuthors { get; set; } = new List<BooksAuthorsEntity>();
+        public IEnumerable<AuthorEntity> Authors { get; set; } = new List<AuthorEntity>();
     }
 }

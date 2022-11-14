@@ -4,6 +4,7 @@ using Library.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.DAL.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20221112203744_AuthorsBooksRelation")]
+    partial class AuthorsBooksRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,21 @@ namespace Library.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("AuthorEntityBookEntity", b =>
+                {
+                    b.Property<string>("AuthorsISBN")
+                        .HasColumnType("char(13)");
+
+                    b.Property<int>("AuthorsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuthorsISBN", "AuthorsId");
+
+                    b.HasIndex("AuthorsId");
+
+                    b.ToTable("AuthorEntityBookEntity");
+                });
 
             modelBuilder.Entity("Library.Domain.Entities.AuthorEntity", b =>
                 {
@@ -115,7 +132,7 @@ namespace Library.DAL.Migrations
 
                     b.HasIndex("ISBN");
 
-                    b.ToTable("AuthorBook", (string)null);
+                    b.ToTable("AuthorBook");
                 });
 
             modelBuilder.Entity("Library.Domain.Entities.LibrarianEntity", b =>
@@ -211,6 +228,21 @@ namespace Library.DAL.Migrations
                     b.HasIndex("ReaderID");
 
                     b.ToTable("History");
+                });
+
+            modelBuilder.Entity("AuthorEntityBookEntity", b =>
+                {
+                    b.HasOne("Library.Domain.Entities.BookEntity", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorsISBN")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Library.Domain.Entities.AuthorEntity", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Library.Domain.Entities.BookInsatnceEntity", b =>

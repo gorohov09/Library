@@ -13,5 +13,8 @@ namespace Library.Domain.Entities
         public DateTime BirthDate { get; set; }
 
         public string Country { get; set; }
+
+        public IEnumerable<BooksAuthorsEntity> BooksAuthors { get; set; } = new List<BooksAuthorsEntity>();
+        public IEnumerable<BookEntity> Books { get; set; } = new List<BookEntity>();
     }
 }

@@ -16,7 +16,10 @@ namespace Library.DAL.Repository
 
         public async Task<IEnumerable<BookEntity>> GetAllBooks()
         {
-            var books = await _libraryContext.BookInfos.ToListAsync();
+            var books = await _libraryContext.BookInfos
+                .Include(a => a.Authors)
+                .ToListAsync();
+
             return books;
         }
 

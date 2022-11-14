@@ -17,6 +17,7 @@ namespace Library.Domain.Entities
         [ForeignKey("ISBN")]
         public BookEntity Book { get; set; }
 
+        [ForeignKey("AuthorID")]
         public AuthorEntity Author { get; set; }
 
 
