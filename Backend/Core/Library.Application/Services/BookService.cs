@@ -56,6 +56,19 @@ namespace Library.Application.Services
                 Year = book.Year,
                 Section = book.Section,
                 Publisher = book.Publisher,
+                Authors = book.Authors.Select(author => new AuthorVm
+                {
+                    Id = author.Id,
+                    FullName = author.FullName,
+                    Country = author.Country,
+                    BirthDate = author.BirthDate,
+                }),
+                BookInsatnces = book.BookInsatnces.Select(insatnce => new BookInsatnceVm
+                {
+                    Id = insatnce.Id,
+                    RowNumber = insatnce.RowNumber,
+                    IsAvailable = insatnce.IsAvailable,
+                })
             };
 
             return bookVm;

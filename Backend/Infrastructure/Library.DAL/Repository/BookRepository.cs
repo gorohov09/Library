@@ -25,7 +25,12 @@ namespace Library.DAL.Repository
 
         public async Task<BookEntity> GetBookByISBN(string ISBN)
         {
-            var book = await _libraryContext.BookInfos.FirstOrDefaultAsync(x => x.ISBN == ISBN);
+            var book = await _libraryContext
+                .BookInfos
+                .Include(a => a.Authors)
+                .Include(i => i.BookInsatnces)
+                .FirstOrDefaultAsync(x => x.ISBN == ISBN);
+
             return book;
         }
     }
