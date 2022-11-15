@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryStudentClient.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,7 @@ namespace LibraryStudentClient.View.Authorization
         public Authorization()
         {
             InitializeComponent();
-            
+            DataContext = new DataManagerAuthorizationVM();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -31,11 +32,8 @@ namespace LibraryStudentClient.View.Authorization
             MainWindow mainWindow = new MainWindow();
             mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             mainWindow.Show();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
 
         }
+
     }
 }

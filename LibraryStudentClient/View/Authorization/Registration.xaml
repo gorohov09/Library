@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LibraryStudentClient.View.Authorization"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="425" d:DesignWidth="350"
       Title="Registration">
 
     <Grid>
@@ -17,17 +17,27 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="Teko SemiBold">Электронная библиотека</TextBlock>
-        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Margin="0,50,0,0">Макет 2</TextBlock>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" FontFamily="Teko SemiBold" Margin="0,5,0,0">Электронная библиотека</TextBlock>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" Margin="0,25,0,0">Макет 2</TextBlock>
         <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center">
-            <TextBlock  Text="Фамилия" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
-            <TextBox Width="150" Background="#FFCDE0DA" FontSize="14">LibraryRu@stud.kai.ru</TextBox>
-            <TextBlock  Text="Имя" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
-            <TextBox Width="150" Background="#FFCDE0DA" FontSize="14">abcdefg</TextBox>
-            <Button Height="28" FontSize="16" Width="150" Background="#FF7BC9D8" Margin="0,2,0,0" Click="Button_Click">Зарегистрировать</Button>
+            <TextBlock  Text="Фамилия" FontSize="16"/>
+            <TextBox Width="150" Background="#FFCDE0DA" FontSize="12" Text="{Binding SurName}"/>
+            <TextBlock  Text="Имя" FontSize="16"/>
+            <TextBox Width="150" Background="#FFCDE0DA" FontSize="12" Text="{Binding Name}"/>
+            <TextBlock  Text="Отчество" FontSize="16"/>
+            <TextBox Width="150" Background="#FFCDE0DA" FontSize="12" Text="{Binding FatherName}"/>
+            <TextBlock  Text="Номер телефона" FontSize="16"/>
+            <TextBox Width="150" Background="#FFCDE0DA" FontSize="12" Text="{Binding PhoneNumber}"/>
+            <TextBlock  Text="Номер студенческого" FontSize="16"/>
+            <TextBlock  Text="билета" FontSize="16" HorizontalAlignment="Center"/>
+            <TextBox Width="150" Background="#FFCDE0DA" FontSize="12" Text="{Binding StudTicketNum, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock  Text="Пароль" FontSize="16"/>
+            <TextBox Width="150" Background="#FFCDE0DA" FontSize="12" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Height="28" FontSize="16" Width="150" Background="#FF7BC9D8" Margin="0,2,0,0" Click="Button_Click" Content="Зарегистрировать"/>
         </StackPanel>
+        <Button Content="←" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Background="#FF0FF9FF" FontSize="16"/>
     </Grid>
 </Page>

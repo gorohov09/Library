@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using LibraryStudentClient.View.Authorization;
+using LibraryStudentClient.ViewModel;
 
 namespace LibraryStudentClient.View
 {
@@ -20,13 +21,15 @@ namespace LibraryStudentClient.View
     /// </summary>
     public partial class StartWindow : Window
     {
+        public static Frame _viewPage { get; set; }
+
         public StartWindow()
         {
 
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             MainFrame.Content = new View.Authorization.Authorization();
-
+            _viewPage = this.MainFrame;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LibraryStudentClient.View.Authorization"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="425" d:DesignWidth="350"
       Title="Authorization">
 
     <Grid>
@@ -23,12 +23,21 @@
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="Teko SemiBold">Электронная библиотека</TextBlock>
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Margin="0,50,0,0">Макет 2</TextBlock>
         <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center">
-            <TextBlock  Text="Логин" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
-            <TextBox Width="150" Background="#FFCDE0DA" FontSize="14">LibraryRu@stud.kai.ru</TextBox>
+            <TextBlock  Text="Номер студенческого" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
+            <TextBlock  Text="билета" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
+            <TextBox Width="150" Background="#FFCDE0DA" FontSize="14" Text="{Binding StudTicketNum, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock  Text="Пароль" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
-            <TextBox Width="150" Background="#FFCDE0DA" FontSize="14">abcdefg</TextBox>
+            <TextBox Width="150" Background="#FFCDE0DA" FontSize="14" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Height="28" FontSize="16" Width="80" Background="#FF7BC9D8" Margin="0,2,0,0" Click="Button_Click">Войти</Button>
-            <Button Height="23" FontSize="14" Width="100" Background="#FF999FA0" Margin="0,4,0,0" Opacity="0.5" Click="Button_Click_1">Регистрация</Button>
+            <Button Height="23" FontSize="14" Width="100" Background="#FF999FA0" Margin="0,4,0,0" Opacity="0.5" Command="{Binding OpenRegistration}">Регистрация</Button>
         </StackPanel>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Height="80" VerticalAlignment="Bottom" Visibility="Hidden">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FFEC0B0B" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
     </Grid>
 </Page>
