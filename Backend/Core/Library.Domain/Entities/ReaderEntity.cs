@@ -14,9 +14,8 @@ namespace Library.Domain.Entities
         [Required]
         public string FullName { get; set; }
 
-        [Required]
         [Column(TypeName = "char(4)")]
-        public string BirthYear { get; set; }
+        public string? BirthYear { get; set; }
 
         [Column(TypeName = "char(6)")]
         public string StudentCard { get; set; }
@@ -27,6 +26,9 @@ namespace Library.Domain.Entities
         [Required]
         [Column(TypeName = "char(11)")]
         public string MobilePhone { get; set; }
+
+        [Required]
+        public string Password { get; set; }
 
     }
 }
