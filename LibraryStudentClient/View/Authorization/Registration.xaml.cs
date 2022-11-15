@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryStudentClient.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace LibraryStudentClient.View.Authorization
         public Registration()
         {
             InitializeComponent();
+            DataContext = StartWindow._mng; ;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

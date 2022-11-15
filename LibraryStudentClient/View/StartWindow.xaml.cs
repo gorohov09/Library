@@ -22,22 +22,28 @@ namespace LibraryStudentClient.View
     public partial class StartWindow : Window
     {
         public static Frame _viewPage { get; set; }
+        public static Authorization.Authorization _authorizationPage { get; set; }
+        public static Authorization.Registration? _registrationPage { get; set; }
+
+        public static StartWindow _window { get; set; }
+
+        public static DataManagerAuthorizationVM _mng { get; set; }
 
         public StartWindow()
         {
 
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            MainFrame.Content = new View.Authorization.Authorization();
+
+            _mng = new DataManagerAuthorizationVM();
+            _window = this;
+            _registrationPage = null;
             _viewPage = this.MainFrame;
+            _authorizationPage = new View.Authorization.Authorization();
+            MainFrame.Content = _authorizationPage;
+
+
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            this.Close();
-            mainWindow.Show();
-        }
     }
 }

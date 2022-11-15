@@ -24,16 +24,7 @@ namespace LibraryStudentClient.View.Authorization
         public Authorization()
         {
             InitializeComponent();
-            DataContext = new DataManagerAuthorizationVM();
+            DataContext = StartWindow._mng;
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            mainWindow.Show();
-
-        }
-
     }
 }
