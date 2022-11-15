@@ -28,5 +28,6 @@ namespace Library.Domain.Entities
 
         public IEnumerable<BooksAuthorsEntity> BooksAuthors { get; set; } = new List<BooksAuthorsEntity>();
         public IEnumerable<AuthorEntity> Authors { get; set; } = new List<AuthorEntity>();
+        public IEnumerable<BookInsatnceEntity> BookInsatnces { get; set; } = new List<BookInsatnceEntity>();
     }
 }

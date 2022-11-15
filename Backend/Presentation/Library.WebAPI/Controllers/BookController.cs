@@ -14,10 +14,17 @@ namespace Library.WebAPI.Controllers
             _bookService = bookService;
         }
 
-        [HttpGet("all")] //http://localhost:5162/api/books/all
-        public async Task<IActionResult> GetBooks()
+        /// <summary>
+        /// Метод получения книг(Или всех или только по конкретной секции)
+        /// </summary>
+        /// <param name="section"></param>
+        /// <returns></returns>
+        [HttpGet()] //http://localhost:5162/api/books?section=название_секции
+        public async Task<IActionResult> GetBooks([FromQuery]string section)
         {
-            var books = await _bookService.GetAllBooks();
+            //Если section = all, то возвращаем все книги
+            //Если что-то другое, напромер Математика или Физика, то возвращаем книги конкретно данной секции
+            var books = await _bookService.GetAllBooks(section);
             return Ok(books);
         }
 
@@ -27,6 +34,15 @@ namespace Library.WebAPI.Controllers
             var book = await _bookService.GetBookByISBN(ISBN);
 
             return book != null ? Ok(book) : NotFound();
+        }
+
+        [HttpGet("sections/all")]
+        public async Task<IActionResult> GetSections()
+        {
+            return Ok(new
+            {
+                sections = await _bookService.GetBookSections()
+            });
         }
     }
 }

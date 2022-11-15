@@ -23,10 +23,32 @@ namespace Library.DAL.Repository
             return books;
         }
 
+        public async Task<IEnumerable<BookEntity>> GetBooksBySection(string section)
+        {
+            var books = await _libraryContext.BookInfos
+                .Where(a => a.Section == section)
+                .Include(a => a.Authors)
+                .ToListAsync();
+
+            return books;
+        }
+
         public async Task<BookEntity> GetBookByISBN(string ISBN)
         {
-            var book = await _libraryContext.BookInfos.FirstOrDefaultAsync(x => x.ISBN == ISBN);
+            var book = await _libraryContext
+                .BookInfos
+                .Include(a => a.Authors)
+                .Include(i => i.BookInsatnces)
+                .FirstOrDefaultAsync(x => x.ISBN == ISBN);
+
             return book;
+        }
+
+        public async Task<IEnumerable<string>> GetBookSections()
+        {
+            return _libraryContext.BookInfos
+                .Select(a => a.Section)
+                .Distinct();
         }
     }
 }
