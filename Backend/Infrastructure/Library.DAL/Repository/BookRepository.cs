@@ -23,6 +23,16 @@ namespace Library.DAL.Repository
             return books;
         }
 
+        public async Task<IEnumerable<BookEntity>> GetBooksBySection(string section)
+        {
+            var books = await _libraryContext.BookInfos
+                .Where(a => a.Section == section)
+                .Include(a => a.Authors)
+                .ToListAsync();
+
+            return books;
+        }
+
         public async Task<BookEntity> GetBookByISBN(string ISBN)
         {
             var book = await _libraryContext

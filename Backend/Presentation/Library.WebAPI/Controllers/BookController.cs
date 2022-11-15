@@ -24,7 +24,7 @@ namespace Library.WebAPI.Controllers
         {
             //Если section = all, то возвращаем все книги
             //Если что-то другое, напромер Математика или Физика, то возвращаем книги конкретно данной секции
-            var books = await _bookService.GetAllBooks();
+            var books = await _bookService.GetAllBooks(section);
             return Ok(books);
         }
 
