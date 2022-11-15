@@ -6,6 +6,8 @@ namespace Library.DAL.Interfaces
     {
         Task<IEnumerable<BookEntity>> GetAllBooks();
 
+        Task<IEnumerable<BookEntity>> GetBooksBySection(string section);
+
         Task<BookEntity> GetBookByISBN(string ISBN);
 
         Task<IEnumerable<string>> GetBookSections();

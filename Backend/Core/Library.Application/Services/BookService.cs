@@ -13,9 +13,9 @@ namespace Library.Application.Services
             _bookRepository = bookRepository;
         }
 
-        public async Task<IEnumerable<BookVm>> GetAllBooks()
+        public async Task<IEnumerable<BookVm>> GetAllBooks(string section)
         {
-            var books = await _bookRepository.GetAllBooks();
+            var books = section == "all" ? await _bookRepository.GetAllBooks() : await _bookRepository.GetBooksBySection(section);
 
             var booksVm = books.Select(book => new BookVm
             {
