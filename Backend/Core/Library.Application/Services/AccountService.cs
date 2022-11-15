@@ -27,13 +27,20 @@ namespace Library.Application.Services
 
             //Сделать проеверку, что такой номер студ. билета еще не был зарегестрирован
 
-            var resultReaderEntity = await _accountRepository.Registrate(libraryCard, fullName,
-                requestRegistrate.StudentCard, requestRegistrate.MobilePhone, requestRegistrate.Password);
+            try
+            {
+                var resultReaderEntity = await _accountRepository.Registrate(libraryCard, fullName,
+                    requestRegistrate.StudentCard, requestRegistrate.MobilePhone, requestRegistrate.Password);
 
-            if (resultReaderEntity == null)
-                return new ResponseRegistrate { IsSuccess = false, Error = "Ошибка при регистрации" };
+                if (resultReaderEntity == null)
+                    return new ResponseRegistrate { IsSuccess = false, Error = "Ошибка при регистрации" };
 
-            return new ResponseRegistrate { IsSuccess = true, LibraryCard = resultReaderEntity.LibraryCard };
+                return new ResponseRegistrate { IsSuccess = true, LibraryCard = resultReaderEntity.LibraryCard };
+            }
+            catch (Exception)
+            {
+                return new ResponseRegistrate { IsSuccess = false, Error = "Некорректные данные" };
+            }
         }
 
         private string GetFullName(string lastName, string name, string patronymic)
