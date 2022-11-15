@@ -1,4 +1,5 @@
-﻿using Library.Application.Requests;
+﻿using Library.Application.Interfaces;
+using Library.Application.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +9,18 @@ namespace Library.WebAPI.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        [HttpPost]
+        private readonly IAccountService _accountService;
+
+        public AccountController(IAccountService accountService)
+        {
+            _accountService = accountService;
+        }
+
+        [HttpPost("registrate")]
         public async Task<IActionResult> Registrate([FromBody]RequestRegistrate request)
         {
-            return null;
+            var result = await _accountService.Registrate(request);
+            return Ok(result);
         }
     }
 }
