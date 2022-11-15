@@ -55,6 +55,19 @@ namespace Library.Application.Services
             }
         }
 
+        public async Task<ResponseLogin> Login(RequestLogin requestLogin)
+        {
+            if (requestLogin == null)
+                return new ResponseLogin { IsSuccess = false, Error = "Неизвестная ошибка" };
+
+            var readerEntity = await _accountRepository.Login(requestLogin.StudentCard, requestLogin.Password);
+
+            if (readerEntity == null)
+                return new ResponseLogin { IsSuccess = false, Error = "Неправильный читательский билет или пароль" };
+
+            return new ResponseLogin { IsSuccess = true, LibraryCard = readerEntity.LibraryCard };
+        }
+
         private string GetFullName(string lastName, string name, string patronymic)
         {
             return $"{lastName} {name} {patronymic}";

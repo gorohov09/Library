@@ -6,5 +6,7 @@ namespace Library.Application.Interfaces
     public interface IAccountService
     {
         Task<ResponseRegistrate> Registrate(RequestRegistrate requestRegistrate);
+
+        Task<ResponseLogin> Login(RequestLogin requestLogin);
     }
 }

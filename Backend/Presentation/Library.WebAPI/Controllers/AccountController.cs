@@ -22,5 +22,12 @@ namespace Library.WebAPI.Controllers
             var result = await _accountService.Registrate(request);
             return Ok(result);
         }
+
+        [HttpPost("logIn")]
+        public async Task<IActionResult> LogIn([FromBody] RequestLogin request)
+        {
+            var result = await _accountService.Login(request);
+            return Ok(result);
+        }
     }
 }

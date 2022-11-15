@@ -1,6 +1,7 @@
 ﻿using Library.DAL.Context;
 using Library.DAL.Interfaces;
 using Library.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.DAL.Repository
 {
@@ -11,6 +12,14 @@ namespace Library.DAL.Repository
         public AccountRepository(LibraryContext libraryContext)
         {
             _libraryContext = libraryContext;
+        }
+
+        public async Task<ReaderEntity> Login(string studentCard, string password)
+        {
+            var readerEntity = await _libraryContext.Readers
+                .FirstOrDefaultAsync(reader => reader.StudentCard == studentCard && reader.Password == reader.Password);
+
+            return readerEntity;
         }
 
         public async Task<ReaderEntity> Registrate(string libraryCard, string fullName, 

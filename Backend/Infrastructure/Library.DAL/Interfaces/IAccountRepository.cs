@@ -6,5 +6,7 @@ namespace Library.DAL.Interfaces
     {
         Task<ReaderEntity> Registrate(string libraryCard, string fullName,
             string studentCard, string mobilePhone, string password);
+
+        Task<ReaderEntity> Login(string studentCard, string password);
     }
 }
