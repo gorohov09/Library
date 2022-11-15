@@ -10,8 +10,4 @@
     <ProjectReference Include="..\..\Infrastructure\Library.DAL\Library.DAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Response\" />
-  </ItemGroup>
-
 </Project>

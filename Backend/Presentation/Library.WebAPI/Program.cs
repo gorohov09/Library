@@ -24,6 +24,7 @@ services.AddScoped<IAccountRepository, AccountRepository>();
 
 //Services
 services.AddScoped<IBookService, BookService>();
+services.AddScoped<IAccountService, AccountService>();
 
 var app = builder.Build();
 

@@ -4,7 +4,7 @@ namespace Library.DAL.Interfaces
 {
     public interface IAccountRepository
     {
-        Task<ReaderEntity> Registrate(string libraryCard, string fullName, string birthYear,
+        Task<ReaderEntity> Registrate(string libraryCard, string fullName,
             string studentCard, string mobilePhone, string password);
     }
 }

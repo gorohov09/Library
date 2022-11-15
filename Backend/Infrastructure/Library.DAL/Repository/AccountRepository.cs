@@ -13,7 +13,7 @@ namespace Library.DAL.Repository
             _libraryContext = libraryContext;
         }
 
-        public async Task<ReaderEntity> Registrate(string libraryCard, string fullName, string birthYear, 
+        public async Task<ReaderEntity> Registrate(string libraryCard, string fullName, 
             string studentCard, string mobilePhone, string password)
         {
             var readerEntity = new ReaderEntity
@@ -21,7 +21,6 @@ namespace Library.DAL.Repository
                 LibraryCard = libraryCard,
                 FullName = fullName,
                 StudentCard = studentCard,
-                BirthYear = birthYear,
                 MobilePhone = mobilePhone,
                 IsHasDebt = false,
                 Password = password
@@ -30,7 +29,6 @@ namespace Library.DAL.Repository
             _libraryContext.Readers.Add(readerEntity);
 
             return await _libraryContext.SaveChangesAsync() > 0 ? readerEntity : null;
-
         }
     }
 }
