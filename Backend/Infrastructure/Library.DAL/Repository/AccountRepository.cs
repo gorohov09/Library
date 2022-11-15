@@ -17,7 +17,7 @@ namespace Library.DAL.Repository
         public async Task<ReaderEntity> Login(string studentCard, string password)
         {
             var readerEntity = await _libraryContext.Readers
-                .FirstOrDefaultAsync(reader => reader.StudentCard == studentCard && reader.Password == reader.Password);
+                .FirstOrDefaultAsync(reader => reader.StudentCard == studentCard && reader.Password == password);
 
             return readerEntity;
         }
