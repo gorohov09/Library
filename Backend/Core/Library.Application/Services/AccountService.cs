@@ -29,7 +29,7 @@ namespace Library.Application.Services
                 return new ResponseRegistrate { IsSuccess = false, Error = "Студенческий билет должен содержать 6 символов" };
 
             //Сделать проеверку, что такой номер студ. билета еще не был зарегестрирован
-            if (!(await _readerRepository.IsStudentCard(requestRegistrate.StudentCard)))
+            if (await _readerRepository.IsStudentCard(requestRegistrate.StudentCard))
                 return new ResponseRegistrate { IsSuccess = false, Error = "Пользователь с данным студ. билетом уже зарегестрирован" };
             
             var fullName = GetFullName(requestRegistrate.LastName, requestRegistrate.Name, requestRegistrate.Patronymic);
