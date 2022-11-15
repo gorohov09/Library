@@ -73,5 +73,10 @@ namespace Library.Application.Services
 
             return bookVm;
         }
+
+        public async Task<IEnumerable<string>> GetBookSections()
+        {
+            return await _bookRepository.GetBookSections();
+        }
     }
 }

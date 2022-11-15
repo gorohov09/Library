@@ -28,5 +28,14 @@ namespace Library.WebAPI.Controllers
 
             return book != null ? Ok(book) : NotFound();
         }
+
+        [HttpGet("sections/all")]
+        public async Task<IActionResult> GetSections()
+        {
+            return Ok(new
+            {
+                sections = await _bookService.GetBookSections()
+            });
+        }
     }
 }
