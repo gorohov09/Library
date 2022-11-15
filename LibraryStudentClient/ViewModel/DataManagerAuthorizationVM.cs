@@ -27,6 +27,7 @@ namespace LibraryStudentClient.ViewModel
             get { return studTicketNum; }
             set { studTicketNum = value; NotifyPropertyChanged("StudTicketNum"); }
         }
+
         private string? password;
         public string Password 
         { 
@@ -34,15 +35,7 @@ namespace LibraryStudentClient.ViewModel
             set { password = value; NotifyPropertyChanged("Password"); }
         }
 
-        private void OpenMainWindow()
-        {
 
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            mainWindow.Show();
-            StartWindow._window.Close();
-
-        }
 
         private string? errorlog;
         public string Errorlog
@@ -109,7 +102,15 @@ namespace LibraryStudentClient.ViewModel
         }
 
 
+        private void OpenMainWindow()
+        {
 
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            mainWindow.Show();
+            StartWindow._window.Close();
+
+        }
 
         #region Навигация, открытие окна регистрации, возврат на окно авторизации
         private void OpenRegistrationPage()

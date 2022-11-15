@@ -8,7 +8,7 @@ namespace LibraryStudentClient.MyHttpClient
 {
     public static class MyHttpClient
     {
-        private static string? libraryCard;
+        private static string? currentLibraryCard;
 
         public static bool Authorizate(string studTicketNum, string password, ref string error)
         {
