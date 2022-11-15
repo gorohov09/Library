@@ -50,5 +50,8 @@ namespace LibraryStudentClient.MyHttpClient
             error = "ошибка - пользователь с таким студенческим билетом уже существует!\nСоветуем перейти в раздел \"авторизация\"";
             return false;
         }
+
+
+
     }
 }
