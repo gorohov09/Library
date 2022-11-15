@@ -6,5 +6,7 @@ namespace Library.Application.Interfaces
     {
         Task<IEnumerable<BookVm>> GetAllBooks();
         Task<BookVm> GetBookByISBN(string ISBN);
+
+        Task<IEnumerable<string>> GetBookSections();
     }
 }

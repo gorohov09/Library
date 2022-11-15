@@ -33,5 +33,12 @@ namespace Library.DAL.Repository
 
             return book;
         }
+
+        public async Task<IEnumerable<string>> GetBookSections()
+        {
+            return _libraryContext.BookInfos
+                .Select(a => a.Section)
+                .Distinct();
+        }
     }
 }
