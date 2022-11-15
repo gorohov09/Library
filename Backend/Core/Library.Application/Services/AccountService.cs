@@ -9,9 +9,12 @@ namespace Library.Application.Services
     {
         private readonly IAccountRepository _accountRepository;
 
-        public AccountService(IAccountRepository accountRepository)
+        private readonly IReaderRepository _readerRepository;
+
+        public AccountService(IAccountRepository accountRepository, IReaderRepository readerRepository)
         {
             _accountRepository = accountRepository;
+            _readerRepository = readerRepository;
         }
 
         public async Task<ResponseRegistrate> Registrate(RequestRegistrate requestRegistrate)
@@ -19,13 +22,22 @@ namespace Library.Application.Services
             if (requestRegistrate == null)
                 return new ResponseRegistrate { IsSuccess = false, Error = "Неизвестная ошибка" };
 
-            var fullName = GetFullName(requestRegistrate.LastName, requestRegistrate.Name, requestRegistrate.Patronymic);
+            if (requestRegistrate.MobilePhone.Length != 11)
+                return new ResponseRegistrate { IsSuccess = false, Error = "Телефонный номер должен содержать 11 цифр" };
 
-            var libraryCard = GenerateUniqueLibraryCard();
-
-            //Сделать проверку, что сгенерированный номер чит. билета уникальный
+            if (requestRegistrate.StudentCard.Length != 6)
+                return new ResponseRegistrate { IsSuccess = false, Error = "Студенческий билет должен содержать 6 символов" };
 
             //Сделать проеверку, что такой номер студ. билета еще не был зарегестрирован
+            if (!(await _readerRepository.IsStudentCard(requestRegistrate.StudentCard)))
+                return new ResponseRegistrate { IsSuccess = false, Error = "Пользователь с данным студ. билетом уже зарегестрирован" };
+            
+            var fullName = GetFullName(requestRegistrate.LastName, requestRegistrate.Name, requestRegistrate.Patronymic);
+            var libraryCard = GenerateUniqueLibraryCard();
+
+            //Проверка, что сгенерированный номер чит. билета уникальный
+            while (await _readerRepository.IsLibraryCard(libraryCard))
+                libraryCard = GenerateUniqueLibraryCard();
 
             try
             {
@@ -39,7 +51,7 @@ namespace Library.Application.Services
             }
             catch (Exception)
             {
-                return new ResponseRegistrate { IsSuccess = false, Error = "Некорректные данные" };
+                return new ResponseRegistrate { IsSuccess = false, Error = "Ошибка при сохранении данных" };
             }
         }
 
