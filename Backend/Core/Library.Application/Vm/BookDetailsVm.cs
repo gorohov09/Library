@@ -14,7 +14,6 @@ namespace Library.Application.Vm
         public string Publisher { get; set; }
         public string Year { get; set; }
         public string Section { get; set; }
-        public IEnumerable<AuthorVm> Authors { get; set; } = new List<AuthorVm>();
         public int Count { get; set; }
     }
 }
