@@ -27,7 +27,7 @@ namespace Library.Application.Services
             return booksVm;
         }
 
-        public async Task<BookVm> GetBookByISBN(string ISBN)
+        public async Task<BookDetailsVm> GetBookByISBN(string ISBN)
         {
             var book = await _bookRepository.GetBookByISBN(ISBN);
 
@@ -36,9 +36,10 @@ namespace Library.Application.Services
                 return null;
             }
 
-            var bookVm = _mapper.Map<BookVm>(book);
+            var bookDetailsVm = _mapper.Map<BookDetailsVm>(book);
+            bookDetailsVm.Count = await _bookRepository.InstancesCount(book);
 
-            return bookVm;
+            return bookDetailsVm;
         }
 
         public async Task<IEnumerable<string>> GetBookSections()
