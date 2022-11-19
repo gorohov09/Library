@@ -26,7 +26,7 @@ namespace LibraryStudentClient.Model
                 return viewSelectedBook ??
                     (viewSelectedBook = new RelayCommand(obj =>
                     {
-                        //DataManagerMainVM.currentDM.Show();
+                        DataManagerMainVM.currentDM.ShowBook();
                     }));
             }
         }

@@ -21,10 +21,23 @@ namespace LibraryStudentClient.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static Frame _mainFrame { get; set; }
+        public static BookPages.ListOfBooks _listOfBooks { get; set; }
+        public static DataManagerMainVM _mng { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new DataManagerMainVM();
+
+            // Определяем контекст данных
+            _mng = new DataManagerMainVM();
+            DataContext = _mng;
+
+            _mainFrame = this.MainFrame;
+
+            // Создаем страницу отображения данных
+            _listOfBooks = new BookPages.ListOfBooks();
+            _mainFrame.Content = _listOfBooks;
         }
     }
 }

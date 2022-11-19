@@ -12,6 +12,8 @@ namespace LibraryStudentClient.ViewModel
 {
     public class DataManagerMainVM : INotifyPropertyChanged
     {
+        #region Работа с Секциями
+
         private List<Section> allSections = MyHttpClient.MyHttpClient.GetAllSection();
         public List<Section> AllSections 
         {
@@ -24,8 +26,6 @@ namespace LibraryStudentClient.ViewModel
 
         }
 
-
-
         private Section? selectedSection;
         public Section? SelectedSection
         {
@@ -33,16 +33,61 @@ namespace LibraryStudentClient.ViewModel
             set { selectedSection = value; NotifyPropertyChanged("SelectedSection"); }
         }
 
-        public static DataManagerMainVM currentDM;
+        #endregion
+
+        #region Работа с книгами
+
+        private List<Book> books = MyHttpClient.MyHttpClient.GetBooks();
+        public List<Book> Books
+        {
+            get { return books; }
+            set
+            {
+                books = value;
+                //NotifyPropertyChanged("Books");
+            }
+        }
+
+        private Book? selectedBook;
+        public Book? SelectedBook
+        {
+            get { return selectedBook; }
+            set { selectedBook = value; NotifyPropertyChanged("SelectedBook"); }
+        }
+
+        private RelayCommand? viewSelectedBook;
+        public RelayCommand ViewSelectedBook
+        {
+            get
+            {
+                return viewSelectedBook ??
+                    (viewSelectedBook = new RelayCommand(obj =>
+                    {
+                        DataManagerMainVM.currentDM.ShowBook();
+                    }));
+            }
+        }
+
+        #endregion
+
+        #region Конструктор класса
+
+        public static DataManagerMainVM? currentDM;
         public DataManagerMainVM()
         {
             currentDM = this;
         }
 
+        #endregion
+
         public void Show()
         {
             MessageBox.Show(SelectedSection.Name);
             SelectedSection = null;
+        }
+        public void ShowBook()
+        {
+            MessageBox.Show(SelectedBook.Title);
         }
 
 
@@ -51,5 +96,7 @@ namespace LibraryStudentClient.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
     }
 }

@@ -39,8 +39,6 @@ namespace LibraryStudentClient.View
             _viewPage = this.MainFrame;
             _authorizationPage = new View.Authorization.Authorization();
             MainFrame.Content = _authorizationPage;
-
-
         }
 
     }
