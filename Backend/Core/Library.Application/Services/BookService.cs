@@ -20,7 +20,7 @@ namespace Library.Application.Services
         {
             var books = section == "all" ? await _bookRepository.GetAllBooks() : await _bookRepository.GetBooksBySection(section);
 
-            var booksVm = books.Select(book => _mapper.Map<BookVm>(book));
+            var booksVm = _mapper.Map<IEnumerable<BookVm>>(books);
 
             //Бизнес-логика
 

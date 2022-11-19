@@ -8,9 +8,9 @@ namespace Library.WebAPI.Helpers
     {
         public MappingProfile()
         {
-            CreateMap<BookEntity, BookVm>();
-            CreateMap<AuthorEntity, AuthorVm>();
-            CreateMap<BookInsatnceEntity, BookInsatnceVm>();
+            CreateMap<BookEntity, BookVm>().ReverseMap();
+            CreateMap<AuthorEntity, AuthorVm>().ReverseMap();
+            CreateMap<BookInsatnceEntity, BookInsatnceVm>().ReverseMap();
         }
     }
 }
