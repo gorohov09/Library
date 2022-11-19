@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -53,15 +55,23 @@ namespace LibraryStudentClient.MyHttpClient
             return false;
         }
 
-        public static List<Section> GetAllSection()
+        static public async Task<List<Section>> GetAllSection()
         {
-            return new List<Section>{
-                new Section { Name = "Физика" },
-                new Section { Name = "Термодинамика" },
-                new Section { Name = "Аэродинамика" },
-                new Section { Name = "Математический анализ" },
-                new Section { Name = "Программирование" },
-            };
+            HttpClient Client = new HttpClient();
+
+            var response = await Client.GetAsync("http://localhost:5162/api/books/sections/all");
+
+            var result = await response.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<List<Section>>();
+
+            return result;
+
+            //return new List<Section>{
+            //    new Section { Name = "Физика" },
+            //    new Section { Name = "Термодинамика" },
+            //    new Section { Name = "Аэродинамика" },
+            //    new Section { Name = "Математический анализ" },
+            //    new Section { Name = "Программирование" },
+
         }
 
         public static List<Book> GetBooks(string section = "all")

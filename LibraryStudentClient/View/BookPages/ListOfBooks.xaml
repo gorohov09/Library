@@ -21,8 +21,15 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="0.2*" MaxWidth="245"/>
         </Grid.ColumnDefinitions>
-        <ListView ItemsSource = "{Binding Books}" Foreground="#FF042271" FontSize="18" Margin="7,10,0,10"
-                      SelectedItem="{Binding SelectedBook}">
+        <ListView ItemsSource = "{Binding Books, UpdateSourceTrigger=PropertyChanged}" Foreground="#FF042271" FontSize="18" Margin="7,10,0,10"
+                      SelectedItem="{Binding SelectedBook}" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName = "MouseDoubleClick">
+                    <i:InvokeCommandAction
+                            Command="{Binding ViewSelectedBook}"
+                            CommandParameter ="{Binding SelectedBook}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ListView.Background>
                 <LinearGradientBrush EndPoint = "0.5,1" StartPoint="0.5,0">
                     <GradientStop Color = "White" Offset="0.006"/>
@@ -34,13 +41,6 @@
             </ListView.Background>
             <ListView.View>
                 <GridView>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName = "MouseDoubleClick">
-                            <i:InvokeCommandAction
-                            Command="{Binding DoubleCommand}"
-                            CommandParameter ="{Binding SelectedPhone}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
                     <GridViewColumn Header = "Название книги" DisplayMemberBinding="{Binding Path=Title}"/>
                     <GridViewColumn Header = "Раздел" DisplayMemberBinding="{Binding Path=Section}"/>
                     <GridViewColumn Header = "Авторы" DisplayMemberBinding="{Binding Path=Authors}" />

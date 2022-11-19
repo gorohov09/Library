@@ -26,7 +26,7 @@ namespace LibraryStudentClient.Model
                 return viewBooksFromSelectedSection ??
                     (viewBooksFromSelectedSection = new RelayCommand(obj =>
                     {
-                        DataManagerMainVM.currentDM.Show();
+                        DataManagerMainVM.currentDM.FindBooksBySection();
                     }));
             }
         }

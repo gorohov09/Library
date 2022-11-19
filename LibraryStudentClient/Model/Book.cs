@@ -20,18 +20,6 @@ namespace LibraryStudentClient.Model
         public string Authors { get; set; }
 
 
-        private RelayCommand? viewSelectedBook;
-        public RelayCommand ViewSelectedBook
-        {
-            get
-            {
-                return viewSelectedBook ??
-                    (viewSelectedBook = new RelayCommand(obj =>
-                    {
-                        DataManagerMainVM.currentDM.ShowBook();
-                    }));
-            }
-        }
         /*
                     <ListView ItemsSource = "{Binding Books}" Foreground="#FF042271" FontSize="16" Margin="0,10,0,0"
                       SelectedItem="{Binding SelectedBook}">

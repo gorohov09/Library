@@ -14,7 +14,7 @@ namespace LibraryStudentClient.ViewModel
     {
         #region Работа с Секциями
 
-        private List<Section> allSections = MyHttpClient.MyHttpClient.GetAllSection();
+        private List<Section> allSections = await MyHttpClient.MyHttpClient.GetAllSection();
         public List<Section> AllSections 
         {
             get { return allSections; }
@@ -37,14 +37,14 @@ namespace LibraryStudentClient.ViewModel
 
         #region Работа с книгами
 
-        private List<Book> books = MyHttpClient.MyHttpClient.GetBooks();
-        public List<Book> Books
+        private List<Book>? books = MyHttpClient.MyHttpClient.GetBooks();
+        public List<Book>? Books
         {
             get { return books; }
             set
             {
                 books = value;
-                //NotifyPropertyChanged("Books");
+                NotifyPropertyChanged("Books");
             }
         }
 
@@ -52,7 +52,7 @@ namespace LibraryStudentClient.ViewModel
         public Book? SelectedBook
         {
             get { return selectedBook; }
-            set { selectedBook = value; NotifyPropertyChanged("SelectedBook"); }
+            set { selectedBook = value; }
         }
 
         private RelayCommand? viewSelectedBook;
@@ -63,7 +63,7 @@ namespace LibraryStudentClient.ViewModel
                 return viewSelectedBook ??
                     (viewSelectedBook = new RelayCommand(obj =>
                     {
-                        DataManagerMainVM.currentDM.ShowBook();
+                        ViewBookOnNewPage();
                     }));
             }
         }
@@ -80,12 +80,19 @@ namespace LibraryStudentClient.ViewModel
 
         #endregion
 
-        public void Show()
+        public void FindBooksBySection()
         {
-            MessageBox.Show(SelectedSection.Name);
+            Books = null;
+            //Books = MyHttpClient.MyHttpClient.GetBooks(SelectedSection.Name);
+            Books = new List<Book>{
+                new Book {Title = "Война и мир", Publisher="Альпина", Year="2005", Section= "Русская классика", Authors="Толстой Л.Н"},
+                new Book { Title = "Евгений Онегин", Publisher = "Альпина", Section = "Русская классика", Authors = "Пушкин А.С." },
+                new Book { Title = "Тестовая", Publisher = "ЧекЧекович", Section = "Русская тестировка", Authors = "Горохов А.С., Исхаков А.И., Калеев Д.А," },
+                new Book { Title = "Тестовая", Publisher = "ЧекЧекович", Section = "Русская тестировка", Authors = "Горохов А.С., Исхаков А.И., Калеев Д.А," }
+            };
             SelectedSection = null;
         }
-        public void ShowBook()
+        public void ViewBookOnNewPage()
         {
             MessageBox.Show(SelectedBook.Title);
         }
