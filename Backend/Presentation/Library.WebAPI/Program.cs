@@ -27,6 +27,9 @@ services.AddScoped<IReaderRepository, ReaderRepository>();
 services.AddScoped<IBookService, BookService>();
 services.AddScoped<IAccountService, AccountService>();
 
+// AutoMapper
+services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

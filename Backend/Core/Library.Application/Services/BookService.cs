@@ -1,4 +1,5 @@
-﻿using Library.Application.Interfaces;
+﻿using AutoMapper;
+using Library.Application.Interfaces;
 using Library.Application.Vm;
 using Library.DAL.Interfaces;
 
@@ -7,32 +8,19 @@ namespace Library.Application.Services
     public class BookService : IBookService
     {
         private readonly IBookRepository _bookRepository;
+        private readonly IMapper _mapper;
 
-        public BookService(IBookRepository bookRepository)
+        public BookService(IBookRepository bookRepository, IMapper mapper)
         {
             _bookRepository = bookRepository;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<BookVm>> GetAllBooks(string section)
         {
             var books = section == "all" ? await _bookRepository.GetAllBooks() : await _bookRepository.GetBooksBySection(section);
 
-            var booksVm = books.Select(book => new BookVm
-            {
-                ISBN = book.ISBN,
-                Description = book.Description,
-                Title = book.Title,
-                Year = book.Year,
-                Section = book.Section,
-                Publisher = book.Publisher,
-                Authors = book.Authors.Select(author => new AuthorVm
-                {
-                    Id = author.Id,
-                    FullName = author.FullName,
-                    Country = author.Country,
-                    BirthDate = author.BirthDate,
-                }),
-            });
+            var booksVm = _mapper.Map<IEnumerable<BookVm>>(books);
 
             //Бизнес-логика
 
@@ -48,28 +36,7 @@ namespace Library.Application.Services
                 return null;
             }
 
-            var bookVm = new BookVm
-            {
-                ISBN = book.ISBN,
-                Description = book.Description,
-                Title = book.Title,
-                Year = book.Year,
-                Section = book.Section,
-                Publisher = book.Publisher,
-                Authors = book.Authors.Select(author => new AuthorVm
-                {
-                    Id = author.Id,
-                    FullName = author.FullName,
-                    Country = author.Country,
-                    BirthDate = author.BirthDate,
-                }),
-                BookInsatnces = book.BookInsatnces.Select(insatnce => new BookInsatnceVm
-                {
-                    Id = insatnce.Id,
-                    RowNumber = insatnce.RowNumber,
-                    IsAvailable = insatnce.IsAvailable,
-                })
-            };
+            var bookVm = _mapper.Map<BookVm>(book);
 
             return bookVm;
         }
