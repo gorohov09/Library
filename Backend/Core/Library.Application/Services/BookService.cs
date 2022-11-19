@@ -20,22 +20,7 @@ namespace Library.Application.Services
         {
             var books = section == "all" ? await _bookRepository.GetAllBooks() : await _bookRepository.GetBooksBySection(section);
 
-            var booksVm = books.Select(book => new BookVm
-            {
-                ISBN = book.ISBN,
-                Description = book.Description,
-                Title = book.Title,
-                Year = book.Year,
-                Section = book.Section,
-                Publisher = book.Publisher,
-                Authors = book.Authors.Select(author => new AuthorVm
-                {
-                    Id = author.Id,
-                    FullName = author.FullName,
-                    Country = author.Country,
-                    BirthDate = author.BirthDate,
-                }),
-            });
+            var booksVm = books.Select(book => _mapper.Map<BookVm>(book));
 
             //Бизнес-логика
 
@@ -51,28 +36,7 @@ namespace Library.Application.Services
                 return null;
             }
 
-            var bookVm = new BookVm
-            {
-                ISBN = book.ISBN,
-                Description = book.Description,
-                Title = book.Title,
-                Year = book.Year,
-                Section = book.Section,
-                Publisher = book.Publisher,
-                Authors = book.Authors.Select(author => new AuthorVm
-                {
-                    Id = author.Id,
-                    FullName = author.FullName,
-                    Country = author.Country,
-                    BirthDate = author.BirthDate,
-                }),
-                BookInsatnces = book.BookInsatnces.Select(insatnce => new BookInsatnceVm
-                {
-                    Id = insatnce.Id,
-                    RowNumber = insatnce.RowNumber,
-                    IsAvailable = insatnce.IsAvailable,
-                })
-            };
+            var bookVm = _mapper.Map<BookVm>(book);
 
             return bookVm;
         }
