@@ -55,22 +55,27 @@ namespace LibraryStudentClient.MyHttpClient
             return false;
         }
 
-        static public async Task<List<Section>> GetAllSection()
+        //static public async Task<List<Section>> GetAllSection()
+        //{
+        //    HttpClient Client = new HttpClient();
+
+        //    var response = await Client.GetAsync("http://localhost:5162/api/books/sections/all");
+
+        //    var result = await response.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<List<Section>>();
+
+        //    return result;
+
+        //}
+
+        static public List<Section> GetAllSection()
         {
-            HttpClient Client = new HttpClient();
-
-            var response = await Client.GetAsync("http://localhost:5162/api/books/sections/all");
-
-            var result = await response.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<List<Section>>();
-
-            return result;
-
-            //return new List<Section>{
-            //    new Section { Name = "Физика" },
-            //    new Section { Name = "Термодинамика" },
-            //    new Section { Name = "Аэродинамика" },
-            //    new Section { Name = "Математический анализ" },
-            //    new Section { Name = "Программирование" },
+            return new List<Section>{
+                new Section { Name = "Физика" },
+                new Section { Name = "Термодинамика" },
+                new Section { Name = "Аэродинамика" },
+                new Section { Name = "Математический анализ" },
+                new Section { Name = "Программирование" },
+            };
 
         }
 
@@ -81,9 +86,9 @@ namespace LibraryStudentClient.MyHttpClient
             // десерализуем данные
 
             return new List<Book>{
-                new Book {Title = "Война и мир", Publisher="Альпина", Year="2005", Section= "Русская классика", Authors="Толстой Л.Н"},
-                new Book { Title = "Евгений Онегин", Publisher = "Альпина", Section = "Русская классика", Authors = "Пушкин А.С." },
-                new Book { Title = "Тестовая", Publisher = "ЧекЧекович", Section = "Русская тестировка", Authors = "Горохов А.С., Исхаков А.И., Калеев Д.А," }
+                new Book { ISBN="15348647", Title = "Война и мир", Publisher="Альпина", Year="2005", Section= "Русская классика", Authors="Толстой Л.Н", Count="0", Description = "Ты её так и не смог до конца прочитать"},
+                new Book { ISBN="15348647", Title = "Евгений Онегин", Publisher = "Альпина", Section = "Русская классика", Authors = "Пушкин А.С.", Count="5", Description = "Книга о любви, отрывок оттуда ты точно знаешь" },
+                new Book { ISBN="15348647", Title = "Тестовая", Publisher = "ЧекЧекович", Section = "Русская тестировка", Authors = "Горохов А.С., Исхаков А.И., Калеев Д.А,", Count="15", Description = "Да в общем-то здесь просто что-то должно быть написано"  }
             };
         }
     }

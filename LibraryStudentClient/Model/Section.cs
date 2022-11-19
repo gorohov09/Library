@@ -1,4 +1,5 @@
-﻿using LibraryStudentClient.ViewModel;
+﻿using LibraryStudentClient.View;
+using LibraryStudentClient.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace LibraryStudentClient.Model
                 return viewBooksFromSelectedSection ??
                     (viewBooksFromSelectedSection = new RelayCommand(obj =>
                     {
-                        DataManagerMainVM.currentDM.FindBooksBySection();
+                        MainWindow._mng.FindBooksBySection();
                     }));
             }
         }

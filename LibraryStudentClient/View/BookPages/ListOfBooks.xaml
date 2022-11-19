@@ -14,7 +14,7 @@
         <Grid.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="Взять книгу"/>
-                <MenuItem Header="Подробнее" Command="{Binding DeleteItem}"/>
+                <MenuItem Header="Подробнее" Command="{Binding ViewSelectedBook}"/>
             </ContextMenu>
         </Grid.ContextMenu>
         <Grid.ColumnDefinitions>
@@ -22,7 +22,7 @@
             <ColumnDefinition Width="0.2*" MaxWidth="245"/>
         </Grid.ColumnDefinitions>
         <ListView ItemsSource = "{Binding Books, UpdateSourceTrigger=PropertyChanged}" Foreground="#FF042271" FontSize="18" Margin="7,10,0,10"
-                      SelectedItem="{Binding SelectedBook}" >
+                      SelectedItem="{Binding SelectedBook, UpdateSourceTrigger=PropertyChanged}" >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName = "MouseDoubleClick">
                     <i:InvokeCommandAction
