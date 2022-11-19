@@ -1,8 +1,12 @@
-﻿using System;
+﻿using LibraryStudentClient.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace LibraryStudentClient.MyHttpClient
 {
@@ -49,6 +53,38 @@ namespace LibraryStudentClient.MyHttpClient
 
             error = "ошибка - пользователь с таким студенческим билетом уже существует!\nСоветуем перейти в раздел \"авторизация\"";
             return false;
+        }
+
+        static public async Task<List<Section>> GetAllSection()
+        {
+            HttpClient Client = new HttpClient();
+
+            var response = await Client.GetAsync("http://localhost:5162/api/books/sections/all");
+
+            var result = await response.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<List<Section>>();
+
+            return result;
+
+            //return new List<Section>{
+            //    new Section { Name = "Физика" },
+            //    new Section { Name = "Термодинамика" },
+            //    new Section { Name = "Аэродинамика" },
+            //    new Section { Name = "Математический анализ" },
+            //    new Section { Name = "Программирование" },
+
+        }
+
+        public static List<Book> GetBooks(string section = "all")
+        {
+
+            // делаем запрос к серверу
+            // десерализуем данные
+
+            return new List<Book>{
+                new Book {Title = "Война и мир", Publisher="Альпина", Year="2005", Section= "Русская классика", Authors="Толстой Л.Н"},
+                new Book { Title = "Евгений Онегин", Publisher = "Альпина", Section = "Русская классика", Authors = "Пушкин А.С." },
+                new Book { Title = "Тестовая", Publisher = "ЧекЧекович", Section = "Русская тестировка", Authors = "Горохов А.С., Исхаков А.И., Калеев Д.А," }
+            };
         }
     }
 }

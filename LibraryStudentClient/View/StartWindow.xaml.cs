@@ -24,9 +24,7 @@ namespace LibraryStudentClient.View
         public static Frame _viewPage { get; set; }
         public static Authorization.Authorization _authorizationPage { get; set; }
         public static Authorization.Registration? _registrationPage { get; set; }
-
         public static StartWindow _window { get; set; }
-
         public static DataManagerAuthorizationVM _mng { get; set; }
 
         public StartWindow()
@@ -41,8 +39,6 @@ namespace LibraryStudentClient.View
             _viewPage = this.MainFrame;
             _authorizationPage = new View.Authorization.Authorization();
             MainFrame.Content = _authorizationPage;
-
-
         }
 
     }

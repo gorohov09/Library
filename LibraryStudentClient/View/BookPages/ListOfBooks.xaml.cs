@@ -1,5 +1,4 @@
-﻿using LibraryStudentClient.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,17 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LibraryStudentClient.View.Authorization
+namespace LibraryStudentClient.View.BookPages
 {
     /// <summary>
-    /// Логика взаимодействия для Registration.xaml
+    /// Логика взаимодействия для ListOfBooks.xaml
     /// </summary>
-    public partial class Registration : Page
+    public partial class ListOfBooks : Page
     {
-        public Registration()
+        public ListOfBooks()
         {
             InitializeComponent();
-            DataContext = StartWindow._mng; ;
+            DataContext = MainWindow._mng;
         }
     }
 }
