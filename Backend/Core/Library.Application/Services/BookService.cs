@@ -1,4 +1,5 @@
-﻿using Library.Application.Interfaces;
+﻿using AutoMapper;
+using Library.Application.Interfaces;
 using Library.Application.Vm;
 using Library.DAL.Interfaces;
 
@@ -7,10 +8,12 @@ namespace Library.Application.Services
     public class BookService : IBookService
     {
         private readonly IBookRepository _bookRepository;
+        private readonly IMapper _mapper;
 
-        public BookService(IBookRepository bookRepository)
+        public BookService(IBookRepository bookRepository, IMapper mapper)
         {
             _bookRepository = bookRepository;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<BookVm>> GetAllBooks(string section)
