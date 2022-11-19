@@ -182,7 +182,7 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button Style="{DynamicResource ButtonStyle2}"  Background="#FFBBD8D8" Grid.Row="0" Grid.Column="0" FontSize="14">Главная</Button>
+        <Button Style="{DynamicResource ButtonStyle2}"  Background="#FFBBD8D8" Grid.Row="0" Grid.Column="0" FontSize="18">Главная</Button>
         <TextBox Style="{DynamicResource TextBoxStyle1}" Grid.Column="1" Background="#FFE6F1F1" FontSize="22" FontFamily="Times New Roman"/>
 
         <StackPanel Grid.Column="2" Orientation="Horizontal">
@@ -193,7 +193,7 @@
         </StackPanel>
 
         <ListView Grid.Column="0" Grid.Row="1" ItemsSource="{Binding AllSections}" 
-                  Background="#FFA4D2D5" SelectedItem="{Binding SelectedSection, UpdateSourceTrigger=PropertyChanged}">
+                  Background="#FFA4D2D5" SelectedItem="{Binding SelectedSection, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,0">
             <ListBox.ItemTemplate>
                  <DataTemplate>
                     <Grid>
@@ -203,7 +203,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding Path=Name}"/>
+                        <TextBlock MaxWidth="170" Grid.Column="0" Text="{Binding Path=Name}" TextWrapping="Wrap" FontSize="17"/>
                     </Grid>
 
                 </DataTemplate>
