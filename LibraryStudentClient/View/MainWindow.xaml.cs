@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryStudentClient.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace LibraryStudentClient.View
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new DataManagerMainVM();
         }
     }
 }

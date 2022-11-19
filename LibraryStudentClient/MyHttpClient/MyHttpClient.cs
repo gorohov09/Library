@@ -1,8 +1,10 @@
-﻿using System;
+﻿using LibraryStudentClient.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace LibraryStudentClient.MyHttpClient
 {
@@ -51,6 +53,16 @@ namespace LibraryStudentClient.MyHttpClient
             return false;
         }
 
+        public static List<Section> GetAllSection()
+        {
+            return new List<Section>{
+                new Section { Name = "Физика" },
+                new Section { Name = "Термодинамика" },
+                new Section { Name = "Аэродинамика" },
+                new Section { Name = "Математический анализ" },
+                new Section { Name = "Программирование" },
+            };
+        }
 
 
     }

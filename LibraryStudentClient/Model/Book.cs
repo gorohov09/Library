@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryStudentClient.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,21 @@ namespace LibraryStudentClient.Model
         public string Publisher { get; set; }
         public string Year { get; set; }
         public string Section { get; set; }
-        public List<Author> Authors { get; set; } = new List<Author>();
+        public string Authors { get; set; }
+
+
+        private RelayCommand? viewSelectedBook;
+        public RelayCommand ViewSelectedBook
+        {
+            get
+            {
+                return viewSelectedBook ??
+                    (viewSelectedBook = new RelayCommand(obj =>
+                    {
+                        //DataManagerMainVM.currentDM.Show();
+                    }));
+            }
+        }
+
     }
 }

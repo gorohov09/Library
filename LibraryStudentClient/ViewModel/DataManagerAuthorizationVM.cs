@@ -36,7 +36,6 @@ namespace LibraryStudentClient.ViewModel
         }
 
 
-
         private string? errorlog;
         public string Errorlog
         {
@@ -44,6 +43,8 @@ namespace LibraryStudentClient.ViewModel
             set { errorlog = value; NotifyPropertyChanged("Errorlog"); }
         }
 
+
+        #region обработчики событий нажатий клавиш зарегистрировать и войти
 
         private RelayCommand authorization;
         public RelayCommand Authorization
@@ -101,6 +102,7 @@ namespace LibraryStudentClient.ViewModel
             }
         }
 
+        #endregion
 
         private void OpenMainWindow()
         {

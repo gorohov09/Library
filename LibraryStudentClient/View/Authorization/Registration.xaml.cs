@@ -26,10 +26,5 @@ namespace LibraryStudentClient.View.Authorization
             InitializeComponent();
             DataContext = StartWindow._mng; ;
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
