@@ -15,6 +15,16 @@ namespace LibraryStudentClient.MyHttpClient
 
         public static bool Authorizate(string studTicketNum, string password, ref string error)
         {
+            HttpClient Client = new HttpClient();
+
+            var request = new RequestLoginDTO
+            {
+                Password = password,
+                StudentCard = studTicketNum
+            };
+
+            var response = Client.PostAsJsonAsync("http://localhost:5162/api/account/logIn", request)
+                .Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ResponseLoginDTO>().Result;
             // делаем запрос к серверу
             // десерализуем данные
 
@@ -24,13 +34,14 @@ namespace LibraryStudentClient.MyHttpClient
             // иначе заносим в error строку ошибки
             // и возвращаем false
 
-            if (studTicketNum == "Check" && password == "777")
+            if (response.IsSuccess)
             {
+                currentLibraryCard = response.LibraryCard;
                 return true;
             }
 
 
-            error = "ошибка - такого пользователя не существует! Перейдите в раздел \"регистрация\"";
+            error = response.Error;
             return false;
         }
 
