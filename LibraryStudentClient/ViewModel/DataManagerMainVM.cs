@@ -14,7 +14,7 @@ namespace LibraryStudentClient.ViewModel
     {
         #region Работа с Секциями
 
-        private List<Section> allSections = await MyHttpClient.MyHttpClient.GetAllSection();
+        private List<Section> allSections = MyHttpClient.MyHttpClient.GetAllSection();
         public List<Section> AllSections 
         {
             get { return allSections; }
@@ -83,13 +83,13 @@ namespace LibraryStudentClient.ViewModel
         public void FindBooksBySection()
         {
             Books = null;
-            //Books = MyHttpClient.MyHttpClient.GetBooks(SelectedSection.Name);
-            Books = new List<Book>{
-                new Book {Title = "Война и мир", Publisher="Альпина", Year="2005", Section= "Русская классика", Authors="Толстой Л.Н"},
-                new Book { Title = "Евгений Онегин", Publisher = "Альпина", Section = "Русская классика", Authors = "Пушкин А.С." },
-                new Book { Title = "Тестовая", Publisher = "ЧекЧекович", Section = "Русская тестировка", Authors = "Горохов А.С., Исхаков А.И., Калеев Д.А," },
-                new Book { Title = "Тестовая", Publisher = "ЧекЧекович", Section = "Русская тестировка", Authors = "Горохов А.С., Исхаков А.И., Калеев Д.А," }
-            };
+            Books = MyHttpClient.MyHttpClient.GetBooks(SelectedSection.Name);
+            //Books = new List<Book>{
+            //    new Book {Title = "Война и мир", Publisher="Альпина", Year="2005", Section= "Русская классика", Authors="Толстой Л.Н"},
+            //    new Book { Title = "Евгений Онегин", Publisher = "Альпина", Section = "Русская классика", Authors = "Пушкин А.С." },
+            //    new Book { Title = "Тестовая", Publisher = "ЧекЧекович", Section = "Русская тестировка", Authors = "Горохов А.С., Исхаков А.И., Калеев Д.А," },
+            //    new Book { Title = "Тестовая", Publisher = "ЧекЧекович", Section = "Русская тестировка", Authors = "Горохов А.С., Исхаков А.И., Калеев Д.А," }
+            //};
             SelectedSection = null;
         }
         public void ViewBookOnNewPage()
@@ -103,7 +103,5 @@ namespace LibraryStudentClient.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-
     }
 }

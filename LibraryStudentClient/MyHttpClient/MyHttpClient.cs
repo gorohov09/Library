@@ -1,12 +1,11 @@
-﻿using LibraryStudentClient.Model;
+﻿using LibraryStudentClient.DTO;
+using LibraryStudentClient.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace LibraryStudentClient.MyHttpClient
 {
@@ -55,15 +54,25 @@ namespace LibraryStudentClient.MyHttpClient
             return false;
         }
 
-        static public async Task<List<Section>> GetAllSection()
+        static public List<Section> GetAllSection()
         {
             HttpClient Client = new HttpClient();
 
-            var response = await Client.GetAsync("http://localhost:5162/api/books/sections/all");
+            //Отправляем запрос
+            var response = Client.GetAsync("http://localhost:5162/api/books/sections/all");
 
-            var result = await response.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<List<Section>>();
+            //Десериализуем в DTO-модель(смотри папку DTO)
+            //DTO - Data Transfer Object, служит для передачи или приема данных с бэка
+            var result = response.Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<SectionsDTO>().Result;
 
-            return result;
+            //Приводим к нужному нам типу
+            var sections = result.Sections.Select(x => new Section
+            {
+                Name = x
+            }).ToList();
+
+            //Возвращаем результат
+            return sections;
 
             //return new List<Section>{
             //    new Section { Name = "Физика" },
@@ -76,15 +85,44 @@ namespace LibraryStudentClient.MyHttpClient
 
         public static List<Book> GetBooks(string section = "all")
         {
+            HttpClient Client = new HttpClient();
+
+            var response = Client.GetAsync($"http://localhost:5162/api/books?section={section}");
+
+            var result = response.Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<List<BookDTO>>().Result;
+
+            var books = result.Select(x => new Book
+            {
+                Title = x.Title,
+                Publisher = x.Publisher,
+                Year = x.Year,
+                Section = x.Section,    
+                Authors = GetAuthors(x.Authors)
+
+            }).ToList();
+
+            return books;
+
 
             // делаем запрос к серверу
             // десерализуем данные
 
-            return new List<Book>{
-                new Book {Title = "Война и мир", Publisher="Альпина", Year="2005", Section= "Русская классика", Authors="Толстой Л.Н"},
-                new Book { Title = "Евгений Онегин", Publisher = "Альпина", Section = "Русская классика", Authors = "Пушкин А.С." },
-                new Book { Title = "Тестовая", Publisher = "ЧекЧекович", Section = "Русская тестировка", Authors = "Горохов А.С., Исхаков А.И., Калеев Д.А," }
-            };
+            //return new List<Book>{
+            //    new Book {Title = "Война и мир", Publisher="Альпина", Year="2005", Section= "Русская классика", Authors="Толстой Л.Н"},
+            //    new Book { Title = "Евгений Онегин", Publisher = "Альпина", Section = "Русская классика", Authors = "Пушкин А.С." },
+            //    new Book { Title = "Тестовая", Publisher = "ЧекЧекович", Section = "Русская тестировка", Authors = "Горохов А.С., Исхаков А.И., Калеев Д.А," }
+            //};
+        }
+
+        private static string GetAuthors(IEnumerable<AuthorDTO> authors)
+        {
+            var result = new StringBuilder();
+            foreach (var author in authors)
+            {
+                result.Append($"{author.FullName} ");
+            }
+
+            return result.ToString();
         }
     }
 }
