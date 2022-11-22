@@ -50,5 +50,12 @@ namespace Library.DAL.Repository
                 .Select(a => a.Section)
                 .Distinct();
         }
+
+        public async Task<int> InstancesCount(BookEntity book)
+        {
+            return _libraryContext.BookIntances
+                .Where(a => a.ISBN == book.ISBN && a.IsAvailable)
+                .Count();
+        }
     }
 }
