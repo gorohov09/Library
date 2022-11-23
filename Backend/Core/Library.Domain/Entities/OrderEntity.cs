@@ -4,6 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Library.Domain.Entities
 {
+    public enum StatusOrder
+    {
+        WAIT,
+        DONE
+    }
+
     public class OrderEntity : BaseEntity
     {
         [Required]
@@ -31,5 +37,7 @@ namespace Library.Domain.Entities
         public DateTime CreationDate { get; set; }
 
         public DateTime? ExecutionDate { get; set; }
+
+        public StatusOrder Status { get; set; }
     }
 }

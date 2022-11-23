@@ -58,14 +58,17 @@ namespace Library.Application.Services
                     ErrorMessage = "Библиотекарей нет"
                 };
 
+            //Формирование объекта - заявка 
             var orderEntity = new OrderEntity
             {
                 BookInsatnce = bookInstanceEnity,
                 Librarian = librarianEntity,
                 Reader = readerEntity,
                 CreationDate = DateTime.Now,
+                Status = StatusOrder.WAIT
             };
 
+            //Делаем экземпляр книги недоступным
             bookInstanceEnity.IsAvailable = false;
             orderEntity = await _orderRepository.SaveOrder(orderEntity);
 
@@ -76,9 +79,7 @@ namespace Library.Application.Services
                     ErrorMessage = $"Не удалось сохранить данные"
                 };
 
-            // заглушка для избегания ошибок
             return new ResponseOrder { IsSuccess = true };
-         
         }
     }
 }
