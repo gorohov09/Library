@@ -11,10 +11,13 @@ namespace Library.Application.Services
 
         private readonly IBookRepository _bookRepository;
 
-        public OrderService(IReaderRepository readerRepository, IBookRepository bookRepository)
+        private readonly ILibrarianRepository _librarianRepository;
+
+        public OrderService(IReaderRepository readerRepository, IBookRepository bookRepository, ILibrarianRepository librarianRepository)
         {
             _readerRepository = readerRepository;
             _bookRepository = bookRepository;
+            _librarianRepository = librarianRepository;
         }
         public async Task<ResponseOrder> CreateOrder(RequestOrder requestOrder)
         {
@@ -38,9 +41,20 @@ namespace Library.Application.Services
                     ErrorMessage = $"Экземпляр книги с ISBN {requestOrder.BookISBN} не найден"
                 };
 
-            return null;
+
             //Ищем первого библиотекаря(Реализовать репозиторий для библиотекаря)
             //Если библиотекаря нет - заявка не может быть сформирована
+            var librarianEntity = await _librarianRepository.GetFirstLibrarian();
+            if (librarianEntity == null)
+                return new ResponseOrder
+                {
+                    IsSuccess = false,
+                    ErrorMessage = "Библиотекарей нет"
+                };
+
+            // заглушка для избегания ошибок
+            return null;
+         
         }
     }
 }

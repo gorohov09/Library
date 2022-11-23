@@ -4,6 +4,6 @@ namespace Library.DAL.Interfaces
 {
     public interface ILibrarianRepository
     {
-        public async Task<LibrarianEntity> GetFirstLibrarian();
+        Task<LibrarianEntity> GetFirstLibrarian();
     }
 }
