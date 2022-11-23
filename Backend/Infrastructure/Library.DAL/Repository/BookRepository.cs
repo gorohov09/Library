@@ -61,7 +61,7 @@ namespace Library.DAL.Repository
         public async Task<BookInsatnceEntity> GetFirstInsatnceBook(string ISBN)
         {
             return await _libraryContext.BookIntances
-                .FirstOrDefaultAsync(b => b.ISBN == ISBN);
+                .FirstOrDefaultAsync(b => b.ISBN == ISBN && b.IsAvailable);
         }
     }
 }
