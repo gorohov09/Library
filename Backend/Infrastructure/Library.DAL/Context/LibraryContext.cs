@@ -17,6 +17,7 @@ namespace Library.DAL.Context
         public DbSet<ReaderEntity> Readers { get; set; }
         public DbSet<LibrarianEntity> Librarians { get; set; }
         public DbSet<RecordEntity> Records { get; set; }
+        public DbSet<OrderEntity> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -2,6 +2,7 @@
 using Library.Application.Requests;
 using Library.Application.Response;
 using Library.DAL.Interfaces;
+using Library.Domain.Entities;
 
 namespace Library.Application.Services
 {
@@ -13,11 +14,15 @@ namespace Library.Application.Services
 
         private readonly ILibrarianRepository _librarianRepository;
 
-        public OrderService(IReaderRepository readerRepository, IBookRepository bookRepository, ILibrarianRepository librarianRepository)
+        private readonly IOrderRepository _orderRepository;
+
+        public OrderService(IReaderRepository readerRepository, IBookRepository bookRepository,
+            ILibrarianRepository librarianRepository, IOrderRepository orderRepository)
         {
             _readerRepository = readerRepository;
             _bookRepository = bookRepository;
             _librarianRepository = librarianRepository;
+            _orderRepository = orderRepository;
         }
         public async Task<ResponseOrder> CreateOrder(RequestOrder requestOrder)
         {
@@ -44,8 +49,6 @@ namespace Library.Application.Services
                     ErrorMessage = $"Экземпляр книги с ISBN {requestOrder.BookISBN} не найден"
                 };
 
-
-            //Ищем первого библиотекаря(Реализовать репозиторий для библиотекаря)
             //Если библиотекаря нет - заявка не может быть сформирована
             var librarianEntity = await _librarianRepository.GetFirstLibrarian();
             if (librarianEntity == null)
@@ -55,8 +58,25 @@ namespace Library.Application.Services
                     ErrorMessage = "Библиотекарей нет"
                 };
 
+            var orderEntity = new OrderEntity
+            {
+                BookInsatnce = bookInstanceEnity,
+                Librarian = librarianEntity,
+                Reader = readerEntity,
+                CreationDate = DateTime.Now,
+            };
+
+            orderEntity = await _orderRepository.SaveOrder(orderEntity);
+
+            if (orderEntity.Id <= 0)
+                return new ResponseOrder
+                {
+                    IsSuccess = false,
+                    ErrorMessage = $"Не удалось сохранить данные"
+                };
+
             // заглушка для избегания ошибок
-            return null;
+            return new ResponseOrder { IsSuccess = true };
          
         }
     }
