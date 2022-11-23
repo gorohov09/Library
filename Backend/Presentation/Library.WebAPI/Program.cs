@@ -22,6 +22,7 @@ services.AddDbContext<LibraryContext>(options =>
 services.AddScoped<IBookRepository, BookRepository>();
 services.AddScoped<IAccountRepository, AccountRepository>();
 services.AddScoped<IReaderRepository, ReaderRepository>();
+services.AddScoped<ILibrarianRepository, LibrarianRepository>();
 
 //Services
 services.AddScoped<IBookService, BookService>();

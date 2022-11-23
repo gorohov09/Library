@@ -38,6 +38,7 @@ namespace Library.Application.Services
                     ErrorMessage = $"Экземпляр книги с ISBN {requestOrder.BookISBN} не найден"
                 };
 
+            return null;
             //Ищем первого библиотекаря(Реализовать репозиторий для библиотекаря)
             //Если библиотекаря нет - заявка не может быть сформирована
         }
