@@ -4,6 +4,7 @@ using Library.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.DAL.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20221123152617_AddOrder")]
+    partial class AddOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,6 +151,9 @@ namespace Library.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
                     b.Property<int>("BookInsatnceId")
                         .HasColumnType("int");
 
@@ -167,7 +172,7 @@ namespace Library.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookInsatnceId");
+                    b.HasIndex("BookId");
 
                     b.HasIndex("LibrarianId");
 
@@ -285,7 +290,7 @@ namespace Library.DAL.Migrations
                 {
                     b.HasOne("Library.Domain.Entities.BookInsatnceEntity", "BookInsatnce")
                         .WithMany()
-                        .HasForeignKey("BookInsatnceId")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

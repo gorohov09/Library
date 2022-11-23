@@ -1,6 +1,7 @@
 ﻿using Library.DAL.Context;
 using Library.DAL.Interfaces;
 using Library.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.DAL.Repository
 {
@@ -15,7 +16,7 @@ namespace Library.DAL.Repository
 
         public async Task<LibrarianEntity> GetFirstLibrarian()
         {
-            return _libraryContext.Librarians.Count() == 0 ? null : _libraryContext.Librarians.ElementAt(0);
+            return await _libraryContext.Librarians.FirstOrDefaultAsync();
         }
     }
 }

@@ -10,11 +10,11 @@ namespace Library.Domain.Entities
         public int BookInsatnceId { get; set; }
 
         [Required]
-        [ForeignKey("BookId")]
+        [ForeignKey("BookInsatnceId")]
         public BookInsatnceEntity BookInsatnce { get; set; }
 
         [Required]
-        public int ReaderId { get; set; }
+        public string ReaderId { get; set; }
 
         [Required]
         [ForeignKey("ReaderId")]

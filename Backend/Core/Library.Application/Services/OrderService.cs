@@ -66,6 +66,7 @@ namespace Library.Application.Services
                 CreationDate = DateTime.Now,
             };
 
+            bookInstanceEnity.IsAvailable = false;
             orderEntity = await _orderRepository.SaveOrder(orderEntity);
 
             if (orderEntity.Id <= 0)

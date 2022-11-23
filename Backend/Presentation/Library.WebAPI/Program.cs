@@ -23,10 +23,12 @@ services.AddScoped<IBookRepository, BookRepository>();
 services.AddScoped<IAccountRepository, AccountRepository>();
 services.AddScoped<IReaderRepository, ReaderRepository>();
 services.AddScoped<ILibrarianRepository, LibrarianRepository>();
+services.AddScoped<IOrderRepository, OrderRepository>();
 
 //Services
 services.AddScoped<IBookService, BookService>();
 services.AddScoped<IAccountService, AccountService>();
+services.AddScoped<IOrderService, OrderService>();
 
 // AutoMapper
 services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
