@@ -79,6 +79,7 @@ namespace LibraryStudentClient.ViewModel
                 return viewSelectedBook ??
                     (viewSelectedBook = new RelayCommand(obj =>
                     {
+                        selectedBook = MyHttpClient.MyHttpClient.GetBookByISBN(selectedBook.ISBN);
                         ViewBookOnNewPage();
                     }));
             }
@@ -148,6 +149,7 @@ namespace LibraryStudentClient.ViewModel
                 return goOut ?? new RelayCommand(obj =>
                 {
                     Exit();
+                    MainWindow._window.Close();
                 }
                 );
             }
@@ -160,20 +162,12 @@ namespace LibraryStudentClient.ViewModel
         private RelayCommand? back;
         public RelayCommand Back
         {
-            Books = null;
-            Books = MyHttpClient.MyHttpClient.GetBooks(SelectedSection.Name);
-            //Books = new List<Book>{
-            //    new Book {Title = "Война и мир", Publisher="Альпина", Year="2005", Section= "Русская классика", Authors="Толстой Л.Н"},
-            //    new Book { Title = "Евгений Онегин", Publisher = "Альпина", Section = "Русская классика", Authors = "Пушкин А.С." },
-            //    new Book { Title = "Тестовая", Publisher = "ЧекЧекович", Section = "Русская тестировка", Authors = "Горохов А.С., Исхаков А.И., Калеев Д.А," },
-            //    new Book { Title = "Тестовая", Publisher = "ЧекЧекович", Section = "Русская тестировка", Authors = "Горохов А.С., Исхаков А.И., Калеев Д.А," }
-            //};
-            SelectedSection = null;
             get
             {
                 return back ??
                     (back = new RelayCommand(obj =>
                     {
+                        SelectedSection = null;
                         returnToMainPage();
                     }));
             }
