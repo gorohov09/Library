@@ -57,5 +57,11 @@ namespace Library.DAL.Repository
                 .Where(a => a.ISBN == book.ISBN && a.IsAvailable)
                 .Count();
         }
+
+        public async Task<BookInsatnceEntity> GetFirstInsatnceBook(string ISBN)
+        {
+            return await _libraryContext.BookIntances
+                .FirstOrDefaultAsync(b => b.ISBN == ISBN);
+        }
     }
 }

@@ -13,5 +13,7 @@ namespace Library.DAL.Interfaces
         Task<IEnumerable<string>> GetBookSections();
 
         Task<int> InstancesCount(BookEntity book);
+
+        Task<BookInsatnceEntity> GetFirstInsatnceBook(string ISBN);
     }
 }
