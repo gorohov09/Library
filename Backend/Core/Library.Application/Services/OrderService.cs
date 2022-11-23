@@ -24,14 +24,17 @@ namespace Library.Application.Services
             if (requestOrder == null)
                 return new ResponseOrder { IsSuccess = false, ErrorMessage = "Неизвестная ошибка" };
 
-            var readerEntity = _readerRepository.GetReaderByLibraryCard(requestOrder.LibraryCard);
+            var readerEntity = await _readerRepository.GetReaderByLibraryCard(requestOrder.LibraryCard);
 
             //Если читатель не найден, то заявка не может быть оформлена
             if (readerEntity == null)
-                return new ResponseOrder { IsSuccess = false, 
-                    ErrorMessage = $"Пользователь с номером чит. билета {requestOrder.LibraryCard} не найден" };
+                return new ResponseOrder 
+                { 
+                    IsSuccess = false, 
+                    ErrorMessage = $"Пользователь с номером чит. билета {requestOrder.LibraryCard} не найден" 
+                };
 
-            var bookInstanceEnity = _bookRepository.GetFirstInsatnceBook(requestOrder.BookISBN);
+            var bookInstanceEnity = await _bookRepository.GetFirstInsatnceBook(requestOrder.BookISBN);
 
             //Если экземпляра книги не существует в библиотеке, то заявка не может быть оформлена
             if (bookInstanceEnity == null)
