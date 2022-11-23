@@ -1,5 +1,6 @@
 ﻿using Library.DAL.Context;
 using Library.DAL.Interfaces;
+using Library.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.DAL.Repository
@@ -11,6 +12,11 @@ namespace Library.DAL.Repository
         public ReaderRepository(LibraryContext libraryContext)
         {
             _libraryContext = libraryContext;
+        }
+
+        public async Task<ReaderEntity> GetReaderByLibraryCard(string libraryCard)
+        {
+            return await _libraryContext.Readers.FirstOrDefaultAsync(r => r.LibraryCard == libraryCard);
         }
 
         public async Task<bool> IsLibraryCard(string libraryCard)
