@@ -17,7 +17,6 @@ namespace Library.Application.Vm
         public bool IsHasDebt { get; set; }
         public string MobilePhone { get; set; }
         public string Password { get; set; }
-        public IEnumerable<OrderEntity> Orders { get; set; }
         public IEnumerable<RecordEntity> History { get; set; }
 
     }

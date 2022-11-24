@@ -31,7 +31,6 @@ namespace Library.Application.Services
 
             var readerInfoVm = _mapper.Map<ReaderVm>(reader);
             readerInfoVm.History = await _recordRepository.GetReadersHistory(libraryCard);
-            readerInfoVm.Orders = await _orderRepository.GetReaderOrders(libraryCard);
 
             return readerInfoVm;
         }
