@@ -21,6 +21,13 @@ namespace Library.WebAPI.Helpers
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.GetStatus()))
                 .ReverseMap();
 
+            CreateMap<OrderEntity, OrderDetailsForLibrarianVm>()
+                .ForMember(dest => dest.BookName, opt => opt.MapFrom(src => src.BookInsatnce.BookInfo.Title))
+                .ForMember(dest => dest.BookPublisher, opt => opt.MapFrom(src => src.BookInsatnce.BookInfo.Publisher))
+                .ForMember(dest => dest.BookYear, opt => opt.MapFrom(src => src.BookInsatnce.BookInfo.Year))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.GetStatus()))
+                .ReverseMap();
+
             CreateMap<RecordEntity, RecordDetailsForReaderVm>()
                 .ForMember(dest => dest.BookName, opt => opt.MapFrom(src => src.BookInsatnce.BookInfo.Title))
                 .ForMember(dest => dest.BookPublisher, opt => opt.MapFrom(src => src.BookInsatnce.BookInfo.Publisher))
