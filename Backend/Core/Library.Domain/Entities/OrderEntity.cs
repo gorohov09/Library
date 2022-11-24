@@ -7,7 +7,8 @@ namespace Library.Domain.Entities
     public enum StatusOrder
     {
         WAIT,
-        DONE
+        DONE,
+        DENIED
     }
 
     public class OrderEntity : BaseEntity
@@ -39,5 +40,10 @@ namespace Library.Domain.Entities
         public DateTime? ExecutionDate { get; set; }
 
         public StatusOrder Status { get; set; }
+
+        public string GetStatus() 
+        { 
+            return Status.ToString(); 
+        }
     }
 }
