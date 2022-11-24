@@ -8,9 +8,21 @@ namespace Library.Application.Services
 {
     public class LibrarianService : ILibrarianService
     {
-        public Task<IEnumerable<OrderDetailsForReaderVm>> GetReaderOrders(string libraryCard)
+        private readonly IOrderRepository _orderRepository;
+        private readonly IReaderRepository _readerRepository;
+        private IMapper _mapper;
+
+        public LibrarianService(IOrderRepository orderRepository, IReaderRepository readerRepository, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _orderRepository = orderRepository;
+            _readerRepository = readerRepository;
+            _mapper = mapper;
+        }
+
+        public async Task<IEnumerable<OrderDetailsForReaderVm>> GetReaderOrders(int librarianId)
+        {
+            var librariansOrders = await _orderRepository.GetLibrarianOrders(librarianId);
+            return _mapper.Map<IEnumerable<OrderDetailsForReaderVm>>(librariansOrders);
         }
     }
 }
