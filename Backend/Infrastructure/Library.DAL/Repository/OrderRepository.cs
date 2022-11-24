@@ -1,6 +1,7 @@
 ﻿using Library.DAL.Context;
 using Library.DAL.Interfaces;
 using Library.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.DAL.Repository
 {
@@ -15,10 +16,12 @@ namespace Library.DAL.Repository
 
         public async Task<IEnumerable<OrderEntity>> GetReaderOrders(string libraryCard)
         {
-            var orders = _libraryContext.Orders
+            var orders = await _libraryContext.Orders
                 .Where(x => x.ReaderId == libraryCard)
                 .OrderBy(x => x.CreationDate)
-                .ToList();
+                .Include(x => x.BookInsatnce)
+                    .ThenInclude(x => x.BookInfo)
+                .ToListAsync();
 
             return orders;
         }

@@ -1,6 +1,7 @@
 ﻿using Library.DAL.Context;
 using Library.DAL.Interfaces;
 using Library.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.DAL.Repository
 {
@@ -17,6 +18,8 @@ namespace Library.DAL.Repository
             var history = _libraryContext.Records
                 .Where(x => x.ReaderID == libraryCard)
                 .OrderBy(x => x.IssueDate)
+                .Include(x => x.BookInsatnce)
+                    .ThenInclude(x => x.BookInfo)
                 .ToList();
 
             return history;

@@ -18,6 +18,10 @@ namespace Library.WebAPI.Helpers
                 .ForMember(dest => dest.BookName, opt => opt.MapFrom(src => src.BookInsatnce.BookInfo.Title))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.GetStatus()))
                 .ReverseMap();
+
+            CreateMap<RecordEntity, RecordDetailsForReaderVm>()
+                .ForMember(dest => dest.BookName, opt => opt.MapFrom(src => src.BookInsatnce.BookInfo.Title))
+                .ReverseMap();
         }
     }
 }
