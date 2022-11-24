@@ -16,7 +16,7 @@ namespace Library.WebAPI.Controllers
         }
 
         [HttpGet("{libraryCard}")]
-        public async Task<IActionResult> GetUserInfo([FromBody] string libraryCard)
+        public async Task<IActionResult> GetUserInfo(string libraryCard)
         {
             return Ok(new
             {
@@ -25,7 +25,7 @@ namespace Library.WebAPI.Controllers
         }
 
         [HttpGet("{libraryCard}/orders")]
-        public async Task<IActionResult> GetUserOrders([FromBody] string libraryCard)
+        public async Task<IActionResult> GetUserOrders(string libraryCard)
         {
             return Ok(new
             {
