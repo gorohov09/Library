@@ -130,7 +130,6 @@ namespace LibraryStudentClient.MyHttpClient
                 Publisher = result.Publisher,
                 Year = result.Year,
                 Section = result.Section,
-                Authors = GetAuthors(result.Authors),
                 Count = result.Count.ToString()               
             };
 
@@ -169,5 +168,15 @@ namespace LibraryStudentClient.MyHttpClient
 
             return result.ToString();
         }
+
+
+
+
+        public static string CreateOrder(string ISBN)
+        {
+            return "";
+        }
+
+
     }
 }

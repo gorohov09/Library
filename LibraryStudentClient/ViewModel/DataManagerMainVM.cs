@@ -71,6 +71,14 @@ namespace LibraryStudentClient.ViewModel
             set { selectedBook = value; NotifyPropertyChanged("SelectedBook"); }
         }
 
+        private Book? tempbook;
+        public Book? Tempbook
+        {
+            get { return tempbook; }
+            set { tempbook = value; NotifyPropertyChanged("Tempbook"); }
+        }
+
+
         private RelayCommand? viewSelectedBook;
         public RelayCommand ViewSelectedBook
         {
@@ -79,7 +87,8 @@ namespace LibraryStudentClient.ViewModel
                 return viewSelectedBook ??
                     (viewSelectedBook = new RelayCommand(obj =>
                     {
-                        selectedBook = MyHttpClient.MyHttpClient.GetBookByISBN(selectedBook.ISBN);
+                        tempbook = MyHttpClient.MyHttpClient.GetBookByISBN(selectedBook.ISBN);
+                        tempbook.Authors = selectedBook.Authors;
                         ViewBookOnNewPage();
                     }));
             }
@@ -93,7 +102,8 @@ namespace LibraryStudentClient.ViewModel
 
         public void GetBook()
         {
-
+            string message = MyHttpClient.MyHttpClient.CreateOrder(tempbook.ISBN);
+            MessageBox.Show(message);
         }
 
 
