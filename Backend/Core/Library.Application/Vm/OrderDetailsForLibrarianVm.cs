@@ -8,6 +8,7 @@
         public string Status { get; set; }
         public string BookPublisher { get; set; }
         public string BookYear { get; set; }
+        public int RowNumber { get; set; }
         public ReaderVm Reader { get; set; }
     }
 }
