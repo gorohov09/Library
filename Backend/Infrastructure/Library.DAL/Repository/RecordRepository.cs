@@ -16,6 +16,7 @@ namespace Library.DAL.Repository
         {
             var history = _libraryContext.Records
                 .Where(x => x.ReaderID == libraryCard)
+                .OrderBy(x => x.IssueDate)
                 .ToList();
 
             return history;

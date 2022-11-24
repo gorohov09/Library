@@ -17,6 +17,7 @@ namespace Library.DAL.Repository
         {
             var orders = _libraryContext.Orders
                 .Where(x => x.ReaderId == libraryCard)
+                .OrderBy(x => x.CreationDate)
                 .ToList();
 
             return orders;
