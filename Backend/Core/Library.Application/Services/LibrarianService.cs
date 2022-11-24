@@ -19,10 +19,10 @@ namespace Library.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<OrderDetailsForReaderVm>> GetReaderOrders(int librarianId)
+        public async Task<IEnumerable<OrderDetailsForLibrarianVm>> GetLibrarianOrders(int librarianId)
         {
             var librariansOrders = await _orderRepository.GetLibrarianOrders(librarianId);
-            return _mapper.Map<IEnumerable<OrderDetailsForReaderVm>>(librariansOrders);
+            return _mapper.Map<IEnumerable<OrderDetailsForLibrarianVm>>(librariansOrders);
         }
     }
 }
