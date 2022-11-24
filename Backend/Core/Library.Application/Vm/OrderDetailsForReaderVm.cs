@@ -7,5 +7,7 @@
         public DateTime CreationDate { get; set; }
         public DateTime? ExecutionDate { get; set; }
         public string Status { get; set; }
+        public string BookPublisher { get; set; }
+        public string BookYear { get; set; }
     }
 }
