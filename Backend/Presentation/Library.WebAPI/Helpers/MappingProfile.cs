@@ -12,6 +12,7 @@ namespace Library.WebAPI.Helpers
             CreateMap<AuthorEntity, AuthorVm>().ReverseMap();
             CreateMap<BookInsatnceEntity, BookInsatnceVm>().ReverseMap();
             CreateMap<BookEntity, BookDetailsVm>().ReverseMap();
+            CreateMap<ReaderEntity, ReaderVm>().ReverseMap();
         }
     }
 }
