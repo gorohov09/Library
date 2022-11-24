@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Library.Domain.Entities;
 
 namespace Library.DAL.Interfaces
 {
     public interface IRecordRepository
     {
+        Task<IEnumerable<RecordEntity>> GetReadersHistory(string libraryCard);
     }
 }
