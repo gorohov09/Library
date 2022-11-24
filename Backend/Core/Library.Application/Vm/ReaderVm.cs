@@ -15,7 +15,7 @@ namespace Library.Application.Vm
         public string StudentCard { get; set; }
         public bool IsHasDebt { get; set; }
         public string MobilePhone { get; set; }
-        public IEnumerable<RecordEntity> History { get; set; }
+        public IEnumerable<RecordDetailsForReaderVm> History { get; set; }
 
     }
 }

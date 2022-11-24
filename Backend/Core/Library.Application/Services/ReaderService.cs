@@ -30,7 +30,8 @@ namespace Library.Application.Services
             }
 
             var readerInfoVm = _mapper.Map<ReaderVm>(reader);
-            readerInfoVm.History = await _recordRepository.GetReadersHistory(libraryCard);
+            var historyEntity = await _recordRepository.GetReadersHistory(libraryCard);
+            readerInfoVm.History = _mapper.Map<IEnumerable<RecordDetailsForReaderVm>>(historyEntity);
 
             return readerInfoVm;
         }
