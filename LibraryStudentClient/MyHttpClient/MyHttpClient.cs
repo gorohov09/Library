@@ -15,6 +15,8 @@ namespace LibraryStudentClient.MyHttpClient
     {
         private static string? currentLibraryCard;
 
+        #region АВТОРИЗАЦИЯ
+
         public static bool Authorizate(string studTicketNum, string password, ref string error)
         {
             // делаем запрос к серверу
@@ -93,6 +95,9 @@ namespace LibraryStudentClient.MyHttpClient
             }
         }
 
+        #endregion
+
+
         static public List<Section> GetAllSection()
         {
             HttpClient Client = new HttpClient();
@@ -130,7 +135,8 @@ namespace LibraryStudentClient.MyHttpClient
                 Publisher = result.Publisher,
                 Year = result.Year,
                 Section = result.Section,
-                Count = result.Count.ToString()               
+                Count = result.Count.ToString(),
+                Authors = GetAuthors(result.Authors)
             };
 
             return book;
@@ -174,7 +180,22 @@ namespace LibraryStudentClient.MyHttpClient
 
         public static string CreateOrder(string ISBN)
         {
-            return "";
+            HttpClient Client = new HttpClient();
+
+            var request = new RequestOrderDTO()
+            {
+                LibraryCard = currentLibraryCard,
+                BookISBN = ISBN
+            };
+
+            var response = Client.PostAsJsonAsync("http://localhost:5162/api/orders/create", request)
+            .Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ResponseOrderDTO>().Result;
+
+            if (response.IsSuccess)
+            {
+                return "Заяка успешно создана";
+            }
+            return response.ErrorMessage;
         }
 
 
