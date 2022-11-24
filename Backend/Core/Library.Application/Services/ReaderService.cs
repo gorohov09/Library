@@ -41,5 +41,6 @@ namespace Library.Application.Services
             var readerOrders = await _orderRepository.GetReaderOrders(libraryCard);
             return _mapper.Map<IEnumerable<OrderDetailsForReaderVm>>(readerOrders);
         }
+
     }
 }

@@ -13,6 +13,18 @@ namespace Library.DAL.Repository
             _libraryContext = context;
         }
 
+        public async Task<IEnumerable<RecordEntity>> GetLibrarianHistory(int librarianId)
+        {
+            var history = _libraryContext.Records
+                .Where(x => x.LibrarianID == librarianId)
+                .OrderBy(x => x.IssueDate)
+                .Include(x => x.BookInsatnce)
+                    .ThenInclude(x => x.BookInfo)
+                .ToList();
+
+            return history;
+        }
+
         public async Task<IEnumerable<RecordEntity>> GetReadersHistory(string libraryCard)
         {
             var history = _libraryContext.Records
