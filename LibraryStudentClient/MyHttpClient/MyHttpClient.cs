@@ -176,7 +176,7 @@ namespace LibraryStudentClient.MyHttpClient
         }
 
 
-
+        #region Работа с заявками
 
         public static string CreateOrder(string ISBN)
         {
@@ -198,6 +198,7 @@ namespace LibraryStudentClient.MyHttpClient
             return response.ErrorMessage;
         }
 
+        #endregion
 
     }
 }
