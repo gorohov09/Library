@@ -34,5 +34,11 @@ namespace Library.Application.Services
 
             return readerInfoVm;
         }
+
+        public async Task<IEnumerable<OrderDetailsForReaderVm>> GetReaderOrders(string libraryCard)
+        {
+            var readerOrders = await _orderRepository.GetReaderOrders(libraryCard);
+            return _mapper.Map<IEnumerable<OrderDetailsForReaderVm>>(readerOrders);
+        }
     }
 }

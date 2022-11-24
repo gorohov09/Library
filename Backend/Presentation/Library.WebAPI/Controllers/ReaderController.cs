@@ -18,13 +18,19 @@ namespace Library.WebAPI.Controllers
         [HttpGet("{libraryCard}")]
         public async Task<IActionResult> GetUserInfo([FromBody] string libraryCard)
         {
-            return Ok(_readerService.GetReaderInfo(libraryCard));
+            return Ok(new
+            {
+                reader = await _readerService.GetReaderInfo(libraryCard)
+            });
         }
 
         [HttpGet("{libraryCard}/orders")]
         public async Task<IActionResult> GetUserOrders([FromBody] string libraryCard)
         {
-            return Ok();
+            return Ok(new
+            {
+                orders = await _readerService.GetReaderOrders(libraryCard) 
+            });
         }
     }
 }
