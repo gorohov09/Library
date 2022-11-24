@@ -1,6 +1,7 @@
 ﻿using LibraryStudentClient.Model;
 using LibraryStudentClient.View;
 using LibraryStudentClient.View.BookPages;
+using LibraryStudentClient.View.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -102,12 +103,42 @@ namespace LibraryStudentClient.ViewModel
         public void GetBook()
         {
             string message = MyHttpClient.MyHttpClient.CreateOrder(tempbook.ISBN);
+            if (message == "Заяка успешно создана")
+            {
+                tempbook.Count = (int.Parse(tempbook.Count) - 1).ToString();
+                ViewBookOnNewPage();
+            }
             MessageBox.Show(message);
         }
 
 
         #endregion
 
+        #region Личный кабинет
+
+        private RelayCommand? openUserCabinet;
+        public RelayCommand OpenUserCabinet
+        {
+            get
+            {
+                return openUserCabinet ??
+                    (openUserCabinet = new RelayCommand(obj =>
+                    {
+                        tempbook = MyHttpClient.MyHttpClient.GetBookByISBN(selectedBook.ISBN);
+                        ViewBookOnNewPage();
+                    }));
+            }
+        }
+
+
+        public void ViewUserCabinet()
+        {
+            MainWindow._mainFrame.Content = new UserCabinet();
+        }
+
+
+
+        #endregion
 
         #region Кнопка "Главная"
 

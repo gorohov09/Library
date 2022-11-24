@@ -23,6 +23,7 @@ namespace LibraryStudentClient.View.User
         public UserCabinet()
         {
             InitializeComponent();
+            DataContext = MainWindow._reader;
         }
     }
 }

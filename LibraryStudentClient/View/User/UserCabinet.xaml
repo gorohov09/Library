@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LibraryStudentClient.View.User"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      Height="Auto" Width="Auto" MinHeight="400" MinWidth="620"
       Title="UserCabinet">
 
     <Grid>
@@ -15,14 +15,17 @@
                 <GradientStop Color="#FF232B4C" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
+        
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.065*"/>
             <RowDefinition Height="0.6*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="40"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        
         <Grid Grid.Row="0" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
@@ -60,10 +63,46 @@
                 <TextBlock Text="Мобильный телефон:"            FontSize="14" Grid.Row="0" Grid.Column="0" Foreground="#FFFBFBFB" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="10 0 0 0" TextWrapping="Wrap"/>
                 <TextBlock Text="Номер студ.билета:"            FontSize="14" Grid.Row="1" Grid.Column="0" Foreground="#FFFBFBFB" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="10 0 0 0" TextWrapping="Wrap"/>
                 <TextBlock Text="Номер читательского билета:"   FontSize="14" Grid.Row="2" Grid.Column="0" Foreground="#FFFBFBFB" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="10 0 0 0" TextWrapping="Wrap"/>
-                <TextBlock Text="Фамилия"  FontSize="16" Grid.Row="0" Grid.Column="1" Foreground="#FFFBFBFB" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Text="Имя"      FontSize="16" Grid.Row="1" Grid.Column="1" Foreground="#FFFBFBFB" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Text="Отчество" FontSize="16" Grid.Row="2" Grid.Column="1" Foreground="#FFFBFBFB" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="8952406725"  FontSize="16" Grid.Row="0" Grid.Column="1" Foreground="#FFFBFBFB" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="141418"      FontSize="16" Grid.Row="1" Grid.Column="1" Foreground="#FFFBFBFB" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="512045" FontSize="16" Grid.Row="2" Grid.Column="1" Foreground="#FFFBFBFB" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </Grid>
         </Grid>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="История" HorizontalAlignment="Left" FontSize="20" Foreground="White" Margin="20,0,0,0"/>
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.2*" MaxWidth="245"/>
+            </Grid.ColumnDefinitions>
+            <ListView ItemsSource = "{Binding History, UpdateSourceTrigger=PropertyChanged}" Foreground="#FF042271" FontSize="18" Margin="7,10,0,10"
+                      SelectedItem="{Binding SelectedRecord, UpdateSourceTrigger=PropertyChanged}" >
+                <ListView.Background>
+                    <LinearGradientBrush EndPoint = "0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color = "White" Offset="0.006"/>
+                        <GradientStop Color = "Black" Offset="1"/>
+                        <GradientStop Color = "#FF60C0CC" Offset="0.567"/>
+                        <GradientStop Color = "#FF1D4E69" Offset="0.994"/>
+                        <GradientStop Color = "#FFBBD8D8" Offset="0.087"/>
+                    </LinearGradientBrush>
+                </ListView.Background>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header = "Название книги" DisplayMemberBinding="{Binding Path=Title}"/>
+                        <GridViewColumn Header = "Дата выдачи" DisplayMemberBinding="{Binding Path=Section}"/>
+                        <GridViewColumn Header = "Дата возврата" DisplayMemberBinding="{Binding Path=Authors}" />
+
+                        <GridViewColumn Header="" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="ReturnBook" Content="Вернуть книгу" CommandParameter="{Binding}" FontSize="14" Background="#FF00FFB3"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
     </Grid>
 </Page>

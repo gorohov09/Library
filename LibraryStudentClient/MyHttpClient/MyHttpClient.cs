@@ -200,5 +200,23 @@ namespace LibraryStudentClient.MyHttpClient
 
         #endregion
 
+        #region Личный кабинет
+
+        public static void GetDetailUSerInrofmation()
+        {
+            Reader.LibraryCard = currentLibraryCard;
+            Reader.SurName = "Калеев";
+            Reader.Name = "Данил";
+            Reader.Patronimic = "Андреевич";
+            Reader.StudCard = "141418";
+            Reader.MobilePhone = "89520406725";
+            Reader.Histories = new List<History>(
+                new History { },
+                new History { });
+            
+        }
+
+        #endregion
+
     }
 }
