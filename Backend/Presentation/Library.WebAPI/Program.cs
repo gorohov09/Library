@@ -24,6 +24,7 @@ services.AddScoped<IAccountRepository, AccountRepository>();
 services.AddScoped<IReaderRepository, ReaderRepository>();
 services.AddScoped<ILibrarianRepository, LibrarianRepository>();
 services.AddScoped<IOrderRepository, OrderRepository>();
+services.AddScoped<IRecordRepository, RecordRepository>();
 
 //Services
 services.AddScoped<IBookService, BookService>();
