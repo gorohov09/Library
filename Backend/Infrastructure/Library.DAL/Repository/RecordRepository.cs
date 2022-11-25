@@ -20,6 +20,7 @@ namespace Library.DAL.Repository
                 .OrderBy(x => x.IssueDate)
                 .Include(x => x.BookInsatnce)
                     .ThenInclude(x => x.BookInfo)
+                        .ThenInclude(x => x.Authors)
                 .ToList();
 
             return history;

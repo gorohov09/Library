@@ -22,6 +22,7 @@ namespace Library.DAL.Repository
                 .Include(x => x.Reader)
                 .Include(x => x.BookInsatnce)
                     .ThenInclude(x => x.BookInfo)
+                        .ThenInclude(x => x.Authors)
                 .ToListAsync();
 
             return orders;
@@ -34,6 +35,7 @@ namespace Library.DAL.Repository
                 .OrderBy(x => x.CreationDate)
                 .Include(x => x.BookInsatnce)
                     .ThenInclude(x => x.BookInfo)
+                        .ThenInclude(x => x.Authors)
                 .ToListAsync();
 
             return orders;

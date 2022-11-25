@@ -19,6 +19,7 @@ namespace Library.WebAPI.Helpers
                 .ForMember(dest => dest.BookPublisher, opt => opt.MapFrom(src => src.BookInsatnce.BookInfo.Publisher))
                 .ForMember(dest => dest.BookYear, opt => opt.MapFrom(src => src.BookInsatnce.BookInfo.Year))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.GetStatus()))
+                .ForMember(dest => dest.BookAuthors, opt => opt.MapFrom(src => src.BookInsatnce.BookInfo.Authors))
                 .ReverseMap();
 
             CreateMap<OrderEntity, OrderDetailsForLibrarianVm>()
@@ -28,12 +29,14 @@ namespace Library.WebAPI.Helpers
                 .ForMember(dest => dest.RowNumber, opt => opt.MapFrom(src => src.BookInsatnce.RowNumber))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.GetStatus()))
                 .ForMember(dest => dest.Reader, opt => opt.MapFrom(src => src.Reader))
+                .ForMember(dest => dest.BookAuthors, opt => opt.MapFrom(src => src.BookInsatnce.BookInfo.Authors))
                 .ReverseMap();
 
             CreateMap<RecordEntity, RecordDetailsForReaderVm>()
                 .ForMember(dest => dest.BookName, opt => opt.MapFrom(src => src.BookInsatnce.BookInfo.Title))
                 .ForMember(dest => dest.BookPublisher, opt => opt.MapFrom(src => src.BookInsatnce.BookInfo.Publisher))
                 .ForMember(dest => dest.BookYear, opt => opt.MapFrom(src => src.BookInsatnce.BookInfo.Year))
+                .ForMember(dest => dest.BookAuthors, opt => opt.MapFrom(src => src.BookInsatnce.BookInfo.Authors))
                 .ReverseMap();
         }
     }

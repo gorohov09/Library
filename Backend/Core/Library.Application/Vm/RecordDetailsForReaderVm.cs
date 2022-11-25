@@ -14,5 +14,6 @@ namespace Library.Application.Vm
         public string BookName { get; set; }
         public string BookPublisher { get; set; }
         public string BookYear { get; set; }
+        public IEnumerable<AuthorVm> BookAuthors { get; set; }
     }
 }

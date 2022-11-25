@@ -10,5 +10,6 @@
         public string BookYear { get; set; }
         public int RowNumber { get; set; }
         public ReaderVm Reader { get; set; }
+        public IEnumerable<AuthorVm> BookAuthors { get; set; }
     }
 }
