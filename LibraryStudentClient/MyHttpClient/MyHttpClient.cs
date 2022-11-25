@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Security.Policy;
 using System.Text;
+using System.Xml.Linq;
 
 namespace LibraryStudentClient.MyHttpClient
 {
@@ -15,6 +17,15 @@ namespace LibraryStudentClient.MyHttpClient
 
         public static bool Authorizate(string studTicketNum, string password, ref string error)
         {
+            // делаем запрос к серверу
+            // десерализуем данные
+
+            // в случае успеха 
+            // сохраняем номер читательского билета
+
+            // иначе заносим в error строку ошибки
+            // и возвращаем false
+
             HttpClient Client = new HttpClient();
 
             var request = new RequestLoginDTO
@@ -25,14 +36,6 @@ namespace LibraryStudentClient.MyHttpClient
 
             var response = Client.PostAsJsonAsync("http://localhost:5162/api/account/logIn", request)
                 .Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ResponseLoginDTO>().Result;
-            // делаем запрос к серверу
-            // десерализуем данные
-
-            // в случае успеха 
-            // сохраняем номер читательского билета
-
-            // иначе заносим в error строку ошибки
-            // и возвращаем false
 
             if (response.IsSuccess)
             {
@@ -55,14 +58,39 @@ namespace LibraryStudentClient.MyHttpClient
 
             // иначе заносим в error строку ошибки
             // и возвращаем false
+            
 
-            if (studTicketNum == "Check" && password == "777")
+            HttpClient Client = new HttpClient();
+
+            var request = new RequestRegistrateDTO
             {
-                return true;
-            }
+                LastName = surname,
+                Name = name,
+                Patronymic = fatherName,
+                MobilePhone = phoneNumber,
+                StudentCard = studTicketNum,
+                Password = password
+            };
 
-            error = "ошибка - пользователь с таким студенческим билетом уже существует!\nСоветуем перейти в раздел \"авторизация\"";
-            return false;
+            try
+            {
+                var response = Client.PostAsJsonAsync("http://localhost:5162/api/account/registrate", request)
+                .Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ResponseLoginDTO>().Result;
+
+                if (response.IsSuccess)
+                {
+                    currentLibraryCard = response.LibraryCard;
+                    return true;
+                }
+                error = response.Error;
+                return false;
+            }
+            catch (Exception)
+            {
+
+                error = "Ошибка при запросе - неполадка с сетью(";
+                return false;
+            }
         }
 
         static public List<Section> GetAllSection()
@@ -84,14 +112,29 @@ namespace LibraryStudentClient.MyHttpClient
 
             //Возвращаем результат
             return sections;
+        }
 
-            //return new List<Section>{
-            //    new Section { Name = "Физика" },
-            //    new Section { Name = "Термодинамика" },
-            //    new Section { Name = "Аэродинамика" },
-            //    new Section { Name = "Математический анализ" },
-            //    new Section { Name = "Программирование" },
+        public static Book GetBookByISBN(string ISBN)
+        {
+            HttpClient Client = new HttpClient();
 
+            var response = Client.GetAsync($"http://localhost:5162/api/books/{ISBN}");
+
+            var result = response.Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<BookDetailDTO>().Result;
+
+            var book = new Book()
+            {
+                ISBN = result.ISBN,
+                Title = result.Title,
+                Description = result.Description,
+                Publisher = result.Publisher,
+                Year = result.Year,
+                Section = result.Section,
+                Authors = GetAuthors(result.Authors),
+                Count = result.Count.ToString()               
+            };
+
+            return book;
         }
 
         public static List<Book> GetBooks(string section = "all")
@@ -104,6 +147,7 @@ namespace LibraryStudentClient.MyHttpClient
 
             var books = result.Select(x => new Book
             {
+                ISBN = x.ISBN,
                 Title = x.Title,
                 Publisher = x.Publisher,
                 Year = x.Year,
@@ -113,16 +157,6 @@ namespace LibraryStudentClient.MyHttpClient
             }).ToList();
 
             return books;
-
-
-            // делаем запрос к серверу
-            // десерализуем данные
-
-            //return new List<Book>{
-            //    new Book {Title = "Война и мир", Publisher="Альпина", Year="2005", Section= "Русская классика", Authors="Толстой Л.Н"},
-            //    new Book { Title = "Евгений Онегин", Publisher = "Альпина", Section = "Русская классика", Authors = "Пушкин А.С." },
-            //    new Book { Title = "Тестовая", Publisher = "ЧекЧекович", Section = "Русская тестировка", Authors = "Горохов А.С., Исхаков А.И., Калеев Д.А," }
-            //};
         }
 
         private static string GetAuthors(IEnumerable<AuthorDTO> authors)

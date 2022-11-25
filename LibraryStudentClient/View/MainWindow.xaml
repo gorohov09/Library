@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryStudentClient"
         mc:Ignorable="d"
-        Title="Библиотека" MinHeight="450" MinWidth="800" Height="600" Width="1000">
+        Title="Библиотека" MinHeight="500" MinWidth="800" Height="600" Width="1000">
     <Window.Resources>
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
@@ -182,14 +182,14 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button Style="{DynamicResource ButtonStyle2}"  Background="#FFBBD8D8" Grid.Row="0" Grid.Column="0" FontSize="18">Главная</Button>
+        <Button Style="{DynamicResource ButtonStyle2}"  Background="#FFBBD8D8" Grid.Row="0" Grid.Column="0" FontSize="18" Command="{Binding Main}">Главная</Button>
         <TextBox Style="{DynamicResource TextBoxStyle1}" Grid.Column="1" Background="#FFE6F1F1" FontSize="22" FontFamily="Times New Roman"/>
 
         <StackPanel Grid.Column="2" Orientation="Horizontal">
             <Button Style="{DynamicResource ButtonStyle1}"  Background="#FFE6F1F1" Grid.Column="2" BorderBrush="#FFF7F5F5" FontSize="16">Поиск</Button>
-            <Button Style="{DynamicResource ButtonStyle2}"  Background="#FFE6F1F1" Grid.Column="3" FontSize="14">Мои заявки</Button>
+            <Button Style="{DynamicResource ButtonStyle2}"  Background="#FFE6F1F1" Grid.Column="3" FontSize="14">Моя заявка</Button>
             <Button Style="{DynamicResource ButtonStyle2}"  Background="#FFE6F1F1" Grid.Column="3" FontSize="14">Личный кабинет</Button>
-            <Button Style="{DynamicResource ButtonStyle2}"  Background="#FFE6F1F1" Grid.Column="4" FontSize="14" Width="50">Выход</Button>
+            <Button Style="{DynamicResource ButtonStyle2}"  Background="#FFE6F1F1" Grid.Column="4" FontSize="14" Width="50" Command="{Binding GoOut}">Выход</Button>
         </StackPanel>
 
         <ListView Grid.Column="0" Grid.Row="1" ItemsSource="{Binding AllSections}" 
