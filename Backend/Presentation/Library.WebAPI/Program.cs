@@ -24,11 +24,14 @@ services.AddScoped<IAccountRepository, AccountRepository>();
 services.AddScoped<IReaderRepository, ReaderRepository>();
 services.AddScoped<ILibrarianRepository, LibrarianRepository>();
 services.AddScoped<IOrderRepository, OrderRepository>();
+services.AddScoped<IRecordRepository, RecordRepository>();
 
 //Services
 services.AddScoped<IBookService, BookService>();
 services.AddScoped<IAccountService, AccountService>();
 services.AddScoped<IOrderService, OrderService>();
+services.AddScoped<IReaderService, ReaderService>();
+services.AddScoped<ILibrarianService, LibrarianService>();
 
 // AutoMapper
 services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

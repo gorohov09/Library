@@ -63,5 +63,7 @@ namespace Library.DAL.Repository
             return await _libraryContext.BookIntances
                 .FirstOrDefaultAsync(b => b.ISBN == ISBN && b.IsAvailable);
         }
+        
+        
     }
 }
