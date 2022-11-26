@@ -21,15 +21,10 @@ namespace Library.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<OrderDetailsForLibrarianVm>> GetLibrarianOrders(int librarianId)
+        public async Task<IEnumerable<BriefOrderInfoForLibrarians>> GetLibrarianOrders(int librarianId)
         {
             var librariansOrders = await _orderRepository.GetLibrarianOrders(librarianId);
-            var ordersVm = _mapper.Map<IEnumerable<OrderDetailsForLibrarianVm>>(librariansOrders);
-            foreach (var order in ordersVm)
-            {
-                var readerHistory = await _recordRepository.GetReadersHistory(order.Reader.LibraryCard);
-                order.Reader.History = _mapper.Map<IEnumerable<RecordDetailsForReaderVm>>(readerHistory);
-            }
+            var ordersVm = _mapper.Map<IEnumerable<BriefOrderInfoForLibrarians>>(librariansOrders);
 
             return ordersVm;
         }
