@@ -29,10 +29,11 @@ namespace Library.Application.Services
             return ordersVm;
         }
 
-        public Task<OrderDetailsForLibrarianVm> GetDetailedInfoAboutOrder(int orderId)
+        public async Task<OrderDetailsForLibrarianVm> GetDetailedInfoAboutOrder(int orderId)
         {
-            //var order = await _orderRepository
-            return null;
+            var order = await _orderRepository.GetOrderById(orderId);
+            var orderVm = _mapper.Map<OrderDetailsForLibrarianVm>(order);
+            return orderVm;
         }
     }
 }

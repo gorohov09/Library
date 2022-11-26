@@ -23,5 +23,14 @@ namespace Library.WebAPI.Controllers
                 orders = await _librarianService.GetLibrarianOrders(librarianId)
             }) ;
         }
+
+        [HttpGet("/orderinfo/{orderId}")]
+        public async Task<IActionResult> GetOrderInfo(int orderId)
+        {
+            return Ok(new
+            {
+                order = await _librarianService.GetDetailedInfoAboutOrder(orderId)
+            });
+        }
     }
 }
