@@ -1,6 +1,8 @@
-﻿using Library.Application.Interfaces;
+﻿using AutoMapper;
+using Library.Application.Interfaces;
 using Library.Application.Requests;
 using Library.Application.Response;
+using Library.Application.Vm;
 using Library.DAL.Interfaces;
 using Library.Domain.Entities;
 
@@ -16,13 +18,20 @@ namespace Library.Application.Services
 
         private readonly IOrderRepository _orderRepository;
 
+        private readonly IRecordRepository _recordRepository;
+
+        private readonly IMapper _mapper;
+
         public OrderService(IReaderRepository readerRepository, IBookRepository bookRepository,
-            ILibrarianRepository librarianRepository, IOrderRepository orderRepository)
+            ILibrarianRepository librarianRepository, IOrderRepository orderRepository, IMapper mapper,
+            IRecordRepository recordRepository)
         {
             _readerRepository = readerRepository;
             _bookRepository = bookRepository;
             _librarianRepository = librarianRepository;
             _orderRepository = orderRepository;
+            _recordRepository = recordRepository;
+            _mapper = mapper;
         }
 
         public async Task<ResponseOrder> CreateOrder(RequestOrder requestOrder)
@@ -81,6 +90,17 @@ namespace Library.Application.Services
                 };
 
             return new ResponseOrder { IsSuccess = true };
+        }
+
+        public async Task<OrderDetailsForLibrarianVm> GetOrderDetails(int orderId)
+        {
+            var order = await _orderRepository.GetOrderById(orderId);
+            var orderVm = _mapper.Map<OrderDetailsForLibrarianVm>(order);
+            
+            var historyEntity = await _recordRepository.GetReadersHistory(orderVm.Reader.LibraryCard);
+            orderVm.Reader.History = _mapper.Map<IEnumerable<RecordDetailsForReaderVm>>(historyEntity);
+            
+            return orderVm;
         }
     }
 }
