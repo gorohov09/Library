@@ -9,5 +9,5 @@ public class BriefOrderInfoForLibrarians
     public string BookYear { get; set; }
     public int RowNumber { get; set; }
     public string ReaderFullName { get; set; }
-    public string[] BookAuthors { get; set; }
+    public string BookAuthors { get; set; }
 }
