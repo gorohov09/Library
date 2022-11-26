@@ -28,5 +28,11 @@ namespace Library.Application.Services
 
             return ordersVm;
         }
+
+        public Task<OrderDetailsForLibrarianVm> GetDetailedInfoAboutOrder(int orderId)
+        {
+            //var order = await _orderRepository
+            return null;
+        }
     }
 }
