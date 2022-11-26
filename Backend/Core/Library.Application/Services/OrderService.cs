@@ -16,13 +16,16 @@ namespace Library.Application.Services
 
         private readonly IOrderRepository _orderRepository;
 
+        private readonly IRecordRepository _recordRepository;
+
         public OrderService(IReaderRepository readerRepository, IBookRepository bookRepository,
-            ILibrarianRepository librarianRepository, IOrderRepository orderRepository)
+            ILibrarianRepository librarianRepository, IOrderRepository orderRepository, IRecordRepository recordRepository)
         {
             _readerRepository = readerRepository;
             _bookRepository = bookRepository;
             _librarianRepository = librarianRepository;
             _orderRepository = orderRepository;
+            _recordRepository = recordRepository;
         }
 
         public async Task<ResponseApproveOrder> ApproveOrder(RequestApproveOrder requestApproveOrder)
@@ -40,10 +43,38 @@ namespace Library.Application.Services
 
             if (requestApproveOrder.IsApproved)
             {
-                return null;
-            }
+                //Обработать корректность отправленной даты
 
-            return null;
+                var recordEntity = new RecordEntity
+                {
+                    Reader = orderEntity.Reader,
+                    BookInsatnce = orderEntity.BookInsatnce,
+                    IssueDate = DateTime.Now,
+                    ReturnDate = requestApproveOrder.ReturnDate,
+                };
+
+                var result = await _recordRepository.SaveRecord(recordEntity);
+
+                if (result)
+                {
+                    orderEntity.Status = StatusOrder.DONE;
+                    orderEntity.ExecutionDate = DateTime.Now;
+
+                    return new ResponseApproveOrder { IsSuccess = true };
+                }
+
+                return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Ошибка при сохранении данных" };
+            }
+            else
+            {
+                orderEntity.BookInsatnce.IsAvailable = true;
+                orderEntity.Status = StatusOrder.DENIED;
+                orderEntity.ExecutionDate = DateTime.Now;
+
+                //Обновить данные
+
+                return new ResponseApproveOrder { IsSuccess = true};
+            }
         }
 
         public async Task<ResponseOrder> CreateOrder(RequestOrder requestOrder)
