@@ -25,6 +25,25 @@ namespace Library.Application.Services
             _orderRepository = orderRepository;
         }
 
+        public async Task<ResponseApproveOrder> ApproveOrder(RequestApproveOrder requestApproveOrder)
+        {
+            if (requestApproveOrder == null)
+                return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Неизвестная ошибка" };
+
+            var orderEntity = await _orderRepository.GetOrderById(requestApproveOrder.OrderId);
+
+            if (orderEntity == null)
+                return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Данной заявки нет" };
+
+            if (orderEntity.BookInsatnce == null || orderEntity.Reader == null)
+                return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Отсутствует читатель или книга" };
+
+            if (requestApproveOrder.IsApproved)
+            {
+
+            }
+        }
+
         public async Task<ResponseOrder> CreateOrder(RequestOrder requestOrder)
         {
             if (requestOrder == null)

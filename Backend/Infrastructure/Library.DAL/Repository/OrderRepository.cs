@@ -28,6 +28,17 @@ namespace Library.DAL.Repository
             return orders;
         }
 
+        public async Task<OrderEntity> GetOrderById(int orderId)
+        {
+            var order = await _libraryContext.Orders
+                .Where(x => x.Id == orderId)
+                .Include(x => x.Reader)
+                .Include(x => x.BookInsatnce)
+                .FirstOrDefaultAsync();
+
+            return order;
+        }
+
         public async Task<IEnumerable<OrderEntity>> GetReaderOrders(string libraryCard)
         {
             var orders = await _libraryContext.Orders

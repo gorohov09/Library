@@ -9,5 +9,7 @@ namespace Library.DAL.Interfaces
         Task<IEnumerable<OrderEntity>> GetReaderOrders(string libraryCard);
 
         Task<IEnumerable<OrderEntity>> GetLibrarianOrders(int librarianId);
+
+        Task<OrderEntity> GetOrderById(int orderId);
     }
 }

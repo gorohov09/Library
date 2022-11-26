@@ -22,5 +22,12 @@ namespace Library.WebAPI.Controllers
             var response = await _orderService.CreateOrder(requestOrder);
             return Ok(response);    
         }
+
+        [HttpPost("approve")]
+        public async Task<IActionResult> ApproveOrder([FromBody] RequestApproveOrder requestApproveOrder)
+        {
+            var response = await _orderService.ApproveOrder(requestApproveOrder);
+            return Ok(response);
+        }
     }
 }
