@@ -1,6 +1,7 @@
 ﻿using LibraryStudentClient.Model;
 using LibraryStudentClient.View;
 using LibraryStudentClient.View.BookPages;
+using LibraryStudentClient.View.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -71,6 +72,14 @@ namespace LibraryStudentClient.ViewModel
             set { selectedBook = value; NotifyPropertyChanged("SelectedBook"); }
         }
 
+        private Book? tempbook;
+        public Book? Tempbook
+        {
+            get { return tempbook; }
+            set { tempbook = value; NotifyPropertyChanged("Tempbook"); }
+        }
+
+
         private RelayCommand? viewSelectedBook;
         public RelayCommand ViewSelectedBook
         {
@@ -79,7 +88,7 @@ namespace LibraryStudentClient.ViewModel
                 return viewSelectedBook ??
                     (viewSelectedBook = new RelayCommand(obj =>
                     {
-                        selectedBook = MyHttpClient.MyHttpClient.GetBookByISBN(selectedBook.ISBN);
+                        tempbook = MyHttpClient.MyHttpClient.GetBookByISBN(selectedBook.ISBN);
                         ViewBookOnNewPage();
                     }));
             }
@@ -93,12 +102,43 @@ namespace LibraryStudentClient.ViewModel
 
         public void GetBook()
         {
-
+            string message = MyHttpClient.MyHttpClient.CreateOrder(tempbook.ISBN);
+            if (message == "Заяка успешно создана")
+            {
+                tempbook.Count = (int.Parse(tempbook.Count) - 1).ToString();
+                ViewBookOnNewPage();
+            }
+            MessageBox.Show(message);
         }
 
 
         #endregion
 
+        #region Личный кабинет
+
+        private RelayCommand? openUserCabinet;
+        public RelayCommand OpenUserCabinet
+        {
+            get
+            {
+                return openUserCabinet ??
+                    (openUserCabinet = new RelayCommand(obj =>
+                    {
+                        MyHttpClient.MyHttpClient.GetDetailUSerInrofmation();
+                        ViewUserCabinet();
+                    }));
+            }
+        }
+
+
+        public void ViewUserCabinet()
+        {
+            MainWindow._mainFrame.Content = new UserCabinet();
+        }
+
+
+
+        #endregion
 
         #region Кнопка "Главная"
 
