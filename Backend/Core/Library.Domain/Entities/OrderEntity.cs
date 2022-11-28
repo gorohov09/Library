@@ -42,7 +42,14 @@ namespace Library.Domain.Entities
         public StatusOrder Status { get; set; }
 
         public string GetStatus() 
-        { 
+        {
+            if (Status == StatusOrder.DONE)
+                return "Выполнено";
+            else if (Status == StatusOrder.DENIED)
+                return "Отказано";
+            else if (Status == StatusOrder.WAIT)
+                return "В ожидании";
+
             return Status.ToString(); 
         }
     }

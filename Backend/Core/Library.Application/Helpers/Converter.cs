@@ -8,6 +8,6 @@ public class Converter : IConverter
 {
     public string GetAuthorsInLine(BookEntity book)
     {
-        return String.Join(", ", book.Authors.Select(a => a.FullName));
+        return string.Join(", ", book.Authors.Select(a => a.FullName));
     }
 }

@@ -11,14 +11,17 @@ namespace Library.Application.Services
         private readonly IOrderRepository _orderRepository;
         private readonly IRecordRepository _recordRepository;
         private readonly IReaderRepository _readerRepository;
+        private readonly IConverter _converter;
         private IMapper _mapper;
 
-        public ReaderService(IOrderRepository orderRepository, IRecordRepository recordRepository, IReaderRepository readerRepository, IMapper mapper)
+        public ReaderService(IOrderRepository orderRepository, IRecordRepository recordRepository, 
+            IReaderRepository readerRepository, IMapper mapper, IConverter converter)
         {
             _orderRepository = orderRepository;
             _recordRepository = recordRepository;
             _readerRepository = readerRepository;
             _mapper = mapper;
+            _converter = converter;
         }
 
         public async Task<ReaderVm> GetReaderInfo(string libraryCard)
@@ -39,8 +42,20 @@ namespace Library.Application.Services
         public async Task<IEnumerable<OrderDetailsForReaderVm>> GetReaderOrders(string libraryCard)
         {
             var readerOrders = await _orderRepository.GetReaderOrders(libraryCard);
-            return _mapper.Map<IEnumerable<OrderDetailsForReaderVm>>(readerOrders);
-        }
 
+            var ordersVm = readerOrders.Select(order => new OrderDetailsForReaderVm
+            {
+                Id = order.Id,
+                BookName = order.BookInsatnce.BookInfo.Title,
+                BookPublisher = order.BookInsatnce.BookInfo.Publisher,
+                BookYear = order.BookInsatnce.BookInfo.Year,
+                CreationDate = order.CreationDate,
+                ExecutionDate = order.ExecutionDate,
+                Status = order.GetStatus(),
+                Authors = _converter.GetAuthorsInLine(order.BookInsatnce.BookInfo)
+            });
+
+            return ordersVm;
+        }
     }
 }
