@@ -59,6 +59,7 @@ namespace LibraryStudentClient.ViewModel
 
         #region Блок Мои заявки
 
+        public List<Order> OrderList { get; set; }
 
         #endregion
 
