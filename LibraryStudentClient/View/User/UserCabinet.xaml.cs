@@ -15,15 +15,19 @@ using System.Windows.Shapes;
 
 namespace LibraryStudentClient.View.User
 {
+
+
     /// <summary>
     /// Логика взаимодействия для UserCabinet.xaml
     /// </summary>
     public partial class UserCabinet : Page
     {
+        public static ListView view;
         public UserCabinet()
         {
             InitializeComponent();
             DataContext = MainWindow._reader;
+            view = ViewOfHistory;
         }
     }
 }

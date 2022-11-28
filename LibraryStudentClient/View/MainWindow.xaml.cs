@@ -1,4 +1,5 @@
-﻿using LibraryStudentClient.ViewModel;
+﻿using LibraryStudentClient.View.User;
+using LibraryStudentClient.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace LibraryStudentClient.View
     {
         public static Frame _mainFrame { get; set; }
         public static BookPages.ListOfBooks _listOfBooks { get; set; }
+        public static UserCabinet _cabinet { get; set; }
         public static DataManagerMainVM _mng { get; set; }
         public static DataManagerReaderVM _reader { get; set; }
         public static MainWindow _window { get; set; }

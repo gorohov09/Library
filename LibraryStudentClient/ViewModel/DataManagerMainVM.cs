@@ -124,8 +124,8 @@ namespace LibraryStudentClient.ViewModel
                 return openUserCabinet ??
                     (openUserCabinet = new RelayCommand(obj =>
                     {
-                        tempbook = MyHttpClient.MyHttpClient.GetBookByISBN(selectedBook.ISBN);
-                        ViewBookOnNewPage();
+                        MyHttpClient.MyHttpClient.GetDetailUSerInrofmation();
+                        ViewUserCabinet();
                     }));
             }
         }
