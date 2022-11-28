@@ -97,7 +97,7 @@ namespace LibraryStudentClient.MyHttpClient
 
         #endregion
 
-
+        #region Работа с книгами
         static public List<Section> GetAllSection()
         {
             HttpClient Client = new HttpClient();
@@ -175,6 +175,7 @@ namespace LibraryStudentClient.MyHttpClient
             return result.ToString();
         }
 
+        #endregion
 
         #region Работа с заявками
 
@@ -202,23 +203,24 @@ namespace LibraryStudentClient.MyHttpClient
         {
             HttpClient Client = new HttpClient();
 
-            var request = new RequestOrderDTO()
+            var response = Client.GetAsync($"http://localhost:5162/api/Reader/{currentLibraryCard}/orders");
+
+            var result = response.Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<OrderListDTO>().Result;
+
+            var orders = result.orders.Select(x => new Order
             {
-                LibraryCard = currentLibraryCard,
-                BookISBN = ISBN
-            };
+                Title = x.BookName,
+                Authors = x.Authors,
+                Publisher = x.BookPublisher,
+                Year = x.BookYear,
+                DateOfCreate = x.CreationDate,
+                Status = x.Status,
 
-            var response = Client.PostAsJsonAsync("http://localhost:5162/api/orders/create", request)
-            .Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ResponseOrderDTO>().Result;
-
-            if (response.IsSuccess)
-            {
-                return "Заяка успешно создана";
-            }
+            }).ToList();
 
 
 
-            return null;
+            return orders;
         }
 
         #endregion
@@ -227,6 +229,29 @@ namespace LibraryStudentClient.MyHttpClient
 
         public static void GetDetailUSerInrofmation()
         {
+
+            HttpClient Client = new HttpClient();
+
+            var response = Client.GetAsync($"http://localhost:5162/api/Reader/{currentLibraryCard}");
+
+            var result = response.Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ReaderListDTO>().Result;
+
+            var orders = result.ReaderDTO.Select(x => new ReaderDTO
+            {
+                LibraryCard = x.LibraryCard,
+                FullName = x.FullName,
+                StudentCard = x.StudentCard,
+                IsHasDebt = x.IsHasDebt,
+                MobilePhone = x.MobilePhone,
+                History = x.History,
+
+            }).ToList();
+
+            Reader.LibraryCard = orders[0]. ;
+            Reader.StudCard = x.StudentCard;
+            Reader.MobilePhone = x.MobilePhone;
+
+
             Reader.LibraryCard = currentLibraryCard;
             Reader.SurName = "Калеев";
             Reader.Name = "Данил";

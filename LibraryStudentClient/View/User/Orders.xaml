@@ -42,12 +42,12 @@
                 </ListView.Background>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header = "Название книги" Width="200" DisplayMemberBinding="{Binding Path=Title}"/>
-                        <GridViewColumn Header = "Авторы" Width="150" DisplayMemberBinding="{Binding Path=Authors}" />
-                        <GridViewColumn Header = "Издатель" Width="150" DisplayMemberBinding="{Binding Path=Publisher}" />
-                        <GridViewColumn Header = "Год издания" Width="150" DisplayMemberBinding="{Binding Path=Year}" />
+                        <GridViewColumn Header = "Название книги" Width="200" DisplayMemberBinding="{Binding Path=Title}"/>                      
                         <GridViewColumn Header = "Дата формирования заявки" Width="250" DisplayMemberBinding="{Binding Path=DateOfCreate}"/>
-                        <GridViewColumn Header = "Статус" Width="150" DisplayMemberBinding="{Binding Path=Status}"/>
+                        <GridViewColumn Header = "Статус" Width="120" DisplayMemberBinding="{Binding Path=Status}"/>
+                        <GridViewColumn Header = "Авторы" Width="150" DisplayMemberBinding="{Binding Path=Authors}" />
+                        <GridViewColumn Header = "Издатель" Width="120" DisplayMemberBinding="{Binding Path=Publisher}" />
+                        <GridViewColumn Header = "Год издания" Width="120" DisplayMemberBinding="{Binding Path=Year}" />
                     </GridView>
                 </ListView.View>
             </ListView>
