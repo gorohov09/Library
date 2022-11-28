@@ -11,6 +11,7 @@ namespace LibraryStudentClient.ViewModel
 {
     public class DataManagerReaderVM : INotifyPropertyChanged
     {
+        #region Блок личного кабинета
         public string Name
         {
             get { return Reader.Name; }
@@ -54,6 +55,12 @@ namespace LibraryStudentClient.ViewModel
             UserCabinet.view.Items.Refresh();
 
         }
+        #endregion
+
+        #region Блок Мои заявки
+
+
+        #endregion
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
