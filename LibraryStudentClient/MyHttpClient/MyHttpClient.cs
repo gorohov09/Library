@@ -198,6 +198,29 @@ namespace LibraryStudentClient.MyHttpClient
             return response.ErrorMessage;
         }
 
+        public static List<Order> GetOrders()
+        {
+            HttpClient Client = new HttpClient();
+
+            var request = new RequestOrderDTO()
+            {
+                LibraryCard = currentLibraryCard,
+                BookISBN = ISBN
+            };
+
+            var response = Client.PostAsJsonAsync("http://localhost:5162/api/orders/create", request)
+            .Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ResponseOrderDTO>().Result;
+
+            if (response.IsSuccess)
+            {
+                return "Заяка успешно создана";
+            }
+
+
+
+            return null;
+        }
+
         #endregion
 
         #region Личный кабинет

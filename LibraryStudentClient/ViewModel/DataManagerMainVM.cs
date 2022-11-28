@@ -114,6 +114,30 @@ namespace LibraryStudentClient.ViewModel
 
         #endregion
 
+        #region Мои заявки
+
+        private RelayCommand? openOrdersView;
+        public RelayCommand OpenOrdersView
+        {
+            get
+            {
+                return openOrdersView ??
+                    (openOrdersView = new RelayCommand(obj =>
+                    {
+                        MainWindow._reader.OrderList = MyHttpClient.MyHttpClient.GetOrders();
+                        ViewOrdersView();
+                    }));
+            }
+        }
+
+
+        public void ViewOrdersView()
+        {
+            MainWindow._mainFrame.Content = new Orders();
+        }
+
+        #endregion
+
         #region Личный кабинет
 
         private RelayCommand? openUserCabinet;
