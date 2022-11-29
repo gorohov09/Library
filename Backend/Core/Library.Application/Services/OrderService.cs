@@ -102,7 +102,12 @@ namespace Library.Application.Services
                     ErrorMessage = $"Пользователь с номером чит. билета {requestOrder.LibraryCard} не найден" 
                 };
 
-            var bookInstanceEnity = await _bookRepository.GetFirstInsatnceBook(requestOrder.BookISBN);
+            BookInsatnceEntity bookInstanceEnity;
+
+            if (requestOrder.TypeOrder == "ПОЛУЧЕНИЕ")
+                bookInstanceEnity = await _bookRepository.GetFirstInsatnceBook(requestOrder.BookISBN);
+            else
+                bookInstanceEnity = await _bookRepository.GetInsatnceBookById(requestOrder.BookInstanceId);
 
             //Если экземпляра книги не существует в библиотеке, то заявка не может быть оформлена
             if (bookInstanceEnity == null)
