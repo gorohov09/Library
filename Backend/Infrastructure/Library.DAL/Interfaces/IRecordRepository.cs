@@ -5,5 +5,7 @@ namespace Library.DAL.Interfaces
     public interface IRecordRepository
     {
         Task<IEnumerable<RecordEntity>> GetReadersHistory(string libraryCard);
+
+        Task<bool> SaveRecord(RecordEntity record);
     }
 }

@@ -9,5 +9,7 @@ namespace Library.Application.Interfaces
         Task<ResponseOrder> CreateOrder(RequestOrder requestOrder);
         
         Task<OrderDetailsForLibrarianVm> GetOrderDetails(int orderId);
+
+        Task<ResponseApproveOrder> ApproveOrder(RequestApproveOrder requestApproveOrder);
     }
 }
