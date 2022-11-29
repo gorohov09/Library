@@ -63,7 +63,15 @@ namespace Library.DAL.Repository
             return await _libraryContext.BookIntances
                 .FirstOrDefaultAsync(b => b.ISBN == ISBN && b.IsAvailable);
         }
-        
-        
+
+        public async Task<IEnumerable<BookEntity>> GetBooksByName(string tempalte)
+        {
+            return _libraryContext.BookInfos
+                .Where(x => x.Title.Contains(tempalte))
+                .Include(x => x.Authors)
+                .ToList();
+        }
+
+
     }
 }

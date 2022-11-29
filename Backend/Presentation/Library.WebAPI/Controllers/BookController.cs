@@ -44,5 +44,14 @@ namespace Library.WebAPI.Controllers
                 sections = await _bookService.GetBookSections()
             });
         }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchBook([FromQuery] string template)
+        {
+            return Ok(new
+            {
+                books = await _bookService.SearchBookByName(template)
+            });
+        }
     }
 }
