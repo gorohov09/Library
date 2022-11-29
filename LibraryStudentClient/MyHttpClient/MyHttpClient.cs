@@ -28,26 +28,37 @@ namespace LibraryStudentClient.MyHttpClient
             // иначе заносим в error строку ошибки
             // и возвращаем false
 
-            HttpClient Client = new HttpClient();
-
-            var request = new RequestLoginDTO
+            try
             {
-                Password = password,
-                StudentCard = studTicketNum
-            };
+                HttpClient Client = new HttpClient();
 
-            var response = Client.PostAsJsonAsync("http://localhost:5162/api/account/logIn", request)
-                .Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ResponseLoginDTO>().Result;
+                var request = new RequestLoginDTO
+                {
+                    Password = password,
+                    StudentCard = studTicketNum
+                };
 
-            if (response.IsSuccess)
+                var response = Client.PostAsJsonAsync("http://localhost:5162/api/account/logIn", request)
+                    .Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ResponseLoginDTO>().Result;
+
+                if (response.IsSuccess)
+                {
+                    currentLibraryCard = response.LibraryCard;
+                    return true;
+                }
+
+
+                error = response.Error;
+                return false;
+
+            }
+            catch (Exception)
             {
-                currentLibraryCard = response.LibraryCard;
-                return true;
+                error = "Ошибка при запросе - неполадка с сетью(";
+                return false;
             }
 
 
-            error = response.Error;
-            return false;
         }
 
         public static bool Registrate(string studTicketNum, string password, string name, string surname, string fatherName, string phoneNumber,  ref string error)
