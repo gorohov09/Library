@@ -88,8 +88,12 @@ namespace LibraryStudentClient.ViewModel
                 return viewSelectedBook ??
                     (viewSelectedBook = new RelayCommand(obj =>
                     {
-                        tempbook = MyHttpClient.MyHttpClient.GetBookByISBN(selectedBook.ISBN);
-                        ViewBookOnNewPage();
+                        if(selectedBook != null)
+                        {
+                            tempbook = MyHttpClient.MyHttpClient.GetBookByISBN(selectedBook.ISBN);
+                            ViewBookOnNewPage();
+                        }
+
                     }));
             }
         }
