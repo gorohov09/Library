@@ -8,6 +8,6 @@ namespace LibraryStudentClient.DTO
 {
     public class ReaderListDTO
     {
-        public IEnumerable<ReaderDTO> Reader { get; set; } = new List<ReaderDTO>();
+        public ReaderDTO Reader { get; set; }
     }
 }

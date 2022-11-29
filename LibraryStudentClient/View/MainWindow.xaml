@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryStudentClient"
         mc:Ignorable="d"
-        Title="Библиотека" MinHeight="500" MinWidth="800" Height="600" Width="1000">
+        Title="Библиотека" MinHeight="500" MinWidth="800" Height="725" Width="1400">
     <Window.Resources>
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>

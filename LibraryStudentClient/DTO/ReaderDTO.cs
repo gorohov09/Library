@@ -10,6 +10,7 @@ namespace LibraryStudentClient.DTO
     {
         public string LibraryCard { get; set; }
         public string FullName { get; set; }
+        public DateTime? BirtYear { get; set; }
         public string StudentCard { get; set; }
         public bool IsHasDebt { get; set; }
         public string MobilePhone { get; set; }

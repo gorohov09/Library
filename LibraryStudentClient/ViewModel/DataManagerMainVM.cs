@@ -73,6 +73,10 @@ namespace LibraryStudentClient.ViewModel
                         selectedBook = null; tempbook = null;
                         if (searchTitle != null)
                         {
+                            if (MainWindow._mainFrame.Content != MainWindow._listOfBooks)
+                            {
+                                MainWindow._mainFrame.Content = MainWindow._listOfBooks;
+                            }
                             Books = MyHttpClient.MyHttpClient.GetBooksByName(searchTitle);
                         }
 

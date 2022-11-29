@@ -8,12 +8,13 @@ namespace LibraryStudentClient.DTO
 {
     public class HistoryDTO
     {
-        public DateTime IssueDate { get; set; }
-        public DateTime? ReturnDate { get; set; }
+        public int Id { get; set; }
+        public string IssueDate { get; set; }
+        public string ReturnDate { get; set; }
         public string BookName { get; set; }
         public string BookPublisher { get; set; }
-        public string bookYear { get; set; }
+        public string BookYear { get; set; }
 
-        public IEnumerable<AuthorDTO> Authors { get; set; } = new List<AuthorDTO>();
+        public IEnumerable<AuthorDTO> BookAuthors { get; set; } = new List<AuthorDTO>();
     }
 }
