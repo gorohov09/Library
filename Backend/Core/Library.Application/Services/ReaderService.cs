@@ -57,5 +57,15 @@ namespace Library.Application.Services
 
             return ordersVm;
         }
+
+        public async Task<IEnumerable<SearchReaderInfoVm>> SearchReaders(string template, bool isSearchByCard)
+        {
+            var readers = isSearchByCard
+                ? await _readerRepository.GetReadersByLibraryCard(template)
+                : await _readerRepository.GetReadersByName(template);
+
+            return _mapper.Map<IEnumerable<SearchReaderInfoVm>>(readers);
+
+        }
     }
 }
