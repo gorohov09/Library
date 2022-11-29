@@ -25,5 +25,12 @@ namespace Library.DAL.Repository
 
             return history;
         }
+
+        public async Task<bool> SaveRecord(RecordEntity record)
+        {
+            _libraryContext.Records.Add(record);
+            await _libraryContext.SaveChangesAsync();
+            return record.Id > 0;
+        }
     }
 }

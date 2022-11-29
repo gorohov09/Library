@@ -34,6 +34,59 @@ namespace Library.Application.Services
             _mapper = mapper;
         }
 
+        public async Task<ResponseApproveOrder> ApproveOrder(RequestApproveOrder requestApproveOrder)
+        {
+            if (requestApproveOrder == null)
+                return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Неизвестная ошибка" };
+
+            var orderEntity = await _orderRepository.GetOrderById(requestApproveOrder.OrderId);
+
+            if (orderEntity == null)
+                return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Данной заявки нет" };
+
+            if (orderEntity.BookInsatnce == null || orderEntity.Reader == null)
+                return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Отсутствует читатель или книга" };
+
+            if (requestApproveOrder.IsApproved)
+            {
+                //Обработать корректность отправленной даты
+
+                var recordEntity = new RecordEntity
+                {
+                    Reader = orderEntity.Reader,
+                    BookInsatnce = orderEntity.BookInsatnce,
+                    IssueDate = DateTime.Now,
+                    ReturnDate = requestApproveOrder.ReturnDate,
+                };
+
+                var result = await _recordRepository.SaveRecord(recordEntity);
+
+                if (result)
+                {
+                    orderEntity.Status = StatusOrder.DONE;
+                    orderEntity.ExecutionDate = DateTime.Now;
+
+                    var resultUpdate = await _orderRepository.UpdateOrder(orderEntity);
+
+                    if (resultUpdate)
+                        return new ResponseApproveOrder { IsSuccess = true };
+                }
+            }
+            else
+            {
+                orderEntity.BookInsatnce.IsAvailable = true;
+                orderEntity.Status = StatusOrder.DENIED;
+                orderEntity.ExecutionDate = DateTime.Now;
+
+                var resultUpdate = await _orderRepository.UpdateOrder(orderEntity);
+
+                if (resultUpdate)
+                    return new ResponseApproveOrder { IsSuccess = true};
+            }
+
+            return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Ошибка при сохранении данных" };
+        }
+
         public async Task<ResponseOrder> CreateOrder(RequestOrder requestOrder)
         {
             if (requestOrder == null)

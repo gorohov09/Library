@@ -14,16 +14,9 @@ namespace Library.Domain.Entities
         public string ReaderID { get; set; }
 
         [Required]
-        public int LibrarianID { get; set; }
-
-        [Required]
         public DateTime IssueDate { get; set; }
 
         public DateTime ? ReturnDate { get; set; }
-
-        [Required]
-        [ForeignKey("LibrarianID")]
-        public LibrarianEntity Librarian { get; set; }
 
         [Required]
         [ForeignKey("BookId")]
@@ -32,8 +25,5 @@ namespace Library.Domain.Entities
         [Required]
         [ForeignKey("ReaderID")]
         public ReaderEntity Reader { get; set; }
-
-
-
     }
 }
