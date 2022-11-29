@@ -19,6 +19,20 @@ namespace Library.DAL.Repository
             return await _libraryContext.Readers.FirstOrDefaultAsync(r => r.LibraryCard == libraryCard);
         }
 
+        public async Task<IEnumerable<ReaderEntity>> GetReadersByLibraryCard(string cardTemplate)
+        {
+            return _libraryContext.Readers
+                .Where(x => x.LibraryCard.Contains(cardTemplate))
+                .ToList();
+        }
+
+        public async Task<IEnumerable<ReaderEntity>> GetReadersByName(string nameTemplate)
+        {
+            return _libraryContext.Readers
+                .Where(x => x.FullName.Contains(nameTemplate))
+                .ToList();
+        }
+
         public async Task<bool> IsLibraryCard(string libraryCard)
         {
             return await _libraryContext.Readers.AnyAsync(reader => reader.LibraryCard == libraryCard);

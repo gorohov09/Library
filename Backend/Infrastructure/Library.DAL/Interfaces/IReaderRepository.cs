@@ -9,5 +9,9 @@ namespace Library.DAL.Interfaces
         Task<bool> IsLibraryCard(string libraryCard);
 
         Task<ReaderEntity> GetReaderByLibraryCard(string libraryCard);
+
+        Task<IEnumerable<ReaderEntity>> GetReadersByLibraryCard(string cardTemplate);
+
+        Task<IEnumerable<ReaderEntity>> GetReadersByName(string nameTemplate);
     }
 }
