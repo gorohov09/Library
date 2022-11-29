@@ -72,6 +72,10 @@ namespace Library.DAL.Repository
                 .ToList();
         }
 
-
+        public async Task<BookInsatnceEntity> GetBookInsatnceById(int id)
+        {
+            return await _libraryContext.BookIntances
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
     }
 }
