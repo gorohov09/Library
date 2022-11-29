@@ -88,8 +88,12 @@ namespace LibraryStudentClient.ViewModel
                 return viewSelectedBook ??
                     (viewSelectedBook = new RelayCommand(obj =>
                     {
-                        tempbook = MyHttpClient.MyHttpClient.GetBookByISBN(selectedBook.ISBN);
-                        ViewBookOnNewPage();
+                        if(selectedBook != null)
+                        {
+                            tempbook = MyHttpClient.MyHttpClient.GetBookByISBN(selectedBook.ISBN);
+                            ViewBookOnNewPage();
+                        }
+
                     }));
             }
         }
@@ -111,6 +115,30 @@ namespace LibraryStudentClient.ViewModel
             MessageBox.Show(message);
         }
 
+
+        #endregion
+
+        #region Мои заявки
+
+        private RelayCommand? openOrdersView;
+        public RelayCommand OpenOrdersView
+        {
+            get
+            {
+                return openOrdersView ??
+                    (openOrdersView = new RelayCommand(obj =>
+                    {
+                        MainWindow._reader.OrderList = MyHttpClient.MyHttpClient.GetOrders();
+                        ViewOrdersView();
+                    }));
+            }
+        }
+
+
+        public void ViewOrdersView()
+        {
+            MainWindow._mainFrame.Content = new Orders();
+        }
 
         #endregion
 

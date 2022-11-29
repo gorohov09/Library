@@ -1,6 +1,12 @@
-﻿namespace Library.Application.Vm
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LibraryStudentClient.DTO
 {
-    public class OrderDetailsForReaderVm
+    public class OrderDTO
     {
         public int Id { get; set; }
         public string BookName { get; set; }
