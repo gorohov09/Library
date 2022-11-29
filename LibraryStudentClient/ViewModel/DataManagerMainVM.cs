@@ -205,6 +205,7 @@ namespace LibraryStudentClient.ViewModel
         void ShowMain()
         {
             SelectedBook = null;
+            SearchTitle = null;
             Books = MyHttpClient.MyHttpClient.GetBooks();
 
             if (MainWindow._mainFrame.Content != MainWindow._listOfBooks)          

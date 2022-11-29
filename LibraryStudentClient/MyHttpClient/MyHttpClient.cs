@@ -183,7 +183,7 @@ namespace LibraryStudentClient.MyHttpClient
 
             var result = response.Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<BookListDTO>().Result;
 
-            var books = result.BookDTO.Select(x => new Book
+            var books = result.Books.Select(x => new Book
             {
                 ISBN = x.ISBN,
                 Title = x.Title,
@@ -263,22 +263,13 @@ namespace LibraryStudentClient.MyHttpClient
         public static void GetDetailUSerInrofmation()
         {
 
-            //HttpClient Client = new HttpClient();
+            HttpClient Client = new HttpClient();
 
-            //var response = Client.GetAsync($"http://localhost:5162/api/Reader/{currentLibraryCard}");
+            var response = Client.GetAsync($"http://localhost:5162/api/Reader/{currentLibraryCard}");
 
-            //var result = response.Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ReaderListDTO>().Result;
+            var result = response.Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ReaderListDTO>().Result;
 
-            //var orders = result.ReaderDTO.Select(x => new ReaderDTO
-            //{
-            //    LibraryCard = x.LibraryCard,
-            //    FullName = x.FullName,
-            //    StudentCard = x.StudentCard,
-            //    IsHasDebt = x.IsHasDebt,
-            //    MobilePhone = x.MobilePhone,
-            //    History = x.History,
-
-            //}).ToList();
+            var orders = result.Reader;
 
             //Reader.LibraryCard = orders[0]. ;
             //Reader.StudCard = x.StudentCard;
