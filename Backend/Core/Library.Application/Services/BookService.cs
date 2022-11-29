@@ -46,5 +46,11 @@ namespace Library.Application.Services
         {
             return await _bookRepository.GetBookSections();
         }
+
+        public async Task<IEnumerable<BookDetailsVm>> SearchBookByName(string template)
+        {
+            var foundBooks = await _bookRepository.GetBooksByName(template);
+            return _mapper.Map<IEnumerable<BookDetailsVm>>(foundBooks);
+        }
     }
 }
