@@ -41,7 +41,7 @@ namespace Library.DAL.Repository
         public async Task<IEnumerable<OrderEntity>> GetReaderOrders(string libraryCard)
         {
             var orders = await _libraryContext.Orders
-                .Where(x => x.ReaderId == libraryCard)
+                .Where(x => x.ReaderId == libraryCard && x.Type == TypeOrder.ISSUE)
                 .OrderBy(x => x.CreationDate)
                 .Include(x => x.BookInsatnce)
                     .ThenInclude(x => x.BookInfo)
