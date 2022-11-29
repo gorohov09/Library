@@ -17,6 +17,14 @@ namespace LibraryStudentClient.ViewModel
     {
         #region Работа с Секциями
 
+        private string searchTitle;
+        public string SearchTitle
+        {
+            get { return searchTitle; }
+            set { searchTitle = value; NotifyPropertyChanged("SearchTitle"); }
+        }
+
+
         private List<Section> allSections = MyHttpClient.MyHttpClient.GetAllSection();
         public List<Section> AllSections 
         {
@@ -49,6 +57,30 @@ namespace LibraryStudentClient.ViewModel
             Books = MyHttpClient.MyHttpClient.GetBooks(SelectedSection.Name);
             SelectedSection = null;
         }
+
+        #endregion
+
+        #region Поиск книги
+
+        private RelayCommand? search;
+        public RelayCommand Search
+        {
+            get
+            {
+                return search ??
+                    (search = new RelayCommand(obj =>
+                    {
+                        selectedBook = null; tempbook = null;
+                        if (searchTitle != null)
+                        {
+                            Books = MyHttpClient.MyHttpClient.GetBooksByName(searchTitle);
+                        }
+
+                    }));
+            }
+        }
+
+      
 
         #endregion
 

@@ -183,10 +183,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Button Style="{DynamicResource ButtonStyle2}"  Background="#FFBBD8D8" Grid.Row="0" Grid.Column="0" FontSize="18" Command="{Binding Main}">Главная</Button>
-        <TextBox Style="{DynamicResource TextBoxStyle1}" Grid.Column="1" Background="#FFE6F1F1" FontSize="22" FontFamily="Times New Roman"/>
+        <TextBox Style="{DynamicResource TextBoxStyle1}" Text="{Binding Path=SearchTitle, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Background="#FFE6F1F1" FontSize="22" FontFamily="Times New Roman"/>
 
         <StackPanel Grid.Column="2" Orientation="Horizontal">
-            <Button Style="{DynamicResource ButtonStyle1}"  Background="#FFE6F1F1" Grid.Column="2" BorderBrush="#FFF7F5F5" FontSize="16">Поиск</Button>
+            <Button Style="{DynamicResource ButtonStyle1}"  Background="#FFE6F1F1" Grid.Column="2" BorderBrush="#FFF7F5F5" FontSize="16" Command="{Binding Search}">Поиск</Button>
             <Button Style="{DynamicResource ButtonStyle2}"  Background="#FFE6F1F1" Grid.Column="3" FontSize="14" Command="{Binding OpenOrdersView}">Мои заявки</Button>
             <Button Style="{DynamicResource ButtonStyle2}"  Background="#FFE6F1F1" Grid.Column="3" FontSize="14" Command="{Binding OpenUserCabinet}">Личный кабинет</Button>
             <Button Style="{DynamicResource ButtonStyle2}"  Background="#FFE6F1F1" Grid.Column="4" FontSize="14" Width="50" Command="{Binding GoOut}">Выход</Button>

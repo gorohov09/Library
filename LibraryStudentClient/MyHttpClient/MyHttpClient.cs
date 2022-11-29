@@ -175,6 +175,28 @@ namespace LibraryStudentClient.MyHttpClient
             return books;
         }
 
+        public static List<Book> GetBooksByName(string Title)
+        {
+            HttpClient Client = new HttpClient();
+
+            var response = Client.GetAsync($"http://localhost:5162/api/books/search?template={Title}");
+
+            var result = response.Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<BookListDTO>().Result;
+
+            var books = result.BookDTO.Select(x => new Book
+            {
+                ISBN = x.ISBN,
+                Title = x.Title,
+                Publisher = x.Publisher,
+                Year = x.Year,
+                Section = x.Section,
+                Authors = GetAuthors(x.Authors)
+
+            }).ToList();
+
+            return books;
+        }
+
         private static string GetAuthors(IEnumerable<AuthorDTO> authors)
         {
             var result = new StringBuilder();
