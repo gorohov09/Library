@@ -7,5 +7,7 @@ namespace Library.Application.Interfaces
         Task<ReaderVm> GetReaderInfo(string libraryCard);
 
         Task<IEnumerable<OrderDetailsForReaderVm>> GetReaderOrders (string libraryCard);
+
+        Task<IEnumerable<SearchReaderInfoVm>> SearchReaders(string template, bool isSearchByCard);
     }
 }

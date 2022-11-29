@@ -32,5 +32,23 @@ namespace Library.WebAPI.Controllers
                 orders = await _readerService.GetReaderOrders(libraryCard) 
             });
         }
+        
+        [HttpGet("search/bycard")]
+        public async Task<IActionResult> SearchReadersByCard([FromQuery]string template)
+        {
+            return Ok(new
+            {
+                readers = await _readerService.SearchReaders(template, true) 
+            });
+        }
+        
+        [HttpGet("search/byname")]
+        public async Task<IActionResult> SearchReadersByName([FromQuery]string template)
+        {
+            return Ok(new
+            {
+                readers = await _readerService.SearchReaders(template, false) 
+            });
+        }
     }
 }
