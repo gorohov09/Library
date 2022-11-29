@@ -11,5 +11,7 @@ namespace Library.DAL.Interfaces
         Task<IEnumerable<OrderEntity>> GetLibrarianOrders(int librarianId);
 
         Task<OrderEntity> GetOrderById(int orderId);
+
+        Task<bool> UpdateOrder(OrderEntity order);
     }
 }

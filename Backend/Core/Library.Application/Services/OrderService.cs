@@ -60,10 +60,11 @@ namespace Library.Application.Services
                     orderEntity.Status = StatusOrder.DONE;
                     orderEntity.ExecutionDate = DateTime.Now;
 
-                    return new ResponseApproveOrder { IsSuccess = true };
-                }
+                    var resultUpdate = await _orderRepository.UpdateOrder(orderEntity);
 
-                return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Ошибка при сохранении данных" };
+                    if (resultUpdate)
+                        return new ResponseApproveOrder { IsSuccess = true };
+                }
             }
             else
             {
@@ -71,10 +72,13 @@ namespace Library.Application.Services
                 orderEntity.Status = StatusOrder.DENIED;
                 orderEntity.ExecutionDate = DateTime.Now;
 
-                //Обновить данные
+                var resultUpdate = await _orderRepository.UpdateOrder(orderEntity);
 
-                return new ResponseApproveOrder { IsSuccess = true};
+                if (resultUpdate)
+                    return new ResponseApproveOrder { IsSuccess = true};
             }
+
+            return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Ошибка при сохранении данных" };
         }
 
         public async Task<ResponseOrder> CreateOrder(RequestOrder requestOrder)

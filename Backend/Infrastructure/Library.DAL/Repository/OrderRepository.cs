@@ -58,5 +58,11 @@ namespace Library.DAL.Repository
             await _libraryContext.SaveChangesAsync();
             return order;
         }
+
+        public async Task<bool> UpdateOrder(OrderEntity order)
+        {
+            _libraryContext.Update(order);
+            return (await _libraryContext.SaveChangesAsync()) > 0;
+        }
     }
 }
