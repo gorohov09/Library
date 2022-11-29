@@ -15,6 +15,8 @@ namespace LibraryStudentClient.MyHttpClient
     {
         private static string? currentLibraryCard;
 
+        #region АВТОРИЗАЦИЯ
+
         public static bool Authorizate(string studTicketNum, string password, ref string error)
         {
             // делаем запрос к серверу
@@ -93,6 +95,9 @@ namespace LibraryStudentClient.MyHttpClient
             }
         }
 
+        #endregion
+
+
         static public List<Section> GetAllSection()
         {
             HttpClient Client = new HttpClient();
@@ -130,8 +135,8 @@ namespace LibraryStudentClient.MyHttpClient
                 Publisher = result.Publisher,
                 Year = result.Year,
                 Section = result.Section,
-                Authors = GetAuthors(result.Authors),
-                Count = result.Count.ToString()               
+                Count = result.Count.ToString(),
+                Authors = GetAuthors(result.Authors)
             };
 
             return book;
@@ -169,5 +174,59 @@ namespace LibraryStudentClient.MyHttpClient
 
             return result.ToString();
         }
+
+
+        #region Работа с заявками
+
+        public static string CreateOrder(string ISBN)
+        {
+            HttpClient Client = new HttpClient();
+
+            var request = new RequestOrderDTO()
+            {
+                LibraryCard = currentLibraryCard,
+                BookISBN = ISBN
+            };
+
+            var response = Client.PostAsJsonAsync("http://localhost:5162/api/orders/create", request)
+            .Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ResponseOrderDTO>().Result;
+
+            if (response.IsSuccess)
+            {
+                return "Заяка успешно создана";
+            }
+            return response.ErrorMessage;
+        }
+
+        #endregion
+
+        #region Личный кабинет
+
+        public static void GetDetailUSerInrofmation()
+        {
+            Reader.LibraryCard = currentLibraryCard;
+            Reader.SurName = "Калеев";
+            Reader.Name = "Данил";
+            Reader.Patronimic = "Андреевич";
+            Reader.StudCard = "141418";
+            Reader.MobilePhone = "89520406725";
+            Reader.Histories = new List<History> {
+                new History { ID = "8", BookName = "Тестировка",                IssueDate = "31.10.2022", ReturnDate = null  },
+                new History { ID = "7", BookName = "Физика",                    IssueDate = "31.10.2022", ReturnDate = null  },
+                new History { ID = "6", BookName = "Программирование на C#",    IssueDate = "25.09.2022", ReturnDate = null },
+                new History { ID = "5", BookName = "Капитанская дочка",         IssueDate = "15.09.2022", ReturnDate = null  },
+                new History { ID = "3", BookName = "Есть ли смысл",             IssueDate = "8.10.2022",  ReturnDate = null  },
+                new History { ID = "2", BookName = "В осмысленности?",          IssueDate = "5.09.2022",  ReturnDate = null  },
+                new History { ID = "4", BookName = "Граф Монте-Кристо",         IssueDate = "15.10.2022", ReturnDate = "25.10.2022"  },
+                new History { ID = "1", BookName = "Война и мир",               IssueDate = "15.10.2022", ReturnDate = "25.10.2022"  },
+                new History { ID = "4", BookName = "Фантазия кончилась",        IssueDate = "5.10.2022",  ReturnDate = "18.10.2022"  },
+                new History { ID = "1", BookName = "Но главное даты",           IssueDate = "24.09.2022", ReturnDate = "18.10.2022"  },
+                new History { ID = "1", BookName = "Смотрите на них",           IssueDate = "22.09.2022", ReturnDate = "25.10.2022"  }
+                };
+            
+        }
+
+        #endregion
+
     }
 }

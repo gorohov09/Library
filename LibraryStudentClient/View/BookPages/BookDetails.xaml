@@ -23,7 +23,7 @@
 
         <Button Grid.Column="0" Grid.Row="0" Content="Назад" Command="{Binding Back}" FontSize="15" HorizontalAlignment="Left" Background="#FF3CBCBF" MaxHeight="45" VerticalAlignment="Top"/>
 
-        <Grid Grid.Column="1" DataContext="{Binding SelectedBook}" Margin="0 0 0 15">
+        <Grid Grid.Column="1" DataContext="{Binding Tempbook, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 0 15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.15*"/>
                 <RowDefinition Height="0.35*"/>

@@ -31,7 +31,7 @@ namespace LibraryStudentClient.Model
                     {
                         MainWindow._mng.GetBook();
                     },
-                    (obj) => (MainWindow._mng.SelectedBook?.Count != "0")
+                    (obj) => (MainWindow._mng.Tempbook?.Count != "0")
                     ));
             }
         }

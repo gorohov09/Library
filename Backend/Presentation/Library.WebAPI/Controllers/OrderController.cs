@@ -22,6 +22,15 @@ namespace Library.WebAPI.Controllers
             var response = await _orderService.CreateOrder(requestOrder);
             return Ok(response);    
         }
+        
+        [HttpGet("/info/{orderId}")]
+        public async Task<IActionResult> GetOrderInfo(int orderId)
+        {
+            return Ok(new
+            {
+                order = await _orderService.GetOrderDetails(orderId)
+            });
+        }
 
         [HttpPost("approve")]
         public async Task<IActionResult> ApproveOrder([FromBody] RequestApproveOrder requestApproveOrder)

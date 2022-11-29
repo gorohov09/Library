@@ -1,3 +1,4 @@
+using Library.Application.Helpers;
 using Library.Application.Interfaces;
 using Library.Application.Services;
 using Library.DAL.Context;
@@ -32,6 +33,7 @@ services.AddScoped<IAccountService, AccountService>();
 services.AddScoped<IOrderService, OrderService>();
 services.AddScoped<IReaderService, ReaderService>();
 services.AddScoped<ILibrarianService, LibrarianService>();
+services.AddScoped<IConverter, Converter>();
 
 // AutoMapper
 services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
