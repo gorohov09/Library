@@ -121,18 +121,22 @@ namespace Library.Application.Services
                     ErrorMessage = "Библиотекарей нет"
                 };
 
-            //Формирование объекта - заявка 
+             
+            if (requestOrder.TypeOrder == "ПОЛУЧЕНИЕ")
+                //Делаем экземпляр книги недоступным
+                bookInstanceEnity.IsAvailable = false;
+
+            //Формирование объекта - заявка
             var orderEntity = new OrderEntity
             {
                 BookInsatnce = bookInstanceEnity,
                 Librarian = librarianEntity,
                 Reader = readerEntity,
                 CreationDate = DateTime.Now,
-                Status = StatusOrder.WAIT
+                Status = StatusOrder.WAIT,
+                Type = requestOrder.TypeOrder == "ПОЛУЧЕНИЕ" ? TypeOrder.ISSUE : TypeOrder.RETURN
             };
 
-            //Делаем экземпляр книги недоступным
-            bookInstanceEnity.IsAvailable = false;
             orderEntity = await _orderRepository.SaveOrder(orderEntity);
 
             if (orderEntity.Id <= 0)
