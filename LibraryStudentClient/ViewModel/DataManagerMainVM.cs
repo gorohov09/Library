@@ -151,7 +151,23 @@ namespace LibraryStudentClient.ViewModel
             MessageBox.Show(message);
         }
 
+        private RelayCommand? getBookCommand;
+        public RelayCommand GetBookCommand
+        {
+            get
+            {
+                return getBookCommand ??
+                    (getBookCommand = new RelayCommand(obj =>
+                    {
+                        if (selectedBook != null)
+                        {
+                            string message = MyHttpClient.MyHttpClient.CreateOrder(selectedBook.ISBN);
+                            MessageBox.Show(message);
+                        }
 
+                    }));
+            }
+        }
         #endregion
 
         #region Мои заявки

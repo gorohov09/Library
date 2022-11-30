@@ -47,9 +47,9 @@
                     <ColumnDefinition Width="0.4*"/>
                     <ColumnDefinition Width="0.6*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Фамилия:"  FontSize="20" Grid.Row="0" Grid.Column="0" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="15 0 0 0" VerticalAlignment="Center"/>
-                <TextBlock Text="Имя:"      FontSize="20" Grid.Row="1" Grid.Column="0" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="15 0 0 0" VerticalAlignment="Center"/>
-                <TextBlock Text="Отчество:" FontSize="20" Grid.Row="2" Grid.Column="0" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="15 0 0 0" VerticalAlignment="Center"/>
+                <TextBlock Text="Фамилия:"  FontSize="20" Grid.Row="0" Grid.Column="0" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="8 0 0 0" VerticalAlignment="Center"/>
+                <TextBlock Text="Имя:"      FontSize="20" Grid.Row="1" Grid.Column="0" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="8 0 0 0" VerticalAlignment="Center"/>
+                <TextBlock Text="Отчество:" FontSize="20" Grid.Row="2" Grid.Column="0" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="8 0 0 0" VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding SurName}"     FontSize="20" Grid.Row="0" Grid.Column="1" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="10 0 0 0" VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding Name}"        FontSize="20" Grid.Row="1" Grid.Column="1" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="10 0 0 0" VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding Patronimic}"  FontSize="20" Grid.Row="2" Grid.Column="1" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="10 0 0 0" VerticalAlignment="Center"/>

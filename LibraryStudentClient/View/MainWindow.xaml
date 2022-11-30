@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryStudentClient"
         mc:Ignorable="d"
-        Title="Библиотека" MinHeight="500" MinWidth="800" Height="725" Width="1400">
+        Title="Библиотека" MinHeight="600" MinWidth="1200" Height="725" Width="1400">
     <Window.Resources>
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
@@ -186,7 +186,7 @@
         <TextBox Style="{DynamicResource TextBoxStyle1}" Text="{Binding Path=SearchTitle, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Background="#FFE6F1F1" FontSize="22" FontFamily="Times New Roman"/>
 
         <StackPanel Grid.Column="2" Orientation="Horizontal">
-            <Button Style="{DynamicResource ButtonStyle1}"  Background="#FFE6F1F1" Grid.Column="2" BorderBrush="#FFF7F5F5" FontSize="16" Command="{Binding Search}">Поиск</Button>
+            <Button Style="{DynamicResource ButtonStyle1}"  Background="#FFE6F1F1" Grid.Column="2" BorderBrush="#FFF7F5F5" FontSize="16" Command="{Binding Search}"  IsDefault = "true">Поиск</Button>
             <Button Style="{DynamicResource ButtonStyle2}"  Background="#FFE6F1F1" Grid.Column="3" FontSize="14" Command="{Binding OpenOrdersView}">Мои заявки</Button>
             <Button Style="{DynamicResource ButtonStyle2}"  Background="#FFE6F1F1" Grid.Column="3" FontSize="14" Command="{Binding OpenUserCabinet}">Личный кабинет</Button>
             <Button Style="{DynamicResource ButtonStyle2}"  Background="#FFE6F1F1" Grid.Column="4" FontSize="14" Width="50" Command="{Binding GoOut}">Выход</Button>
@@ -195,7 +195,7 @@
         <ListView Grid.Column="0" Grid.Row="1" ItemsSource="{Binding AllSections}" 
                   Background="#FFA4D2D5" SelectedItem="{Binding SelectedSection, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,0">
             <ListBox.ItemTemplate>
-                 <DataTemplate>
+                <DataTemplate>
                     <Grid>
                         <Grid.InputBindings>
                             <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ViewBooksFromSelectedSection}"/>

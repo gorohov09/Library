@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="bookimage.png" />
+    <None Remove="png-clipart-box-books-brown-comic-book.png" />
+    <None Remove="pngegg %282%29.png" />
+    <None Remove="pngegg.png" />
     <None Remove="User-Profile.png" />
   </ItemGroup>
 
@@ -20,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="bookimage.png" />
     <Resource Include="User-Profile.png" />
   </ItemGroup>
 

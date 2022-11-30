@@ -13,7 +13,7 @@
     <Grid>
         <Grid.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="Взять книгу"/>
+                <MenuItem Header="Взять книгу" Command="{Binding GetBookCommand}"/>
                 <MenuItem Header="Подробнее" Command="{Binding ViewSelectedBook}"/>
             </ContextMenu>
         </Grid.ContextMenu>
