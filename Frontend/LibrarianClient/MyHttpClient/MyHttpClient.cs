@@ -24,36 +24,47 @@ namespace LibrarianClient.MyHttpClient
             // иначе заносим в error строку ошибки
             // и возвращаем false
 
-            try
+            //try
+            //{
+            //    HttpClient Client = new HttpClient();
+
+            //    var request = new RequestLoginDTO
+            //    {
+            //        Login = login,
+            //        Password = password
+            //    };
+
+            //    var response = Client.PostAsJsonAsync("http://localhost:5162/api/account/logIn", request)
+            //        .Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ResponseLoginDTO>().Result;
+
+            //    if (response.IsSuccess)
+            //    {
+            //        currentLibrarianID = response.LibrarianID;
+            //        return true;
+            //    }
+
+
+            //    error = response.Error;
+            //    return false;
+
+            //}
+            //catch (Exception)
+            //{
+            //    error = "Ошибка при запросе - неполадка с сетью(";
+            //    return false;
+            //}
+
+
+            if (login == "admin" && password == "admin")
             {
-                HttpClient Client = new HttpClient();
-
-                var request = new RequestLoginDTO
-                {
-                    Login = login,
-                    Password = password
-                };
-
-                var response = Client.PostAsJsonAsync("http://localhost:5162/api/account/logIn", request)
-                    .Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ResponseLoginDTO>().Result;
-
-                if (response.IsSuccess)
-                {
-                    currentLibrarianID = response.LibrarianID;
-                    return true;
-                }
-
-
-                error = response.Error;
-                return false;
-
+                currentLibrarianID = "1";
+                return true;
             }
-            catch (Exception)
+            else
             {
-                error = "Ошибка при запросе - неполадка с сетью(";
+                error = "Неверный логин или пароль";
                 return false;
             }
-
 
         }
     }
