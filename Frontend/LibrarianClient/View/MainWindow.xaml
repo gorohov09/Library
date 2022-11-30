@@ -143,12 +143,7 @@
 
             <StackPanel Grid.Column="2" Orientation="Horizontal">
                 <ComboBox ItemsSource="{Binding SearchType}" SelectedItem="{Binding SelectedType}" Width="100" FontSize="16" FontFamily="Times New Roman" HorizontalAlignment="Center" SelectedIndex="0" MaxDropDownHeight="361" >
-                    <ComboBox.Background>
-                        <LinearGradientBrush EndPoint="0,1">
-                            <GradientStop Color="#FFF0F0F0"/>
-                            <GradientStop Color="#FFA6ABAB" Offset="1"/>
-                        </LinearGradientBrush>
-                    </ComboBox.Background>
+
                 </ComboBox>
                 <Button Style="{DynamicResource ButtonStyle1}" Background="#FFE6F1F1" Grid.Column="2" BorderBrush="#FFF7F5F5" FontSize="16" Command="{Binding Search}"  IsDefault = "true">Поиск</Button>
                 <Button Style="{DynamicResource ButtonStyle2}" Background="#FFE6F1F1" Grid.Column="3" FontSize="14" Command="{Binding OpenNewLibrarianWnd}">Добавить библиотекаря</Button>
