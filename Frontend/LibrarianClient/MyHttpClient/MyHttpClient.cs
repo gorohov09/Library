@@ -2,10 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Controls;
+using System.Windows.Media.Media3D;
+using System.Windows.Media;
+using System.Windows;
+using System.Xml.Linq;
 
 namespace LibrarianClient.MyHttpClient
 {
@@ -66,6 +74,11 @@ namespace LibrarianClient.MyHttpClient
                 return false;
             }
 
+        }
+
+        public static bool AddNewLibrarian(string name, string surname, string patronymic, string mobilephone, string login, string password, ref string error)
+        {
+            return true;
         }
     }
 }
