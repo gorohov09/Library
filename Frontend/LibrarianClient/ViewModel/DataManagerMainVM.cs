@@ -33,7 +33,134 @@ namespace LibrarianClient.ViewModel
 
         #endregion
 
+        #region Отображение заявок
 
+        private TabItem? selectedTabItem;
+        public TabItem SelectedTabItem
+        { 
+            get { return selectedTabItem; }
+            set { selectedTabItem = value; SelectedOrder = null; }
+        }
+
+
+        public List<Order> allOrdersToGive = new List<Order>
+        {
+            new Order
+            {
+                Id = 0,
+                LibraryCard = "505405",
+                FullName = "Check Checkovich Checkk",
+                Title = "Евгений Онегин",
+                DateOfCreation = "30.11.2022",
+                RowNumber = 15,
+                Year = "2005",
+                Publisher = "Альпина",
+                Authors = "А.С. Пушкин"
+            },
+            new Order
+            {
+                Id = 0,
+                LibraryCard = "505405",
+                FullName = "Check Checkovich Checkk",
+                Title = "Война и мир",
+                DateOfCreation = "30.11.2022",
+                RowNumber = 15,
+                Year = "2005",
+                Publisher = "Альпина",
+                Authors = "А.С. Пушкин"
+            },
+            new Order
+            {
+                Id = 0,
+                LibraryCard = "505405",
+                FullName = "Check Checkovich Checkk",
+                Title = "Евгений Онегин",
+                DateOfCreation = "30.11.2022",
+                RowNumber = 15,
+                Year = "2005",
+                Publisher = "Альпина",
+                Authors = "А.С. Пушкин"
+            }
+
+        };
+
+        public List<Order> AllOrdersToGive
+        {
+            get { return allOrdersToGive; }
+            set { allOrdersToGive = value; NotifyPropertyChanged("AllOrdersToGive"); }
+        }
+
+        public List<Order> allOrdersToReturn = new List<Order>
+        {
+            new Order
+            {
+                Id = 0,
+                LibraryCard = "505405",
+                FullName = "Check Checkovich Checkk",
+                Title = "Евгений Онегин",
+                DateOfCreation = "30.11.2022",
+                RowNumber = 15,
+                Year = "2005",
+                Publisher = "Альпина",
+                Authors = "А.С. Пушкин"
+            },
+            new Order
+            {
+                Id = 0,
+                LibraryCard = "505405",
+                FullName = "Check Checkovich Checkk",
+                Title = "Война и мир",
+                DateOfCreation = "30.11.2022",
+                RowNumber = 15,
+                Year = "2005",
+                Publisher = "Альпина",
+                Authors = "А.С. Пушкин"
+            },
+            new Order
+            {
+                Id = 0,
+                LibraryCard = "505405",
+                FullName = "Check Checkovich Checkk",
+                Title = "Евгений Онегин",
+                DateOfCreation = "30.11.2022",
+                RowNumber = 15,
+                Year = "2005",
+                Publisher = "Альпина",
+                Authors = "А.С. Пушкин"
+            }
+
+        };
+
+        public List<Order> AllOrdersToReturn
+        {
+            get { return allOrdersToReturn; }
+            set { allOrdersToReturn = value; NotifyPropertyChanged("AllOrdersToReturn"); }
+        }
+
+        private Order? selectedOrder;
+        public Order SelectedOrder
+        {
+            get { return selectedOrder; }
+            set { selectedOrder = value; NotifyPropertyChanged("SelectedOrder"); }
+        }
+
+        private RelayCommand viewInformationAboutReader;
+        public RelayCommand ViewInformationAboutReader
+        {
+            get
+            {
+                return viewInformationAboutReader ?? new RelayCommand(obj =>
+                {
+                    if (SelectedOrder != null)
+                    {
+                        MessageBox.Show(SelectedOrder.Title);
+                    }
+                }
+                );
+            }
+        }
+
+        #endregion
 
         #region Окно добавления нового библиотекаря
 

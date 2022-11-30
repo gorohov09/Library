@@ -1,0 +1,148 @@
+﻿<Page x:Class="LibrarianClient.View.OrderList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LibrarianClient.View"
+      mc:Ignorable="d" 
+      Height="Auto" Width="Auto" MinHeight="400" MinWidth="620"
+      Title="OrderList">
+
+    <Grid Margin="0,20,0,-20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0" SelectedItem="{Binding SelectedTabItem}" Margin="20,0,0,-15">
+            <TabControl.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0.006"/>
+                    <GradientStop Color="Black" Offset="1"/>
+                    <GradientStop Color="#FF60C0CC" Offset="0.567"/>
+                    <GradientStop Color="#FF1D4E69" Offset="0.994"/>
+                    <GradientStop Color="#FFBBD8D8" Offset="0.087"/>
+                </LinearGradientBrush>
+            </TabControl.Background>
+
+            <TabItem Name="OrderToGive" FontFamily="Times New Roman" FontSize="16">
+
+                <TabItem.Header>
+                    <TextBlock Text="Заявки на выдачу книг"/>
+                </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Открыть информацию о читателе" Command="{Binding ViewInformationAboutReader}"/>
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+
+                <ListView x:Name="ViewAllStaffs" ItemsSource="{Binding AllOrdersToGive}"
+                          SelectedItem="{Binding SelectedOrder}">
+                    <ListView.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White" Offset="0.006"/>
+                            <GradientStop Color="Black" Offset="1"/>
+                            <GradientStop Color="#FF60C0CC" Offset="0.567"/>
+                            <GradientStop Color="#FF1D4E69" Offset="0.994"/>
+                            <GradientStop Color="#FFBBD8D8" Offset="0.087"/>
+                        </LinearGradientBrush>
+                    </ListView.Background>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ФИО"
+                                            Width="250"
+                                            DisplayMemberBinding="{Binding Path=FullName}"/>
+                            <GridViewColumn Header="Название книги"
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding Path=Title}"/>
+                            <GridViewColumn Header="Время создания заявки"
+                                            Width="170"
+                                            DisplayMemberBinding="{Binding Path=DateOfCreation}"/>
+                            <GridViewColumn Header="Ряд"
+                                            Width="50"
+                                            DisplayMemberBinding="{Binding Path=RowNumber}"/>
+                            <GridViewColumn Header="Издатель"
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding Path=Publisher}"/>
+                            <GridViewColumn Header="Год издания"
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding Path=Year}"/>
+                            <GridViewColumn Header="Авторы"
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding Path=Authors}"/>
+                            <GridViewColumn Header="" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="ReturnBookBtn" Width="80" Content="Одобрить" Command="{Binding Returnbook}" FontSize="16" Background="#FF00FFB3" FontFamily="Times New Roman"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="ReturnBookBtn" Width="80" Content="Отказать" Command="{Binding Returnbook}" FontSize="16" Background="#FFFF0808" FontFamily="Times New Roman"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+            <TabItem Name="OrdersToReturn"  FontFamily="Times New Roman" FontSize="16">
+                <TabItem.Header>
+                    <TextBlock Text="Заявки на возврат книг" />
+                </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Открыть информацию о читателе" Command="{Binding ViewInformationAboutReader}"/>
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+
+                <ListView x:Name="ViewAllreturnOrders" ItemsSource="{Binding AllOrdersToReturn}"
+                          SelectedItem="{Binding SelectedOrder}">
+                    <ListView.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White" Offset="0.006"/>
+                            <GradientStop Color="Black" Offset="1"/>
+                            <GradientStop Color="#FF60C0CC" Offset="0.567"/>
+                            <GradientStop Color="#FF1D4E69" Offset="0.994"/>
+                            <GradientStop Color="#FFBBD8D8" Offset="0.087"/>
+                        </LinearGradientBrush>
+                    </ListView.Background>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ФИО"
+                                            Width="250"
+                                            DisplayMemberBinding="{Binding Path=FullName}"/>
+                            <GridViewColumn Header="Название книги"
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding Path=Title}"/>
+                            <GridViewColumn Header="Время создания заявки"
+                                            Width="170"
+                                            DisplayMemberBinding="{Binding Path=DateOfCreation}"/>
+                            <GridViewColumn Header="Ряд"
+                                            Width="50"
+                                            DisplayMemberBinding="{Binding Path=RowNumber}"/>
+                            <GridViewColumn Header="Издатель"
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding Path=Publisher}"/>
+                            <GridViewColumn Header="Год издания"
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding Path=Year}"/>
+                            <GridViewColumn Header="Авторы"
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding Path=Authors}"/>
+                            <GridViewColumn Header="" Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="ReturnBookBtn" Width="130" Content="Принять" Command="{Binding Returnbook}" FontSize="16" Background="#FF00FFB3"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

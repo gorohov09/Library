@@ -30,21 +30,24 @@ namespace LibrarianClient.View
         public static DataManagerMainVM _mng { get; set; }
         public static Frame _mainFrame { get; set; }
 
+        public static OrderList orders { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
 
             // Определяем контекст данных
             _mng = new DataManagerMainVM();
+            _mng.SelectedType = _mng.SearchType[0];
 
             DataContext = _mng;
 
             _mainFrame = this.MainFrame;
             _window = this;
 
-            //// Создаем страницу отображения данных
-            //_listOfBooks = new BookPages.ListOfBooks();
-            //_mainFrame.Content = _listOfBooks;
+            // Создаем страницу отображения данных
+            orders = new OrderList();
+            _mainFrame.Content = orders;
         }
     }
 }
