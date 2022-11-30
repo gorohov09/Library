@@ -272,6 +272,7 @@ namespace LibraryStudentClient.MyHttpClient
             var answer = result.Reader;
 
             Reader.LibraryCard  = answer.LibraryCard;
+            Reader.StudCard     = answer.StudentCard;
             Reader.SurName      = answer.FullName.Split()[0];
             Reader.Name         = answer.FullName.Split()[1];
             Reader.Patronimic   = answer.FullName.Split()[2];
