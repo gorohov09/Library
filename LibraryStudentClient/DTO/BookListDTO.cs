@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace LibraryStudentClient.DTO
 {
-    public class ReaderListDTO
+    public class BookListDTO
     {
-        public ReaderDTO Reader { get; set; }
+        public List<BookDTO> Books { get; set; } = new List<BookDTO>();
     }
 }

@@ -17,6 +17,14 @@ namespace LibraryStudentClient.ViewModel
     {
         #region Работа с Секциями
 
+        private string searchTitle;
+        public string SearchTitle
+        {
+            get { return searchTitle; }
+            set { searchTitle = value; NotifyPropertyChanged("SearchTitle"); }
+        }
+
+
         private List<Section> allSections = MyHttpClient.MyHttpClient.GetAllSection();
         public List<Section> AllSections 
         {
@@ -49,6 +57,34 @@ namespace LibraryStudentClient.ViewModel
             Books = MyHttpClient.MyHttpClient.GetBooks(SelectedSection.Name);
             SelectedSection = null;
         }
+
+        #endregion
+
+        #region Поиск книги
+
+        private RelayCommand? search;
+        public RelayCommand Search
+        {
+            get
+            {
+                return search ??
+                    (search = new RelayCommand(obj =>
+                    {
+                        selectedBook = null; tempbook = null;
+                        if (searchTitle != null)
+                        {
+                            if (MainWindow._mainFrame.Content != MainWindow._listOfBooks)
+                            {
+                                MainWindow._mainFrame.Content = MainWindow._listOfBooks;
+                            }
+                            Books = MyHttpClient.MyHttpClient.GetBooksByName(searchTitle);
+                        }
+
+                    }));
+            }
+        }
+
+      
 
         #endregion
 
@@ -115,7 +151,23 @@ namespace LibraryStudentClient.ViewModel
             MessageBox.Show(message);
         }
 
+        private RelayCommand? getBookCommand;
+        public RelayCommand GetBookCommand
+        {
+            get
+            {
+                return getBookCommand ??
+                    (getBookCommand = new RelayCommand(obj =>
+                    {
+                        if (selectedBook != null)
+                        {
+                            string message = MyHttpClient.MyHttpClient.CreateOrder(selectedBook.ISBN);
+                            MessageBox.Show(message);
+                        }
 
+                    }));
+            }
+        }
         #endregion
 
         #region Мои заявки
@@ -173,6 +225,7 @@ namespace LibraryStudentClient.ViewModel
         void ShowMain()
         {
             SelectedBook = null;
+            SearchTitle = null;
             Books = MyHttpClient.MyHttpClient.GetBooks();
 
             if (MainWindow._mainFrame.Content != MainWindow._listOfBooks)          

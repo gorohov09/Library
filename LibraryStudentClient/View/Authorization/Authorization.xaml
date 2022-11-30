@@ -28,7 +28,7 @@
             <TextBox Width="150" Background="#FFCDE0DA" FontSize="14" Text="{Binding StudTicketNum, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock  Text="Пароль" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
             <TextBox Width="150" Background="#FFCDE0DA" FontSize="14" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Height="28" FontSize="16" Width="80" Background="#FF7BC9D8" Margin="0,2,0,0" Command="{Binding Authorization}">Войти</Button>
+            <Button Height="28" FontSize="16" Width="80" Background="#FF7BC9D8" Margin="0,2,0,0" Command="{Binding Authorization}" IsDefault = "true">Войти</Button>
             <Button Height="23" FontSize="14" Width="100" Background="#FF999FA0" Margin="0,4,0,0" Opacity="0.5" Command="{Binding OpenRegistration}">Регистрация</Button>
             <TextBlock x:Name="ErrorBlock" Width="300" Text="{Binding Errorlog, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="14" Foreground="Red"/>
             

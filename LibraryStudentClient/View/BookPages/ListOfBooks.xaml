@@ -13,7 +13,7 @@
     <Grid>
         <Grid.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="Взять книгу"/>
+                <MenuItem Header="Взять книгу" Command="{Binding GetBookCommand}"/>
                 <MenuItem Header="Подробнее" Command="{Binding ViewSelectedBook}"/>
             </ContextMenu>
         </Grid.ContextMenu>
@@ -41,10 +41,10 @@
             </ListView.Background>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header = "Название книги" DisplayMemberBinding="{Binding Path=Title}"/>
-                    <GridViewColumn Header = "Раздел" DisplayMemberBinding="{Binding Path=Section}"/>
-                    <GridViewColumn Header = "Авторы" DisplayMemberBinding="{Binding Path=Authors}" />
-                    <GridViewColumn Header = "Издатель" DisplayMemberBinding="{Binding Path=Publisher}"/>
+                    <GridViewColumn Width="200" Header = "Название книги" DisplayMemberBinding="{Binding Path=Title}"/>
+                    <GridViewColumn Width="200" Header = "Раздел" DisplayMemberBinding="{Binding Path=Section}"/>
+                    <GridViewColumn Width="250" Header = "Авторы" DisplayMemberBinding="{Binding Path=Authors}" />
+                    <GridViewColumn Width="170" Header = "Издатель" DisplayMemberBinding="{Binding Path=Publisher}"/>
                     <GridViewColumn Header = "Год издания" DisplayMemberBinding="{Binding Path=Year}"/>
                 </GridView>
             </ListView.View>

@@ -51,7 +51,7 @@ namespace LibraryStudentClient.ViewModel
 
         public void ReturnBook()
         {
-            SelectedRecord.ReturnDate = DateTime.Today.ToString("d");
+            SelectedRecord.ReturnDate = DateTime.Today.ToString();
             UserCabinet.view.Items.Refresh();
 
         }
