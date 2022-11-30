@@ -164,9 +164,9 @@ namespace LibrarianClient.ViewModel
 
         #region Окно добавления нового библиотекаря
 
-        private AddNewLibrarianWnd newLibrarianWindow;
+        private AddNewLibrarianWnd? newLibrarianWindow;
 
-        private RelayCommand openNewLibrarianWnd;
+        private RelayCommand? openNewLibrarianWnd;
         public RelayCommand OpenNewLibrarianWnd
         {
             get
@@ -188,7 +188,7 @@ namespace LibrarianClient.ViewModel
             Password = "";
 
             newLibrarianWindow = new AddNewLibrarianWnd();
-            newLibrarianWindow.Owner = Application.Current.MainWindow;
+            newLibrarianWindow.Owner = MainWindow._window;
             newLibrarianWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             newLibrarianWindow.ShowDialog();
 
