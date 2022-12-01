@@ -57,12 +57,6 @@ namespace LibraryStudentClient.ViewModel
         }
         #endregion
 
-        #region Блок Мои заявки
-
-        public List<Order> OrderList { get; set; }
-
-        #endregion
-
         public event PropertyChangedEventHandler? PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
         {

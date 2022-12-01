@@ -56,6 +56,7 @@ namespace LibraryStudentClient.ViewModel
 
             Books = MyHttpClient.MyHttpClient.GetBooks(SelectedSection.Name);
             SelectedSection = null;
+            RefreshDataAndAlertAboutIt();
         }
 
         #endregion
@@ -70,6 +71,7 @@ namespace LibraryStudentClient.ViewModel
                 return search ??
                     (search = new RelayCommand(obj =>
                     {
+                        RefreshDataAndAlertAboutIt();
                         selectedBook = null; tempbook = null;
                         if (searchTitle != null)
                         {
@@ -124,12 +126,12 @@ namespace LibraryStudentClient.ViewModel
                 return viewSelectedBook ??
                     (viewSelectedBook = new RelayCommand(obj =>
                     {
-                        if(selectedBook != null)
+                        if (selectedBook != null)
                         {
                             tempbook = MyHttpClient.MyHttpClient.GetBookByISBN(selectedBook.ISBN);
                             ViewBookOnNewPage();
                         }
-
+                        RefreshDataAndAlertAboutIt();
                     }));
             }
         }
@@ -164,6 +166,7 @@ namespace LibraryStudentClient.ViewModel
                             string message = MyHttpClient.MyHttpClient.CreateOrder(selectedBook.ISBN);
                             MessageBox.Show(message);
                         }
+                        RefreshDataAndAlertAboutIt();
 
                     }));
             }
@@ -171,6 +174,15 @@ namespace LibraryStudentClient.ViewModel
         #endregion
 
         #region Мои заявки
+
+        private List<Order> orderList;
+        public List<Order> OrderList
+        {
+            get { return orderList; }
+            set { orderList = value; NotifyPropertyChanged("OrderList"); }
+        }
+
+
 
         private RelayCommand? openOrdersView;
         public RelayCommand OpenOrdersView
@@ -180,7 +192,7 @@ namespace LibraryStudentClient.ViewModel
                 return openOrdersView ??
                     (openOrdersView = new RelayCommand(obj =>
                     {
-                        MainWindow._reader.OrderList = MyHttpClient.MyHttpClient.GetOrders();
+                        RefreshDataAndAlertAboutIt();
                         ViewOrdersView();
                     }));
             }
@@ -204,6 +216,7 @@ namespace LibraryStudentClient.ViewModel
                 return openUserCabinet ??
                     (openUserCabinet = new RelayCommand(obj =>
                     {
+                        RefreshDataAndAlertAboutIt();
                         MyHttpClient.MyHttpClient.GetDetailUSerInrofmation();
                         ViewUserCabinet();
                     }));
@@ -242,6 +255,7 @@ namespace LibraryStudentClient.ViewModel
             {
                 return goOut ?? new RelayCommand(obj =>
                 {
+                    RefreshDataAndAlertAboutIt();
                     ShowMain();
                 }
                 );
@@ -288,6 +302,7 @@ namespace LibraryStudentClient.ViewModel
                 return back ??
                     (back = new RelayCommand(obj =>
                     {
+                        RefreshDataAndAlertAboutIt();
                         SelectedSection = null;
                         returnToMainPage();
                     }));
@@ -297,6 +312,51 @@ namespace LibraryStudentClient.ViewModel
         public void returnToMainPage()
         {
             MainWindow._mainFrame.Content = MainWindow._listOfBooks;
+        }
+
+        #endregion
+
+        #region Самое сложное - оповещение читателя об изменении статуса заявки
+
+        void RefreshDataAndAlertAboutIt()
+        {
+            var oldList = OrderList;
+            OrderList = MyHttpClient.MyHttpClient.GetOrders();
+            
+            int iterator = 0;
+            while (iterator != oldList.Count)
+            {
+                var item = oldList[iterator];
+                var temp = OrderList.Find(p => p.Id == item.Id);
+                if (temp.Status == item.Status && temp != null)
+                {
+                    oldList.Remove(item);
+                }
+                else
+                {
+                    iterator++;
+                }
+            }
+            if (iterator != 0)
+            {
+                for (int i = 0; i < iterator; i++)
+                {
+                    var temp = OrderList.Find(p => p.Id == oldList[i].Id);
+                    if (temp != null)
+                    {
+                        string resultString = $"Внимание ваша заявка #{temp.Id} на книгу {temp.Title}\nАвторов: {temp.Authors}\nИздателя: {temp.Publisher}\nГода: {temp.Year}\nот {temp.DateOfCreate}\nизменила свой статус на ";
+                        if (temp.Status == "Выполнено")
+                        {
+                            resultString += "Выполнено\nПодойдите, пожалуйста, к библиотекарю, чтобы получить книгу.";
+                        }
+                        else if (temp.Status == "Отказано")
+                        {
+                            resultString += "Отказано\nБиблиотекарь отказал в выдаче Вам этой книги, вероятнее всего у вас есть долги.";
+                        }
+                        MessageBox.Show(resultString);
+                    }
+                }
+            }
         }
 
         #endregion
