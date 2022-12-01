@@ -117,6 +117,7 @@ namespace Library.Application.Services
             {
                 var historyEntity = await _recordRepository.GetRecordById(requestOrder.HistoryId);
                 bookInstanceEnity = await _bookRepository.GetInsatnceBookById(historyEntity.BookId);
+                historyEntity.ReturnDate = new DateTime(1970, 1, 1);
             }
                 
 
