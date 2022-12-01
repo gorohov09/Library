@@ -174,7 +174,7 @@ namespace LibrarianClient.MyHttpClient
 
         #endregion
 
-        #region Добавление нового читателя
+        #region Добавление нового библиотекаря
     
         public static bool AddNewLibrarian(string name, string surname, string patronymic, string mobilephone, string login, string password, ref string error)
         {
@@ -198,9 +198,7 @@ namespace LibrarianClient.MyHttpClient
         #endregion
 
 
-        #region Личный кабинет
-
-
+        #region Подробная информация о читателе
 
         public static void GetDetailUSerInrofmation(string LibraryCard)
         {

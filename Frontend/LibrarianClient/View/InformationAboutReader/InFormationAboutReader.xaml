@@ -23,7 +23,7 @@
             <RowDefinition Height="0.6*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="1" Text="Информация о читателе" FontSize="24" HorizontalAlignment="Center" Foreground="#FF540E0E" FontFamily="Times New Roman" Margin="0,0,80,0"/>
@@ -50,9 +50,9 @@
                 <TextBlock Text="Фамилия:"  FontSize="20" Grid.Row="0" Grid.Column="0" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="8 0 0 0" VerticalAlignment="Center"/>
                 <TextBlock Text="Имя:"      FontSize="20" Grid.Row="1" Grid.Column="0" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="8 0 0 0" VerticalAlignment="Center"/>
                 <TextBlock Text="Отчество:" FontSize="20" Grid.Row="2" Grid.Column="0" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="8 0 0 0" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding SurName}"     FontSize="20" Grid.Row="0" Grid.Column="1" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="10 0 0 0" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding Name}"        FontSize="20" Grid.Row="1" Grid.Column="1" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="10 0 0 0" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding Patronimic}"  FontSize="20" Grid.Row="2" Grid.Column="1" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="10 0 0 0" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding ReaderSurName}"     FontSize="20" Grid.Row="0" Grid.Column="1" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="10 0 0 0" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding ReaderName}"        FontSize="20" Grid.Row="1" Grid.Column="1" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="10 0 0 0" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding ReaderPatronimic}"  FontSize="20" Grid.Row="2" Grid.Column="1" Foreground="#FFFBFBFB" HorizontalAlignment="Left"  Margin="10 0 0 0" VerticalAlignment="Center"/>
             </Grid>
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
@@ -68,19 +68,18 @@
                 <TextBlock Text="Мобильный телефон:"            FontSize="16" Grid.Row="0" Grid.Column="0" Foreground="#FFFBFBFB" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="10 0 0 0" TextWrapping="Wrap"/>
                 <TextBlock Text="Номер студ.билета:"            FontSize="16" Grid.Row="1" Grid.Column="0" Foreground="#FFFBFBFB" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="10 0 0 0" TextWrapping="Wrap"/>
                 <TextBlock Text="Номер читательского билета:"   FontSize="16" Grid.Row="2" Grid.Column="0" Foreground="#FFFBFBFB" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="10 0 0 0" TextWrapping="Wrap"/>
-                <TextBlock Text="{Binding MobilePhone}"     FontSize="20" Grid.Row="0" Grid.Column="1" Foreground="#FFFBFBFB" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding StudCard}"        FontSize="20" Grid.Row="1" Grid.Column="1" Foreground="#FFFBFBFB" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding LibraryCard}"     FontSize="20" Grid.Row="2" Grid.Column="1" Foreground="#FFFBFBFB" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding ReaderMobilePhone}"     FontSize="20" Grid.Row="0" Grid.Column="1" Foreground="#FFFBFBFB" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding ReaderStudCard}"        FontSize="20" Grid.Row="1" Grid.Column="1" Foreground="#FFFBFBFB" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding ReaderLibraryCard}"     FontSize="20" Grid.Row="2" Grid.Column="1" Foreground="#FFFBFBFB" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </Grid>
         </Grid>
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="История" HorizontalAlignment="Left" FontSize="20" Foreground="White" Margin="20,0,0,0"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="История Читателя" HorizontalAlignment="Left" FontSize="20" Foreground="White" Margin="20,0,0,0"/>
         <Grid Grid.Row="3" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0.2*" MaxWidth="245"/>
             </Grid.ColumnDefinitions>
-            <ListView x:Name="ViewOfHistory" ItemsSource = "{Binding HistoryList, UpdateSourceTrigger=PropertyChanged}" Foreground="#FF042271" FontSize="18" Margin="7,10,0,20"
-                      SelectedItem="{Binding SelectedRecord, UpdateSourceTrigger=PropertyChanged}" >
+            <ListView x:Name="ViewOfHistory" ItemsSource = "{Binding ReaderHistoryList, UpdateSourceTrigger=PropertyChanged}" Foreground="#FF042271" FontSize="18" Margin="7,10,0,20">
                 <ListView.Background>
                     <LinearGradientBrush EndPoint = "0.5,1" StartPoint="0.5,0">
                         <GradientStop Color = "White" Offset="0.006"/>

@@ -2,6 +2,7 @@
 using LibrarianClient.View;
 using LibrarianClient.View.AddNewLibrarian;
 using LibrarianClient.View.Authorization;
+using LibrarianClient.View.InformationAboutReader;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,8 @@ namespace LibrarianClient.ViewModel
 {
     public class DataManagerMainVM : INotifyPropertyChanged
     {
+        #region Работа с читателем
+
         #region Поиск читателя
 
         private List<string> searchType = new List<string> { "чит. билет", "ФИО",};
@@ -30,8 +33,69 @@ namespace LibrarianClient.ViewModel
             get { return selectedType; }
             set { selectedType = value; NotifyPropertyChanged("SelectedType"); }
         }
+        #endregion
+
+        #region Подробная информация о читателе
+
+        public string ReaderName
+        {
+            get { return Reader.Name; }
+        }
+        public string ReaderSurName
+        {
+            get { return Reader.SurName; }
+        }
+        public string ReaderPatronimic
+        {
+            get { return Reader.Patronimic; }
+        }
+        public string ReaderLibraryCard
+        {
+            get { return Reader.LibraryCard; }
+        }
+        public string ReaderMobilePhone
+        {
+            get { return Reader.MobilePhone; }
+        }
+        public string ReaderStudCard
+        {
+            get { return Reader.StudCard; }
+        }
+        public List<History> ReaderHistoryList
+        {
+            get { return Reader.Histories; }
+            set { Reader.Histories = value; NotifyPropertyChanged("HistoryList"); }
+        }
+
+        private RelayCommand viewInformationAboutReader;
+        public RelayCommand ViewInformationAboutReader
+        {
+            get
+            {
+                return viewInformationAboutReader ?? new RelayCommand(obj =>
+                {
+                    if (SelectedOrder != null)
+                    {
+                        //MyHttpClient.MyHttpClient.GetDetailUSerInrofmation(SelectedOrder.LibraryCard);
+                        MyHttpClient.MyHttpClient.GetDetailUSerInrofmation("505405");
+                        ViewReaderDetailInformation();
+                    }
+                }
+                );
+            }
+        }
+
+        public void ViewReaderDetailInformation()
+        {
+            MainWindow._mainFrame.Content = new InFormationAboutReader();
+        }
 
         #endregion
+
+
+        #endregion
+
+        #region Заявки
 
         #region Отображение заявок
 
@@ -66,21 +130,7 @@ namespace LibrarianClient.ViewModel
             set { selectedOrder = value; NotifyPropertyChanged("SelectedOrder"); }
         }
 
-        private RelayCommand viewInformationAboutReader;
-        public RelayCommand ViewInformationAboutReader
-        {
-            get
-            {
-                return viewInformationAboutReader ?? new RelayCommand(obj =>
-                {
-                    if (SelectedOrder != null)
-                    {
-                        MessageBox.Show(SelectedOrder.Title);
-                    }
-                }
-                );
-            }
-        }
+
 
         public void RefreshLists()
         {
@@ -88,6 +138,18 @@ namespace LibrarianClient.ViewModel
             AllOrdersToReturn = MyHttpClient.MyHttpClient.GetOrders("ToReturn");
         }
 
+
+        #endregion
+
+        public void Approve()
+        {
+
+        }
+
+        public void DisApprove()
+        {
+
+        }
 
         #endregion
 

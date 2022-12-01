@@ -8,7 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="View\InformationAboutReader\User-Profile.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="View\Search\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\InformationAboutReader\User-Profile.png" />
   </ItemGroup>
 
 </Project>

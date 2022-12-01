@@ -23,6 +23,7 @@ namespace LibrarianClient.View.InformationAboutReader
         public InFormationAboutReader()
         {
             InitializeComponent();
+            DataContext = MainWindow._mng;
         }
     }
 }

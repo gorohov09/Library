@@ -72,14 +72,14 @@
                             <GridViewColumn Header="" Width="100">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="ReturnBookBtn" Width="80" Content="Одобрить" Command="{Binding Returnbook}" FontSize="16" Background="#FF00FFB3" FontFamily="Times New Roman"/>
+                                        <Button x:Name="ApproveGiveBtn" Width="80" Content="Одобрить" Command="{Binding Approve}" FontSize="16" Background="#FF00FFB3" FontFamily="Times New Roman"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="" Width="100">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="ReturnBookBtn" Width="80" Content="Отказать" Command="{Binding Returnbook}" FontSize="16" Background="#FFFF0808" FontFamily="Times New Roman"/>
+                                        <Button x:Name="DisApproveGiveBtn" Width="80" Content="Отказать" Command="{Binding DisApprove}" FontSize="16" Background="#FFFF0808" FontFamily="Times New Roman"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -135,7 +135,7 @@
                             <GridViewColumn Header="" Width="150">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="ReturnBookBtn" Width="130" Content="Принять" Command="{Binding Returnbook}" FontSize="16" Background="#FF00FFB3"/>
+                                        <Button x:Name="AproveReturnBookBtn" Width="130" Content="Принять" Command="{Binding Approve}" FontSize="16" Background="#FF00FFB3"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
