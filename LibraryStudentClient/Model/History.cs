@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace LibraryStudentClient.Model
 {
@@ -25,8 +26,8 @@ namespace LibraryStudentClient.Model
                 return returnbook ??
                     (returnbook = new RelayCommand(obj =>
                     {
-                        MainWindow._reader.SelectedRecord = this;
-                        MainWindow._reader.ReturnBook();
+                        string message = MyHttpClient.MyHttpClient.CreateOrder(null, this.ID);
+                        MessageBox.Show(message);
                     },
                     (obj) => (ReturnDate is null)
                     ));
