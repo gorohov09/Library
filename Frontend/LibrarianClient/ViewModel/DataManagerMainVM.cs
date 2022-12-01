@@ -21,11 +21,21 @@ namespace LibrarianClient.ViewModel
 
         #region Поиск читателя
 
-        private List<string> searchType = new List<string> { "чит. билет", "ФИО",};
+
+        private string searchTitle = "";
+        public string SearchTitle
+        {
+            get { return searchTitle; }
+            set { searchTitle = value; NotifyPropertyChanged("SearchTitle"); }
+        }
+
+
+        private List<string> searchType = new List<string> { "ФИО", "чит. билет"};
         public List<string> SearchType
         {
             get { return searchType; }
         }
+
 
         private string selectedType;
         public string SelectedType
@@ -33,6 +43,44 @@ namespace LibrarianClient.ViewModel
             get { return selectedType; }
             set { selectedType = value; NotifyPropertyChanged("SelectedType"); }
         }
+
+
+        private SearchReaderClass selectedSearchReader;
+        public SearchReaderClass SelectedSearchReader
+        {
+            get { return selectedSearchReader; }
+            set { selectedSearchReader = value; NotifyPropertyChanged("SelectedSearchReader"); }
+        }
+
+
+        private List<SearchReaderClass> searchReaderlst;
+        public List<SearchReaderClass> SearchReaderlst
+        {
+            get { return searchReaderlst; }
+            set { searchReaderlst = value; NotifyPropertyChanged("SearchReaderlst"); }
+        }
+
+
+        private RelayCommand search;
+        public RelayCommand Search
+        {
+            get
+            {
+                return search ?? new RelayCommand(obj =>
+                {
+                    if (SearchTitle != "" && SearchTitle.Replace(" ", "").Length != 0)
+                    {
+
+                        MainWindow._mainFrame.Content = MainWindow._searchReaderView;
+                        SearchReaderlst = MyHttpClient.MyHttpClient.GetReadersList(SearchTitle, SelectedType);
+                    }
+                }
+                );
+            }
+        }
+
+
+
         #endregion
 
         #region Подробная информация о читателе
@@ -88,6 +136,24 @@ namespace LibrarianClient.ViewModel
         public void ViewReaderDetailInformation()
         {
             MainWindow._mainFrame.Content = new InFormationAboutReader();
+        }
+
+
+        private RelayCommand? viewInformationAboutReaderFromSearch;
+        public RelayCommand ViewInformationAboutReaderFromSearch
+        {
+            get
+            {
+                return viewInformationAboutReaderFromSearch ??
+                    (viewInformationAboutReaderFromSearch = new RelayCommand(obj =>
+                    {
+                        if (selectedSearchReader != null)
+                        {
+                            MyHttpClient.MyHttpClient.GetDetailUSerInrofmation(selectedSearchReader.LibraryCard);
+                            MainWindow._mainFrame.Content = new InFormationAboutReader();
+                        }
+                    }));
+            }
         }
 
         #endregion
@@ -315,6 +381,24 @@ namespace LibrarianClient.ViewModel
                 {
                     Exit();
                     MainWindow._window.Close();
+                }
+                );
+            }
+        }
+
+        #endregion
+
+        #region Кнопка "Главная"
+
+        private RelayCommand main;
+        public RelayCommand Main
+        {
+            get
+            {
+                return main ?? new RelayCommand(obj =>
+                {
+                    RefreshLists();
+                    MainWindow._mainFrame.Content = MainWindow.orders;
                 }
                 );
             }

@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="View\Search\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="View\InformationAboutReader\User-Profile.png" />
   </ItemGroup>
 

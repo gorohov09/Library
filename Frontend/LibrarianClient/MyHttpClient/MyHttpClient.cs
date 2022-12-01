@@ -197,6 +197,29 @@ namespace LibrarianClient.MyHttpClient
 
         #endregion
 
+        #region Поиск читателя
+
+        public static List<SearchReaderClass> GetReadersList(string searchstr, string howSearch)
+        {
+            HttpClient Client = new HttpClient();
+            Task<HttpResponseMessage>? response = null;
+
+            if (howSearch == "ФИО")
+            {
+                response = Client.GetAsync($"http://localhost:5162/api/Reader/search/byname?template={searchstr}");
+            }
+            else
+            {
+                response = Client.GetAsync($"http://localhost:5162/api/Reader/search/bycard?template={searchstr}");
+            }
+
+            var result = response.Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<SearchReaderDTO>().Result;
+
+            return result.Readers;
+
+        }
+
+        #endregion
 
         #region Подробная информация о читателе
 
