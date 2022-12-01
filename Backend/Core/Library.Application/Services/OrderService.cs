@@ -117,16 +117,6 @@ namespace Library.Application.Services
                     IsSuccess = false,
                     ErrorMessage = $"Экземпляр книги с ISBN {requestOrder.BookISBN} не найден"
                 };
-
-            //Если библиотекаря нет - заявка не может быть сформирована
-            var librarianEntity = await _librarianRepository.GetFirstLibrarian();
-            if (librarianEntity == null)
-                return new ResponseOrder
-                {
-                    IsSuccess = false,
-                    ErrorMessage = "Библиотекарей нет"
-                };
-
              
             if (requestOrder.TypeOrder == "ПОЛУЧЕНИЕ")
                 //Делаем экземпляр книги недоступным
@@ -136,7 +126,6 @@ namespace Library.Application.Services
             var orderEntity = new OrderEntity
             {
                 BookInsatnce = bookInstanceEnity,
-                Librarian = librarianEntity,
                 Reader = readerEntity,
                 CreationDate = DateTime.Now,
                 Status = StatusOrder.WAIT,
