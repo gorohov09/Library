@@ -24,12 +24,20 @@ namespace Library.Application.Services
             _converter = converter;
         }
 
-        public async Task<IEnumerable<BriefOrderInfoForLibrarians>> GetLibrarianOrders(int librarianId)
+        public async Task<IEnumerable<BriefOrderInfoForLibrarians>> GetLibrarianOrders(string typeOrders)
         {
-            var librariansOrders = await _orderRepository.GetLibrarianOrders(librarianId);
-            var ordersVm = _mapper.Map<IEnumerable<BriefOrderInfoForLibrarians>>(librariansOrders);
+            IEnumerable<OrderEntity> listOrdersEntity;
 
-            foreach (var order in librariansOrders.Zip(ordersVm, (e,v) => new {Entity = e, Vm = v}))
+            if (typeOrders == "return")
+                listOrdersEntity = await _orderRepository.GetLibrarianOrders(TypeOrder.RETURN);
+            else if (typeOrders == "recieve")
+                listOrdersEntity = await _orderRepository.GetLibrarianOrders(TypeOrder.ISSUE);
+            else
+                return null;
+
+            var ordersVm = _mapper.Map<IEnumerable<BriefOrderInfoForLibrarians>>(listOrdersEntity);
+
+            foreach (var order in listOrdersEntity.Zip(ordersVm, (e,v) => new {Entity = e, Vm = v}))
             {
                 order.Vm.BookAuthors = _converter.GetAuthorsInLine(order.Entity.BookInsatnce.BookInfo);
             }

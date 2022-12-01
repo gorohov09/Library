@@ -9,5 +9,7 @@ namespace Library.DAL.Interfaces
         Task<bool> SaveRecord(RecordEntity record);
 
         Task<RecordEntity> GetFreeRecord(int bookInstanceId);
+
+        Task<RecordEntity> GetRecordById(int recordId);
     }
 }

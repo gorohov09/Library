@@ -4,6 +4,6 @@ namespace Library.Application.Interfaces
 {
     public interface ILibrarianService
     {
-        Task<IEnumerable<BriefOrderInfoForLibrarians>> GetLibrarianOrders(int librarianId);
+        Task<IEnumerable<BriefOrderInfoForLibrarians>> GetLibrarianOrders(string typeOrders);
     }
 }

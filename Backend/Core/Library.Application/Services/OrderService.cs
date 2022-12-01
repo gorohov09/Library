@@ -103,18 +103,22 @@ namespace Library.Application.Services
 
             //Если читатель не найден, то заявка не может быть оформлена
             if (readerEntity == null)
-                return new ResponseOrder 
-                { 
-                    IsSuccess = false, 
-                    ErrorMessage = $"Пользователь с номером чит. билета {requestOrder.LibraryCard} не найден" 
+                return new ResponseOrder
+                {
+                    IsSuccess = false,
+                    ErrorMessage = $"Пользователь с номером чит. билета {requestOrder.LibraryCard} не найден"
                 };
 
             BookInsatnceEntity bookInstanceEnity;
 
-            if (requestOrder.TypeOrder == "ПОЛУЧЕНИЕ")
+            if (!string.IsNullOrEmpty(requestOrder.BookISBN))
                 bookInstanceEnity = await _bookRepository.GetFirstInsatnceBook(requestOrder.BookISBN);
             else
-                bookInstanceEnity = await _bookRepository.GetInsatnceBookById(requestOrder.BookInstanceId);
+            {
+                var historyEntity = await _recordRepository.GetRecordById(requestOrder.HistoryId);
+                bookInstanceEnity = await _bookRepository.GetInsatnceBookById(historyEntity.BookId);
+            }
+                
 
             //Если экземпляра книги не существует в библиотеке, то заявка не может быть оформлена
             if (bookInstanceEnity == null)
@@ -123,8 +127,8 @@ namespace Library.Application.Services
                     IsSuccess = false,
                     ErrorMessage = $"Экземпляр книги с ISBN {requestOrder.BookISBN} не найден"
                 };
-             
-            if (requestOrder.TypeOrder == "ПОЛУЧЕНИЕ")
+
+            if (!string.IsNullOrEmpty(requestOrder.BookISBN))
                 //Делаем экземпляр книги недоступным
                 bookInstanceEnity.IsAvailable = false;
 
@@ -135,7 +139,7 @@ namespace Library.Application.Services
                 Reader = readerEntity,
                 CreationDate = DateTime.Now,
                 Status = StatusOrder.WAIT,
-                Type = requestOrder.TypeOrder == "ПОЛУЧЕНИЕ" ? TypeOrder.ISSUE : TypeOrder.RETURN
+                Type = !string.IsNullOrEmpty(requestOrder.BookISBN) ? TypeOrder.ISSUE : TypeOrder.RETURN
             };
 
             orderEntity = await _orderRepository.SaveOrder(orderEntity);

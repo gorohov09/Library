@@ -35,6 +35,12 @@ namespace Library.DAL.Repository
             return history;
         }
 
+        public Task<RecordEntity> GetRecordById(int recordId)
+        {
+            return _libraryContext.Records
+                .FirstOrDefaultAsync(r => r.Id == recordId);
+        }
+
         public async Task<bool> SaveRecord(RecordEntity record)
         {
             _libraryContext.Records.Add(record);

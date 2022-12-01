@@ -14,10 +14,10 @@ namespace Library.DAL.Repository
             _libraryContext = libraryContext;
         }
 
-        public async Task<IEnumerable<OrderEntity>> GetLibrarianOrders(int librarianId)
+        public async Task<IEnumerable<OrderEntity>> GetLibrarianOrders(TypeOrder typeOrders)
         {
             var orders = await _libraryContext.Orders
-                .Where(x => x.LibrarianId == librarianId && x.Status == StatusOrder.WAIT)
+                .Where(x => x.Type == typeOrders && x.Status == StatusOrder.WAIT)
                 .OrderBy(x => x.CreationDate)
                 .Include(x => x.Reader)
                 .Include(x => x.BookInsatnce)
