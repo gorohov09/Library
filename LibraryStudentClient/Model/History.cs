@@ -18,6 +18,8 @@ namespace LibraryStudentClient.Model
         public string IssueDate { get; set; }
         public string ReturnDate { get; set; }
 
+        public bool HasOrderToReturn { get; set; } = false;
+
         private RelayCommand? returnbook;
         public RelayCommand Returnbook
         {
@@ -27,9 +29,13 @@ namespace LibraryStudentClient.Model
                     (returnbook = new RelayCommand(obj =>
                     {
                         string message = MyHttpClient.MyHttpClient.CreateOrder(null, this.ID);
+                        if (message == "Заяка успешно создана")
+                        {
+                            HasOrderToReturn = true;
+                        }
                         MessageBox.Show(message);
                     },
-                    (obj) => (ReturnDate is null)
+                    (obj) => (ReturnDate is null && !HasOrderToReturn)
                     ));
             }
         }

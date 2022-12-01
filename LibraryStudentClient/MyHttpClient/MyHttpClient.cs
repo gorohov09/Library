@@ -298,6 +298,10 @@ namespace LibraryStudentClient.MyHttpClient
                 if (record.ReturnDate != null)
                 {
                     temp.ReturnDate = DateTime.Parse(record.ReturnDate).ToShortDateString();
+                    if (temp.ReturnDate == "01.01.1970")
+                    {
+                        temp.ReturnDate = ""; temp.HasOrderToReturn = true;
+                    }
                 }
                 history.Add(temp);
             }
