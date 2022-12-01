@@ -244,6 +244,7 @@ namespace LibraryStudentClient.MyHttpClient
 
             var orders = result.orders.Select(x => new Order
             {
+                Id = x.Id,
                 Title = x.BookName,
                 Authors = x.Authors,
                 Publisher = x.BookPublisher,

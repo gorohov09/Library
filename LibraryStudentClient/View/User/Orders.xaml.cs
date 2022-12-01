@@ -20,13 +20,10 @@ namespace LibraryStudentClient.View.User
     /// </summary>
     public partial class Orders : Page
     {
-        public static ListView viewOrders;
         public Orders()
         {
             InitializeComponent();
-            DataContext = MainWindow._reader;
-            viewOrders = ViewOfOrders;
-
+            DataContext = MainWindow._mng;
         }
     }
 }

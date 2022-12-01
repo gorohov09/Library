@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibrarianClient.View.AddNewLibrarian"
         mc:Ignorable="d"
-        Title="AddNewLibrarianWnd" Height="425" Width="350" ResizeMode="NoResize">
+        Title="Окно добавления нового библиотекаря" Height="425" Width="350" ResizeMode="NoResize">
     <Window.Background >
             <LinearGradientBrush EndPoint = "0.5,1" StartPoint = "0.5,0" >
                 <GradientStop Color = "White" Offset = "0.006" />

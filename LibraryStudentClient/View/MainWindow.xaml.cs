@@ -38,12 +38,17 @@ namespace LibraryStudentClient.View
             _reader = new DataManagerReaderVM();
             DataContext = _mng;
 
+            // сразу получаем данные о заявках и сохраняем их локально
+            _mng.OrderList = MyHttpClient.MyHttpClient.GetOrders();
+
             _mainFrame = this.MainFrame;
             _window = this;
 
             // Создаем страницу отображения данных
             _listOfBooks = new BookPages.ListOfBooks();
             _mainFrame.Content = _listOfBooks;
+
+
         }
     }
 }
