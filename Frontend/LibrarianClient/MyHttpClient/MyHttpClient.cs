@@ -14,13 +14,15 @@ using System.Windows.Media.Media3D;
 using System.Windows.Media;
 using System.Windows;
 using System.Xml.Linq;
+using LibrarianClient.Model;
 
 namespace LibrarianClient.MyHttpClient
 {
-    public class MyHttpClient
+    public static class MyHttpClient
     {
         private static string? currentLibrarianID;
 
+        #region АВТОРИЗАЦИЯ
         public static bool Authorizate(string login, string password, ref string error)
         {
             // делаем запрос к серверу
@@ -76,9 +78,172 @@ namespace LibrarianClient.MyHttpClient
 
         }
 
+        #endregion
+
+        #region Работа с Заявками
+        public static List<Order> GetOrders(string type)
+        {
+            //HttpClient Client = new HttpClient();
+
+            //var response = Client.GetAsync($"http://localhost:5162/api/Reader/{currentLibraryCard}/orders");
+
+            //var result = response.Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<OrderListDTO>().Result;
+
+            //var orders = result.orders.Select(x => new Order
+            //{
+            //    Title = x.BookName,
+            //    Authors = x.Authors,
+            //    Publisher = x.BookPublisher,
+            //    Year = x.BookYear,
+            //    DateOfCreate = x.CreationDate,
+            //    Status = x.Status,
+
+            //}).ToList();
+
+            List<Order> orders = new List<Order>();
+
+            orders = new List<Order>
+            {
+                new Order
+                {
+                    Id = 0,
+                    LibraryCard = "505405",
+                    FullName = "Check Checkovich Checkk",
+                    Title = "Евгений Онегин",
+                    DateOfCreation = "30.11.2022",
+                    RowNumber = 15,
+                    Year = "2005",
+                    Publisher = "Альпина",
+                    Authors = "А.С. Пушкин"
+                },
+                new Order
+                {
+                    Id = 0,
+                    LibraryCard = "505405",
+                    FullName = "Check Checkovich Checkk",
+                    Title = "Война и мир",
+                    DateOfCreation = "30.11.2022",
+                    RowNumber = 15,
+                    Year = "2005",
+                    Publisher = "Альпина",
+                    Authors = "А.С. Пушкин"
+                },
+                new Order
+                {
+                    Id = 0,
+                    LibraryCard = "505405",
+                    FullName = "Check Checkovich Checkk",
+                    Title = "Война и мир",
+                    DateOfCreation = "30.11.2022",
+                    RowNumber = 15,
+                    Year = "2005",
+                    Publisher = "Альпина",
+                    Authors = "А.С. Пушкин"
+                },
+                new Order
+                {
+                    Id = 0,
+                    LibraryCard = "505405",
+                    FullName = "Check Checkovich Checkk",
+                    Title = "Война и мир",
+                    DateOfCreation = "30.11.2022",
+                    RowNumber = 15,
+                    Year = "2005",
+                    Publisher = "Альпина",
+                    Authors = "А.С. Пушкин"
+                },
+                new Order
+                {
+                    Id = 0,
+                    LibraryCard = "505405",
+                    FullName = "Check Checkovich Checkk",
+                    Title = "Евгений Онегин",
+                    DateOfCreation = "30.11.2022",
+                    RowNumber = 15,
+                    Year = "2005",
+                    Publisher = "Альпина",
+                    Authors = "А.С. Пушкин"
+                }
+            };
+
+
+
+
+            return orders;
+        }
+
+        #endregion
+
+        #region Добавление нового читателя
+    
         public static bool AddNewLibrarian(string name, string surname, string patronymic, string mobilephone, string login, string password, ref string error)
         {
             return true;
         }
+
+        #endregion
+
+        #region Немного методов работы с книгами
+        private static string GetAuthors(IEnumerable<AuthorDTO> authors)
+        {
+            var result = new StringBuilder();
+            foreach (var author in authors)
+            {
+                result.Append($"{author.FullName} ");
+            }
+
+            return result.ToString();
+        }
+
+        #endregion
+
+
+        #region Личный кабинет
+
+
+
+        public static void GetDetailUSerInrofmation(string LibraryCard)
+        {
+
+            HttpClient Client = new HttpClient();
+
+            var response = Client.GetAsync($"http://localhost:5162/api/Reader/{LibraryCard}");
+
+            var result = response.Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ReaderListDTO>().Result;
+
+            var answer = result.Reader;
+
+            Reader.LibraryCard = answer.LibraryCard;
+            Reader.StudCard = answer.StudentCard;
+            Reader.SurName = answer.FullName.Split()[0];
+            Reader.Name = answer.FullName.Split()[1];
+            Reader.Patronimic = answer.FullName.Split()[2];
+            Reader.MobilePhone = answer.MobilePhone;
+            Reader.Histories = GetHistory(answer.History);
+
+        }
+
+        private static List<History> GetHistory(List<HistoryDTO> histories)
+        {
+            List<History> history = new List<History>();
+            foreach (var record in histories)
+            {
+                History temp = new History();
+                temp.ID = record.Id;
+                temp.BookName = record.BookName;
+                temp.BookPublisher = record.BookPublisher;
+                temp.BookYear = record.BookYear;
+                temp.Authors = GetAuthors(record.BookAuthors);
+                temp.IssueDate = DateTime.Parse(record.IssueDate).ToShortDateString();
+                if (record.ReturnDate != null)
+                {
+                    temp.ReturnDate = DateTime.Parse(record.ReturnDate).ToShortDateString();
+                }
+                history.Add(temp);
+            }
+            return history;
+        }
+
+        #endregion
     }
 }

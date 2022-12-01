@@ -35,102 +35,24 @@ namespace LibrarianClient.ViewModel
 
         #region Отображение заявок
 
+
         private TabItem? selectedTabItem;
         public TabItem SelectedTabItem
         { 
             get { return selectedTabItem; }
-            set { selectedTabItem = value; SelectedOrder = null; }
+            set { selectedTabItem = value; RefreshLists(); SelectedOrder = null; }
         }
 
 
-        public List<Order> allOrdersToGive = new List<Order>
-        {
-            new Order
-            {
-                Id = 0,
-                LibraryCard = "505405",
-                FullName = "Check Checkovich Checkk",
-                Title = "Евгений Онегин",
-                DateOfCreation = "30.11.2022",
-                RowNumber = 15,
-                Year = "2005",
-                Publisher = "Альпина",
-                Authors = "А.С. Пушкин"
-            },
-            new Order
-            {
-                Id = 0,
-                LibraryCard = "505405",
-                FullName = "Check Checkovich Checkk",
-                Title = "Война и мир",
-                DateOfCreation = "30.11.2022",
-                RowNumber = 15,
-                Year = "2005",
-                Publisher = "Альпина",
-                Authors = "А.С. Пушкин"
-            },
-            new Order
-            {
-                Id = 0,
-                LibraryCard = "505405",
-                FullName = "Check Checkovich Checkk",
-                Title = "Евгений Онегин",
-                DateOfCreation = "30.11.2022",
-                RowNumber = 15,
-                Year = "2005",
-                Publisher = "Альпина",
-                Authors = "А.С. Пушкин"
-            }
-
-        };
-
+        private List<Order> allOrdersToGive;
         public List<Order> AllOrdersToGive
         {
             get { return allOrdersToGive; }
             set { allOrdersToGive = value; NotifyPropertyChanged("AllOrdersToGive"); }
         }
 
-        public List<Order> allOrdersToReturn = new List<Order>
-        {
-            new Order
-            {
-                Id = 0,
-                LibraryCard = "505405",
-                FullName = "Check Checkovich Checkk",
-                Title = "Евгений Онегин",
-                DateOfCreation = "30.11.2022",
-                RowNumber = 15,
-                Year = "2005",
-                Publisher = "Альпина",
-                Authors = "А.С. Пушкин"
-            },
-            new Order
-            {
-                Id = 0,
-                LibraryCard = "505405",
-                FullName = "Check Checkovich Checkk",
-                Title = "Война и мир",
-                DateOfCreation = "30.11.2022",
-                RowNumber = 15,
-                Year = "2005",
-                Publisher = "Альпина",
-                Authors = "А.С. Пушкин"
-            },
-            new Order
-            {
-                Id = 0,
-                LibraryCard = "505405",
-                FullName = "Check Checkovich Checkk",
-                Title = "Евгений Онегин",
-                DateOfCreation = "30.11.2022",
-                RowNumber = 15,
-                Year = "2005",
-                Publisher = "Альпина",
-                Authors = "А.С. Пушкин"
-            }
 
-        };
-
+        private List<Order> allOrdersToReturn;
         public List<Order> AllOrdersToReturn
         {
             get { return allOrdersToReturn; }
@@ -159,6 +81,13 @@ namespace LibrarianClient.ViewModel
                 );
             }
         }
+
+        public void RefreshLists()
+        {
+            AllOrdersToGive = MyHttpClient.MyHttpClient.GetOrders("ToGive");
+            AllOrdersToReturn = MyHttpClient.MyHttpClient.GetOrders("ToReturn");
+        }
+
 
         #endregion
 
@@ -245,11 +174,6 @@ namespace LibrarianClient.ViewModel
         {
             get { return errorlogadd; }
             set { errorlogadd = value; NotifyPropertyChanged("ErrorlogAdd"); }
-        }
-
-        public bool AddNewLibrarianMethod()
-        {
-            return false;
         }
 
         private RelayCommand addNewLibrarian;
