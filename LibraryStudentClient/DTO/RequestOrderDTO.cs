@@ -9,8 +9,7 @@ namespace LibraryStudentClient.DTO
     public class RequestOrderDTO
     {
         public string LibraryCard { get; set; }
-        public string BookISBN { get; set; }
-        public string TypeOrder { get; set; }
-        public int BookInstanceId { get; set; }
+        public string? BookISBN { get; set; }
+        public int HistoryId { get; set; }
     }
 }

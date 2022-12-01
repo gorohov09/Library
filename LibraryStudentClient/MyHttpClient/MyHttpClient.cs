@@ -211,8 +211,8 @@ namespace LibraryStudentClient.MyHttpClient
         #endregion
 
         #region Работа с заявками
-
-        public static string CreateOrder(string ISBN, string typeOrder, int bookInstanceId = -1)
+        // Если на получение книги - то отправляю только ISBN, в обратном случае он null
+        public static string CreateOrder(string? ISBN, int historyId = -1)
         {
             HttpClient Client = new HttpClient();
 
@@ -220,8 +220,7 @@ namespace LibraryStudentClient.MyHttpClient
             {
                 LibraryCard = currentLibraryCard,
                 BookISBN = ISBN,
-                TypeOrder = typeOrder,
-                BookInstanceId = bookInstanceId,
+                HistoryId = historyId
             };
 
             var response = Client.PostAsJsonAsync("http://localhost:5162/api/orders/create", request)
