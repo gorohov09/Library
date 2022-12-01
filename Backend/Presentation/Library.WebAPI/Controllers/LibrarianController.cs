@@ -15,12 +15,12 @@ namespace Library.WebAPI.Controllers
             _librarianService = librarianService;
         }
 
-        [HttpGet("{librarianId}/orders")]
-        public async Task<IActionResult> GetOrders(int librarianId)
+        [HttpGet("orders")]
+        public async Task<IActionResult> GetOrders([FromQuery] string typeOrders)
         {
             return Ok(new
             {
-                orders = await _librarianService.GetLibrarianOrders(librarianId)
+                orders = await _librarianService.GetLibrarianOrders(typeOrders)
             }) ;
         }
     }
