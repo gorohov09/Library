@@ -17,5 +17,7 @@ namespace Library.DAL.Interfaces
         Task<BookInsatnceEntity> GetFirstInsatnceBook(string ISBN);
 
         Task<IEnumerable<BookEntity>> GetBooksByName(string tempalte);
+
+        Task<BookInsatnceEntity> GetInsatnceBookById(int id);
     }
 }

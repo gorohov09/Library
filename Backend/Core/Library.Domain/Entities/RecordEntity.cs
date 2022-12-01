@@ -16,7 +16,7 @@ namespace Library.Domain.Entities
         [Required]
         public DateTime IssueDate { get; set; }
 
-        public DateTime ? ReturnDate { get; set; }
+        public DateTime? ReturnDate { get; set; }
 
         [Required]
         [ForeignKey("BookId")]

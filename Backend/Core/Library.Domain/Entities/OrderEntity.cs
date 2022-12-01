@@ -11,6 +11,12 @@ namespace Library.Domain.Entities
         DENIED
     }
 
+    public enum TypeOrder
+    {
+        ISSUE,
+        RETURN
+    }
+
     public class OrderEntity : BaseEntity
     {
         [Required]
@@ -27,12 +33,10 @@ namespace Library.Domain.Entities
         [ForeignKey("ReaderId")]
         public ReaderEntity Reader { get; set; }
 
-        [Required]
-        public int LibrarianId { get; set; }
+        public int? LibrarianId { get; set; }
 
-        [Required]
         [ForeignKey("LibrarianId")]
-        public LibrarianEntity Librarian { get; set; }
+        public LibrarianEntity? Librarian { get; set; }
 
         [Required]
         public DateTime CreationDate { get; set; }
@@ -41,7 +45,9 @@ namespace Library.Domain.Entities
 
         public StatusOrder Status { get; set; }
 
-        public string GetStatus() 
+        public TypeOrder Type { get; set; }
+
+        public string GetStatusOrder() 
         {
             if (Status == StatusOrder.DONE)
                 return "Выполнено";
@@ -51,6 +57,16 @@ namespace Library.Domain.Entities
                 return "В ожидании";
 
             return Status.ToString(); 
+        }
+
+        public string GetTypeOrder()
+        {
+            if (Type == TypeOrder.ISSUE)
+                return "Выдача";
+            else if (Type == TypeOrder.RETURN)
+                return "Возврат";
+
+            return Status.ToString();
         }
     }
 }

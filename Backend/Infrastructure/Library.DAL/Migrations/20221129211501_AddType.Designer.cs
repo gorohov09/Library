@@ -4,6 +4,7 @@ using Library.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.DAL.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20221129211501_AddType")]
+    partial class AddType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,7 +160,7 @@ namespace Library.DAL.Migrations
                     b.Property<DateTime?>("ExecutionDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("LibrarianId")
+                    b.Property<int>("LibrarianId")
                         .HasColumnType("int");
 
                     b.Property<string>("ReaderId")
@@ -292,7 +294,9 @@ namespace Library.DAL.Migrations
 
                     b.HasOne("Library.Domain.Entities.LibrarianEntity", "Librarian")
                         .WithMany()
-                        .HasForeignKey("LibrarianId");
+                        .HasForeignKey("LibrarianId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Library.Domain.Entities.ReaderEntity", "Reader")
                         .WithMany()

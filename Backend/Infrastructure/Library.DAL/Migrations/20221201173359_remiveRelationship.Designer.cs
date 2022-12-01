@@ -4,6 +4,7 @@ using Library.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.DAL.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20221201173359_remiveRelationship")]
+    partial class remiveRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,6 +161,7 @@ namespace Library.DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("LibrarianId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("ReaderId")
@@ -292,7 +295,9 @@ namespace Library.DAL.Migrations
 
                     b.HasOne("Library.Domain.Entities.LibrarianEntity", "Librarian")
                         .WithMany()
-                        .HasForeignKey("LibrarianId");
+                        .HasForeignKey("LibrarianId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Library.Domain.Entities.ReaderEntity", "Reader")
                         .WithMany()

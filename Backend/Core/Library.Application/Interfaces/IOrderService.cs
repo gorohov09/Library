@@ -11,5 +11,7 @@ namespace Library.Application.Interfaces
         Task<OrderDetailsForLibrarianVm> GetOrderDetails(int orderId);
 
         Task<ResponseApproveOrder> ApproveOrder(RequestApproveOrder requestApproveOrder);
+
+        Task<ResponseApproveOrder> ReturnApproveOrder(RequestApproveOrder returnApproveOrder);
     }
 }

@@ -51,7 +51,7 @@ namespace Library.Application.Services
                 BookYear = order.BookInsatnce.BookInfo.Year,
                 CreationDate = order.CreationDate,
                 ExecutionDate = order.ExecutionDate,
-                Status = order.GetStatus(),
+                Status = order.GetStatusOrder(),
                 Authors = _converter.GetAuthorsInLine(order.BookInsatnce.BookInfo)
             });
 

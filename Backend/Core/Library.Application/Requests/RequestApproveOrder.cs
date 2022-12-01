@@ -6,6 +6,7 @@
 
         public bool IsApproved { get; set; }
 
-        public DateTime? ReturnDate { get; set; }
+        //Новое поле, которое должен отправлять фронт
+        public int LibrarianId { get; set; }
     }
 }

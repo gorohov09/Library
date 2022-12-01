@@ -142,7 +142,7 @@ namespace LibraryStudentClient.ViewModel
 
         public void GetBook()
         {
-            string message = MyHttpClient.MyHttpClient.CreateOrder(tempbook.ISBN);
+            string message = MyHttpClient.MyHttpClient.CreateOrder(tempbook.ISBN, "ПОЛУЧЕНИЕ");
             if (message == "Заяка успешно создана")
             {
                 tempbook.Count = (int.Parse(tempbook.Count) - 1).ToString();

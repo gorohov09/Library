@@ -18,5 +18,10 @@ namespace Library.DAL.Repository
         {
             return await _libraryContext.Librarians.FirstOrDefaultAsync();
         }
+
+        public async Task<LibrarianEntity> GetLibrarianById(int librarianId)
+        {
+            return await _libraryContext.Librarians.FirstOrDefaultAsync(l => l.Id == librarianId);
+        }
     }
 }

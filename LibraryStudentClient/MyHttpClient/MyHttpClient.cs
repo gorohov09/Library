@@ -212,14 +212,16 @@ namespace LibraryStudentClient.MyHttpClient
 
         #region Работа с заявками
 
-        public static string CreateOrder(string ISBN)
+        public static string CreateOrder(string ISBN, string typeOrder, int bookInstanceId = -1)
         {
             HttpClient Client = new HttpClient();
 
             var request = new RequestOrderDTO()
             {
                 LibraryCard = currentLibraryCard,
-                BookISBN = ISBN
+                BookISBN = ISBN,
+                TypeOrder = typeOrder,
+                BookInstanceId = bookInstanceId,
             };
 
             var response = Client.PostAsJsonAsync("http://localhost:5162/api/orders/create", request)
