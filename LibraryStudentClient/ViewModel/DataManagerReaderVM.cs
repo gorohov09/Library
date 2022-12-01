@@ -1,4 +1,5 @@
 ﻿using LibraryStudentClient.Model;
+using LibraryStudentClient.View;
 using LibraryStudentClient.View.User;
 using System;
 using System.Collections.Generic;
@@ -49,12 +50,6 @@ namespace LibraryStudentClient.ViewModel
             set { selectedRecord = value;}
         }
 
-        public void ReturnBook()
-        {
-            SelectedRecord.ReturnDate = DateTime.Today.ToString();
-            UserCabinet.view.Items.Refresh();
-
-        }
         #endregion
 
         public event PropertyChangedEventHandler? PropertyChanged;
