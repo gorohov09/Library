@@ -63,6 +63,20 @@ namespace LibraryStudentClient.ViewModel
 
         #region Поиск книги
 
+        private void SearchMethod()
+        {
+
+            if (searchTitle != null && searchTitle != "" && searchTitle.Replace(" ", "").Length != 0)
+            {
+                selectedBook = null; tempbook = null;
+                if (MainWindow._mainFrame.Content != MainWindow._listOfBooks)
+                {
+                    MainWindow._mainFrame.Content = MainWindow._listOfBooks;
+                }
+                Books = MyHttpClient.MyHttpClient.GetBooksByName(searchTitle);
+            }
+        }
+
         private RelayCommand? search;
         public RelayCommand Search
         {
@@ -72,15 +86,7 @@ namespace LibraryStudentClient.ViewModel
                     (search = new RelayCommand(obj =>
                     {
                         RefreshDataAndAlertAboutIt();
-                        selectedBook = null; tempbook = null;
-                        if (searchTitle != null)
-                        {
-                            if (MainWindow._mainFrame.Content != MainWindow._listOfBooks)
-                            {
-                                MainWindow._mainFrame.Content = MainWindow._listOfBooks;
-                            }
-                            Books = MyHttpClient.MyHttpClient.GetBooksByName(searchTitle);
-                        }
+                        SearchMethod();
 
                     }));
             }
