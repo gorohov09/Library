@@ -47,6 +47,11 @@ namespace Library.Application.Services
             if (orderEntity.BookInsatnce == null || orderEntity.Reader == null)
                 return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Отсутствует читатель или книга" };
 
+            var librarianEntity = await _librarianRepository.GetLibrarianById(requestApproveOrder.LibrarianId);
+
+            if (librarianEntity == null)
+                return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Читатель отсутствует в библиотеке" };
+
             //Допилить, если библио что-то сделал, то заявку завязать на него
             if (requestApproveOrder.IsApproved)
             {
@@ -66,6 +71,7 @@ namespace Library.Application.Services
                 {
                     orderEntity.Status = StatusOrder.DONE;
                     orderEntity.ExecutionDate = DateTime.Now;
+                    orderEntity.Librarian = librarianEntity;
 
                     var resultUpdate = await _orderRepository.UpdateOrder(orderEntity);
 
@@ -78,6 +84,7 @@ namespace Library.Application.Services
                 orderEntity.BookInsatnce.IsAvailable = true;
                 orderEntity.Status = StatusOrder.DENIED;
                 orderEntity.ExecutionDate = DateTime.Now;
+                orderEntity.Librarian = librarianEntity;
 
                 var resultUpdate = await _orderRepository.UpdateOrder(orderEntity);
 
