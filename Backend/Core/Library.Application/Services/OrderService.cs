@@ -164,5 +164,28 @@ namespace Library.Application.Services
             
             return orderVm;
         }
+
+        public async Task<ResponseApproveOrder> ReturnApproveOrder(RequestApproveOrder returnApproveOrder)
+        {
+            if (returnApproveOrder == null)
+                return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Неизвестаня ошибка" };
+
+            var order = await _orderRepository.GetOrderById(returnApproveOrder.OrderId);
+
+            if (order == null)
+                return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Заявка не может быть найдена" };
+
+            var bookInstance = await _bookRepository.GetInsatnceBookById(order.BookInsatnceId);
+
+            if (bookInstance == null)
+                return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Экземпляр книги не может быть найден" };
+
+            bookInstance.IsAvailable = true;
+
+            //Додумать дальше логику
+            //Отфильтровать все записи истории по BookInstanceId и взять где ReturnDate == null
+
+            return null;
+        }
     }
 }
