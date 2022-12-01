@@ -94,66 +94,65 @@ namespace Library.Application.Services
             return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Ошибка при сохранении данных" };
         }
 
-        public Task<ResponseOrder> CreateOrder(RequestOrder requestOrder)
+        public async Task<ResponseOrder> CreateOrder(RequestOrder requestOrder)
         {
-            throw new NotImplementedException();
+            if (requestOrder == null)
+                return new ResponseOrder { IsSuccess = false, ErrorMessage = "Неизвестная ошибка" };
+
+            var readerEntity = await _readerRepository.GetReaderByLibraryCard(requestOrder.LibraryCard);
+
+            //Если читатель не найден, то заявка не может быть оформлена
+            if (readerEntity == null)
+                return new ResponseOrder
+                {
+                    IsSuccess = false,
+                    ErrorMessage = $"Пользователь с номером чит. билета {requestOrder.LibraryCard} не найден"
+                };
+
+            BookInsatnceEntity bookInstanceEnity;
+
+            if (!string.IsNullOrEmpty(requestOrder.BookISBN))
+                bookInstanceEnity = await _bookRepository.GetFirstInsatnceBook(requestOrder.BookISBN);
+            else
+            {
+                var historyEntity = await _recordRepository.GetRecordById(requestOrder.HistoryId);
+                bookInstanceEnity = await _bookRepository.GetInsatnceBookById(historyEntity.BookId);
+            }
+                
+
+            //Если экземпляра книги не существует в библиотеке, то заявка не может быть оформлена
+            if (bookInstanceEnity == null)
+                return new ResponseOrder
+                {
+                    IsSuccess = false,
+                    ErrorMessage = $"Экземпляр книги с ISBN {requestOrder.BookISBN} не найден"
+                };
+
+            if (!string.IsNullOrEmpty(requestOrder.BookISBN))
+                //Делаем экземпляр книги недоступным
+                bookInstanceEnity.IsAvailable = false;
+
+            //Формирование объекта - заявка
+            var orderEntity = new OrderEntity
+            {
+                BookInsatnce = bookInstanceEnity,
+                Reader = readerEntity,
+                CreationDate = DateTime.Now,
+                Status = StatusOrder.WAIT,
+                Type = !string.IsNullOrEmpty(requestOrder.BookISBN) ? TypeOrder.ISSUE : TypeOrder.RETURN
+            };
+
+            orderEntity = await _orderRepository.SaveOrder(orderEntity);
+
+            if (orderEntity.Id <= 0)
+                return new ResponseOrder
+                {
+                    IsSuccess = false,
+                    ErrorMessage = $"Не удалось сохранить данные"
+                };
+
+            return new ResponseOrder { IsSuccess = true };
         }
-
-        //public async Task<ResponseOrder> CreateOrder(RequestOrder requestOrder)
-        //{
-        //    if (requestOrder == null)
-        //        return new ResponseOrder { IsSuccess = false, ErrorMessage = "Неизвестная ошибка" };
-
-        //    var readerEntity = await _readerRepository.GetReaderByLibraryCard(requestOrder.LibraryCard);
-
-        //    //Если читатель не найден, то заявка не может быть оформлена
-        //    if (readerEntity == null)
-        //        return new ResponseOrder 
-        //        { 
-        //            IsSuccess = false, 
-        //            ErrorMessage = $"Пользователь с номером чит. билета {requestOrder.LibraryCard} не найден" 
-        //        };
-
-        //    BookInsatnceEntity bookInstanceEnity;
-
-        //    if (requestOrder.TypeOrder == "ПОЛУЧЕНИЕ")
-        //        bookInstanceEnity = await _bookRepository.GetFirstInsatnceBook(requestOrder.BookISBN);
-        //    else
-        //        bookInstanceEnity = await _bookRepository.GetInsatnceBookById(requestOrder.BookInstanceId);
-
-        //    //Если экземпляра книги не существует в библиотеке, то заявка не может быть оформлена
-        //    if (bookInstanceEnity == null)
-        //        return new ResponseOrder
-        //        {
-        //            IsSuccess = false,
-        //            ErrorMessage = $"Экземпляр книги с ISBN {requestOrder.BookISBN} не найден"
-        //        };
-
-        //    if (requestOrder.TypeOrder == "ПОЛУЧЕНИЕ")
-        //        //Делаем экземпляр книги недоступным
-        //        bookInstanceEnity.IsAvailable = false;
-
-        //    //Формирование объекта - заявка
-        //    var orderEntity = new OrderEntity
-        //    {
-        //        BookInsatnce = bookInstanceEnity,
-        //        Reader = readerEntity,
-        //        CreationDate = DateTime.Now,
-        //        Status = StatusOrder.WAIT,
-        //        Type = requestOrder.TypeOrder == "ПОЛУЧЕНИЕ" ? TypeOrder.ISSUE : TypeOrder.RETURN
-        //    };
-
-        //    orderEntity = await _orderRepository.SaveOrder(orderEntity);
-
-        //    if (orderEntity.Id <= 0)
-        //        return new ResponseOrder
-        //        {
-        //            IsSuccess = false,
-        //            ErrorMessage = $"Не удалось сохранить данные"
-        //        };
-
-        //    return new ResponseOrder { IsSuccess = true };
-        //}
 
         public async Task<OrderDetailsForLibrarianVm> GetOrderDetails(int orderId)
         {
