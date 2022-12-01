@@ -62,7 +62,6 @@ namespace Library.Application.Services
                     Reader = orderEntity.Reader,
                     BookInsatnce = orderEntity.BookInsatnce,
                     IssueDate = DateTime.Now,
-                    ReturnDate = requestApproveOrder.ReturnDate,
                 };
 
                 var result = await _recordRepository.SaveRecord(recordEntity);
@@ -181,8 +180,26 @@ namespace Library.Application.Services
 
             //Додумать дальше логику
             //Отфильтровать все записи истории по BookInstanceId и взять где ReturnDate == null
+            var historyEntity = await _recordRepository.GetFreeRecord(bookInstance.Id);
 
-            return null;
+            if (historyEntity == null)
+                return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Запись не может быть найдена" };
+
+            historyEntity.ReturnDate = DateTime.Now;
+
+            var librarianEntity = await _librarianRepository.GetLibrarianById(returnApproveOrder.LibrarianId);
+
+            if (librarianEntity == null)
+                return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Читатель отсутствует в библиотеке" };
+
+            order.Librarian = librarianEntity;
+            order.ExecutionDate = DateTime.Now; 
+
+            var result = await _orderRepository.UpdateOrder(order);
+            if (result)
+                return new ResponseApproveOrder { IsSuccess = true };
+
+            return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Неизвестная ошибка" }; ;
         }
     }
 }

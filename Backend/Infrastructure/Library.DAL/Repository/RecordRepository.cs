@@ -13,6 +13,15 @@ namespace Library.DAL.Repository
             _libraryContext = context;
         }
 
+        public Task<RecordEntity> GetFreeRecord(int bookInstanceId)
+        {
+            var freeHistory = _libraryContext.Records
+                .Where(r => r.BookId == bookInstanceId && r.ReturnDate == null)
+                .FirstOrDefaultAsync();
+
+            return freeHistory;
+        }
+
         public async Task<IEnumerable<RecordEntity>> GetReadersHistory(string libraryCard)
         {
             var history = _libraryContext.Records
