@@ -47,6 +47,7 @@ namespace Library.Application.Services
             if (orderEntity.BookInsatnce == null || orderEntity.Reader == null)
                 return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Отсутствует читатель или книга" };
 
+            //Допилить, если библио что-то сделал, то заявку завязать на него
             if (requestApproveOrder.IsApproved)
             {
                 //Обработать корректность отправленной даты

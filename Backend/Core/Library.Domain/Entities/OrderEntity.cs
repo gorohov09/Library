@@ -33,12 +33,10 @@ namespace Library.Domain.Entities
         [ForeignKey("ReaderId")]
         public ReaderEntity Reader { get; set; }
 
-        [Required]
-        public int LibrarianId { get; set; }
+        public int? LibrarianId { get; set; }
 
-        [Required]
         [ForeignKey("LibrarianId")]
-        public LibrarianEntity Librarian { get; set; }
+        public LibrarianEntity? Librarian { get; set; }
 
         [Required]
         public DateTime CreationDate { get; set; }
