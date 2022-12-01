@@ -2,6 +2,7 @@
 using LibrarianClient.View;
 using LibrarianClient.View.AddNewLibrarian;
 using LibrarianClient.View.Authorization;
+using LibrarianClient.View.InformationAboutReader;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,13 +17,25 @@ namespace LibrarianClient.ViewModel
 {
     public class DataManagerMainVM : INotifyPropertyChanged
     {
+        #region Работа с читателем
+
         #region Поиск читателя
 
-        private List<string> searchType = new List<string> { "чит. билет", "ФИО",};
+
+        private string searchTitle = "";
+        public string SearchTitle
+        {
+            get { return searchTitle; }
+            set { searchTitle = value; NotifyPropertyChanged("SearchTitle"); }
+        }
+
+
+        private List<string> searchType = new List<string> { "ФИО", "чит. билет"};
         public List<string> SearchType
         {
             get { return searchType; }
         }
+
 
         private string selectedType;
         public string SelectedType
@@ -31,106 +44,145 @@ namespace LibrarianClient.ViewModel
             set { selectedType = value; NotifyPropertyChanged("SelectedType"); }
         }
 
+
+        private SearchReaderClass selectedSearchReader;
+        public SearchReaderClass SelectedSearchReader
+        {
+            get { return selectedSearchReader; }
+            set { selectedSearchReader = value; NotifyPropertyChanged("SelectedSearchReader"); }
+        }
+
+
+        private List<SearchReaderClass> searchReaderlst;
+        public List<SearchReaderClass> SearchReaderlst
+        {
+            get { return searchReaderlst; }
+            set { searchReaderlst = value; NotifyPropertyChanged("SearchReaderlst"); }
+        }
+
+
+        private RelayCommand search;
+        public RelayCommand Search
+        {
+            get
+            {
+                return search ?? new RelayCommand(obj =>
+                {
+                    if (SearchTitle != "" && SearchTitle.Replace(" ", "").Length != 0)
+                    {
+
+                        MainWindow._mainFrame.Content = MainWindow._searchReaderView;
+                        SearchReaderlst = MyHttpClient.MyHttpClient.GetReadersList(SearchTitle, SelectedType);
+                    }
+                }
+                );
+            }
+        }
+
+
+
         #endregion
 
+        #region Подробная информация о читателе
+
+        public string ReaderName
+        {
+            get { return Reader.Name; }
+        }
+        public string ReaderSurName
+        {
+            get { return Reader.SurName; }
+        }
+        public string ReaderPatronimic
+        {
+            get { return Reader.Patronimic; }
+        }
+        public string ReaderLibraryCard
+        {
+            get { return Reader.LibraryCard; }
+        }
+        public string ReaderMobilePhone
+        {
+            get { return Reader.MobilePhone; }
+        }
+        public string ReaderStudCard
+        {
+            get { return Reader.StudCard; }
+        }
+        public List<History> ReaderHistoryList
+        {
+            get { return Reader.Histories; }
+            set { Reader.Histories = value; NotifyPropertyChanged("HistoryList"); }
+        }
+
+        private RelayCommand viewInformationAboutReader;
+        public RelayCommand ViewInformationAboutReader
+        {
+            get
+            {
+                return viewInformationAboutReader ?? new RelayCommand(obj =>
+                {
+                    if (SelectedOrder != null)
+                    {
+                        //MyHttpClient.MyHttpClient.GetDetailUSerInrofmation(SelectedOrder.LibraryCard);
+                        MyHttpClient.MyHttpClient.GetDetailUSerInrofmation("505405");
+                        ViewReaderDetailInformation();
+                    }
+                }
+                );
+            }
+        }
+
+        public void ViewReaderDetailInformation()
+        {
+            MainWindow._mainFrame.Content = new InFormationAboutReader();
+        }
+
+
+        private RelayCommand? viewInformationAboutReaderFromSearch;
+        public RelayCommand ViewInformationAboutReaderFromSearch
+        {
+            get
+            {
+                return viewInformationAboutReaderFromSearch ??
+                    (viewInformationAboutReaderFromSearch = new RelayCommand(obj =>
+                    {
+                        if (selectedSearchReader != null)
+                        {
+                            MyHttpClient.MyHttpClient.GetDetailUSerInrofmation(selectedSearchReader.LibraryCard);
+                            MainWindow._mainFrame.Content = new InFormationAboutReader();
+                        }
+                    }));
+            }
+        }
+
+        #endregion
+
+
+        #endregion
+
+        #region Заявки
+
         #region Отображение заявок
+
 
         private TabItem? selectedTabItem;
         public TabItem SelectedTabItem
         { 
             get { return selectedTabItem; }
-            set { selectedTabItem = value; SelectedOrder = null; }
+            set { selectedTabItem = value; RefreshLists(); SelectedOrder = null; }
         }
 
 
-        public List<Order> allOrdersToGive = new List<Order>
-        {
-            new Order
-            {
-                Id = 0,
-                LibraryCard = "505405",
-                FullName = "Check Checkovich Checkk",
-                Title = "Евгений Онегин",
-                DateOfCreation = "30.11.2022",
-                RowNumber = 15,
-                Year = "2005",
-                Publisher = "Альпина",
-                Authors = "А.С. Пушкин"
-            },
-            new Order
-            {
-                Id = 0,
-                LibraryCard = "505405",
-                FullName = "Check Checkovich Checkk",
-                Title = "Война и мир",
-                DateOfCreation = "30.11.2022",
-                RowNumber = 15,
-                Year = "2005",
-                Publisher = "Альпина",
-                Authors = "А.С. Пушкин"
-            },
-            new Order
-            {
-                Id = 0,
-                LibraryCard = "505405",
-                FullName = "Check Checkovich Checkk",
-                Title = "Евгений Онегин",
-                DateOfCreation = "30.11.2022",
-                RowNumber = 15,
-                Year = "2005",
-                Publisher = "Альпина",
-                Authors = "А.С. Пушкин"
-            }
-
-        };
-
+        private List<Order> allOrdersToGive;
         public List<Order> AllOrdersToGive
         {
             get { return allOrdersToGive; }
             set { allOrdersToGive = value; NotifyPropertyChanged("AllOrdersToGive"); }
         }
 
-        public List<Order> allOrdersToReturn = new List<Order>
-        {
-            new Order
-            {
-                Id = 0,
-                LibraryCard = "505405",
-                FullName = "Check Checkovich Checkk",
-                Title = "Евгений Онегин",
-                DateOfCreation = "30.11.2022",
-                RowNumber = 15,
-                Year = "2005",
-                Publisher = "Альпина",
-                Authors = "А.С. Пушкин"
-            },
-            new Order
-            {
-                Id = 0,
-                LibraryCard = "505405",
-                FullName = "Check Checkovich Checkk",
-                Title = "Война и мир",
-                DateOfCreation = "30.11.2022",
-                RowNumber = 15,
-                Year = "2005",
-                Publisher = "Альпина",
-                Authors = "А.С. Пушкин"
-            },
-            new Order
-            {
-                Id = 0,
-                LibraryCard = "505405",
-                FullName = "Check Checkovich Checkk",
-                Title = "Евгений Онегин",
-                DateOfCreation = "30.11.2022",
-                RowNumber = 15,
-                Year = "2005",
-                Publisher = "Альпина",
-                Authors = "А.С. Пушкин"
-            }
 
-        };
-
+        private List<Order> allOrdersToReturn;
         public List<Order> AllOrdersToReturn
         {
             get { return allOrdersToReturn; }
@@ -144,20 +196,25 @@ namespace LibrarianClient.ViewModel
             set { selectedOrder = value; NotifyPropertyChanged("SelectedOrder"); }
         }
 
-        private RelayCommand viewInformationAboutReader;
-        public RelayCommand ViewInformationAboutReader
+
+
+        public void RefreshLists()
         {
-            get
-            {
-                return viewInformationAboutReader ?? new RelayCommand(obj =>
-                {
-                    if (SelectedOrder != null)
-                    {
-                        MessageBox.Show(SelectedOrder.Title);
-                    }
-                }
-                );
-            }
+            AllOrdersToGive = MyHttpClient.MyHttpClient.GetOrders("ToGive");
+            AllOrdersToReturn = MyHttpClient.MyHttpClient.GetOrders("ToReturn");
+        }
+
+
+        #endregion
+
+        public void Approve()
+        {
+
+        }
+
+        public void DisApprove()
+        {
+
         }
 
         #endregion
@@ -247,11 +304,6 @@ namespace LibrarianClient.ViewModel
             set { errorlogadd = value; NotifyPropertyChanged("ErrorlogAdd"); }
         }
 
-        public bool AddNewLibrarianMethod()
-        {
-            return false;
-        }
-
         private RelayCommand addNewLibrarian;
         public RelayCommand AddNewLibrarian
         {
@@ -329,6 +381,24 @@ namespace LibrarianClient.ViewModel
                 {
                     Exit();
                     MainWindow._window.Close();
+                }
+                );
+            }
+        }
+
+        #endregion
+
+        #region Кнопка "Главная"
+
+        private RelayCommand main;
+        public RelayCommand Main
+        {
+            get
+            {
+                return main ?? new RelayCommand(obj =>
+                {
+                    RefreshLists();
+                    MainWindow._mainFrame.Content = MainWindow.orders;
                 }
                 );
             }

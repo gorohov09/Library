@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
 using System.Xml.Linq;
+using LibrarianClient.View.Search;
 
 namespace LibrarianClient.View
 {
@@ -29,8 +30,8 @@ namespace LibrarianClient.View
         public static MainWindow _window { get; set; }
         public static DataManagerMainVM _mng { get; set; }
         public static Frame _mainFrame { get; set; }
-
         public static OrderList orders { get; set; }
+        public static SearchReader _searchReaderView { get; set; }
 
         public MainWindow()
         {
@@ -48,6 +49,8 @@ namespace LibrarianClient.View
             // Создаем страницу отображения данных
             orders = new OrderList();
             _mainFrame.Content = orders;
+
+            _searchReaderView = new SearchReader();
         }
     }
 }

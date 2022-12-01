@@ -7,4 +7,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="View\InformationAboutReader\User-Profile.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\InformationAboutReader\User-Profile.png" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibrarianClient.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,5 +19,31 @@ namespace LibrarianClient.Model
         public string Publisher { get; set; }
         public string Authors { get; set; }
 
+
+        private RelayCommand? approve;
+        public RelayCommand Approve
+        {
+            get
+            {
+                return approve ??
+                    (approve = new RelayCommand(obj =>
+                    {
+                        MainWindow._mng.Approve();
+                    }));
+            }
+        }
+
+        private RelayCommand? disApprove;
+        public RelayCommand DisApprove
+        {
+            get
+            {
+                return disApprove ??
+                    (disApprove = new RelayCommand(obj =>
+                    {
+                        MainWindow._mng.DisApprove();
+                    }));
+            }
+        }
     }
 }
