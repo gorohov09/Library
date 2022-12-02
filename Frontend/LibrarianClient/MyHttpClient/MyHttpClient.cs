@@ -80,7 +80,7 @@ namespace LibrarianClient.MyHttpClient
             var orders = result.orders.Select(x => new Order
             {
                 Id = x.Id,
-                //LibraryCard = x.LibraryCard,
+                LibraryCard = x.ReaderId,
                 FullName = x.ReaderFullName,
                 Title = x.BookName,
                 DateOfCreation = x.CreationDate,

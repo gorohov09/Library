@@ -10,7 +10,7 @@ namespace LibrarianClient.DTO
     {
         public int Id { get; set; }
         public string BookName { get; set; }
-        public string LibraryCard { get; set; }
+        public string ReaderId { get; set; }
         public DateTime CreationDate { get; set; }
         public string BookPublisher { get; set; }
         public string BookYear { get; set; }
