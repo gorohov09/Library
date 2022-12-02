@@ -12,6 +12,6 @@ namespace LibrarianClient.DTO
 
         public string Error { get; set; }
 
-        public string LibrarianID { get; set; }
+        public int Id { get; set; }
     }
 }
