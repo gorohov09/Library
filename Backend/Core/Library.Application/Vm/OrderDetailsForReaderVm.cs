@@ -10,5 +10,6 @@
         public string BookPublisher { get; set; }
         public string BookYear { get; set; }
         public string Authors { get; set; }
+        public string Type { get; set; }
     }
 }

@@ -52,8 +52,9 @@ namespace Library.Application.Services
                 CreationDate = order.CreationDate,
                 ExecutionDate = order.ExecutionDate,
                 Status = order.GetStatusOrder(),
-                Authors = _converter.GetAuthorsInLine(order.BookInsatnce.BookInfo)
-            });
+                Authors = _converter.GetAuthorsInLine(order.BookInsatnce.BookInfo),
+                Type = order.GetTypeOrder(),
+            }).OrderBy(order => order.Status).ThenByDescending(order => order.CreationDate); ;
 
             return ordersVm;
         }
