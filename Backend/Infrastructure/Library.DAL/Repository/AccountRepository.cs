@@ -39,5 +39,29 @@ namespace Library.DAL.Repository
 
             return await _libraryContext.SaveChangesAsync() > 0 ? readerEntity : null;
         }
+        
+        public async Task<LibrarianEntity> LoginLibrarian(string login, string password)
+        {
+            var librarianEntity =
+                await _libraryContext.Librarians.FirstOrDefaultAsync(lbr =>
+                    lbr.Login == login && lbr.Password == password);
+
+            return librarianEntity;
+        }
+
+        public async Task<LibrarianEntity> RegistrateLibrarian(string fullName, string mobilePhone,string login, string password)
+        {
+            var librarianEntity = new LibrarianEntity()
+            {
+                FullName = fullName,
+                MobilePhone = mobilePhone,
+                Login = login,
+                Password = password
+            };
+
+            _libraryContext.Librarians.Add(librarianEntity);
+
+            return await _libraryContext.SaveChangesAsync() > 0 ? librarianEntity : null;
+        }
     }
 }

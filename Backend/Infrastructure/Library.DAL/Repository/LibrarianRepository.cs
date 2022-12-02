@@ -23,5 +23,10 @@ namespace Library.DAL.Repository
         {
             return await _libraryContext.Librarians.FirstOrDefaultAsync(l => l.Id == librarianId);
         }
+
+        public async Task<bool> IsLibrarianExists(string login)
+        {
+            return _libraryContext.Librarians.Any(lbr => lbr.Login == login);
+        }
     }
 }
