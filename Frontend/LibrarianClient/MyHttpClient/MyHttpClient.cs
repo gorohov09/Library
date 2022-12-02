@@ -79,13 +79,15 @@ namespace LibrarianClient.MyHttpClient
 
             var orders = result.orders.Select(x => new Order
             {
+                Id = x.Id,
+                //LibraryCard = x.LibraryCard,
+                FullName = x.ReaderFullName,
                 Title = x.BookName,
-                Authors = x.Authors,
-                Publisher = x.BookPublisher,
+                DateOfCreation = x.CreationDate,
+                RowNumber = x.RowNumber,
                 Year = x.BookYear,
-                DateOfCreate = x.CreationDate,
-                Status = x.Status,
-
+                Publisher = x.BookPublisher,
+                Authors = x.BookAuthors
             }).ToList();
 
             return orders;
@@ -206,6 +208,10 @@ namespace LibrarianClient.MyHttpClient
                 if (record.ReturnDate != null)
                 {
                     temp.ReturnDate = DateTime.Parse(record.ReturnDate).ToShortDateString();
+                    if (temp.ReturnDate == "01.01.1970")
+                    {
+                        temp.ReturnDate = "";
+                    }
                 }
                 history.Add(temp);
             }

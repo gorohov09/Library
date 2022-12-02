@@ -9,14 +9,14 @@ namespace LibrarianClient.DTO
     public class OrderDTO
     {
         public int Id { get; set; }
+        public string BookName { get; set; }
         public string LibraryCard { get; set; }
-        public string FullName { get; set; }
-        public string Title { get; set; }
-        public string DateOfCreation { get; set; }
+        public DateTime CreationDate { get; set; }
+        public string BookPublisher { get; set; }
+        public string BookYear { get; set; }
         public int RowNumber { get; set; }
-        public string Year { get; set; }
-        public string Publisher { get; set; }
-        public string Authors { get; set; }
+        public string ReaderFullName { get; set; }
+        public string BookAuthors { get; set; }
 
     }
 }

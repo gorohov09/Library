@@ -13,7 +13,7 @@ namespace LibrarianClient.Model
         public string LibraryCard { get; set; }
         public string FullName { get; set; }
         public string Title { get; set; }
-        public string DateOfCreation { get; set; }
+        public DateTime DateOfCreation { get; set; }
         public int RowNumber { get; set; }
         public string Year { get; set; }
         public string Publisher { get; set; }
