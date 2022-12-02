@@ -12,5 +12,11 @@ namespace Library.Domain.Entities
         [Required]
         [Column(TypeName = "char(11)")]
         public string MobilePhone { get; set; }
+        
+        [Required]
+        public string Login { get; set; }
+        
+        [Required]
+        public string Password { get; set; }
     }
 }
