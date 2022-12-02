@@ -39,6 +39,7 @@ namespace Library.WebAPI.Helpers
                 .ForMember(dest => dest.BookYear, opt => opt.MapFrom(src => src.BookInsatnce.BookInfo.Year))
                 .ForMember(dest => dest.RowNumber, opt => opt.MapFrom(src => src.BookInsatnce.RowNumber))
                 .ForMember(dest => dest.ReaderFullName, opt => opt.MapFrom(src => src.Reader.FullName))
+                .ForMember(dest => dest.ReaderId, opt => opt.MapFrom(src => src.ReaderId))
                 .ReverseMap();
 
             CreateMap<RecordEntity, RecordDetailsForReaderVm>()
