@@ -2,7 +2,8 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:local="clr-namespace:LibrarianClient.View"
       mc:Ignorable="d" 
       Height="Auto" Width="Auto" MinHeight="400" MinWidth="620"
@@ -34,6 +35,12 @@
                         <MenuItem Header="Открыть информацию о читателе" Command="{Binding ViewInformationAboutReader}"/>
                     </ContextMenu>
                 </TabItem.ContextMenu>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName = "MouseDoubleClick">
+                        <i:InvokeCommandAction
+                            Command="{Binding ViewInformationAboutReader}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
 
                 <ListView x:Name="ViewAllStaffs" ItemsSource="{Binding AllOrdersToGive, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding SelectedOrder}">
@@ -97,6 +104,12 @@
                         <MenuItem Header="Открыть информацию о читателе" Command="{Binding ViewInformationAboutReader}"/>
                     </ContextMenu>
                 </TabItem.ContextMenu>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName = "MouseDoubleClick">
+                        <i:InvokeCommandAction
+                            Command="{Binding ViewInformationAboutReader}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
 
                 <ListView x:Name="ViewAllreturnOrders" ItemsSource="{Binding AllOrdersToReturn, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding SelectedOrder}">
