@@ -11,10 +11,14 @@ namespace Library.Application.Services
 
         private readonly IReaderRepository _readerRepository;
 
-        public AccountService(IAccountRepository accountRepository, IReaderRepository readerRepository)
+        private readonly ILibrarianRepository _librarianRepository;
+
+        public AccountService(IAccountRepository accountRepository, IReaderRepository readerRepository,
+            ILibrarianRepository librarianRepository)
         {
             _accountRepository = accountRepository;
             _readerRepository = readerRepository;
+            _librarianRepository = librarianRepository;
         }
 
         public async Task<ResponseRegistrate> Registrate(RequestRegistrate requestRegistrate)
@@ -77,6 +81,48 @@ namespace Library.Application.Services
         {
             Random generator = new Random();
             return generator.Next(100000, 1000000).ToString();
+        }
+        
+        public async Task<LibrarianResponseRegistrate> RegistrateLibrarian(LibrarianRequestRegistrate requestRegistrate)
+        {
+            if (requestRegistrate == null)
+                return new LibrarianResponseRegistrate { IsSuccess = false, Error = "Неизвестная ошибка" };
+
+            if (requestRegistrate.MobilePhone.Length != 11)
+                return new LibrarianResponseRegistrate { IsSuccess = false, Error = "Телефонный номер должен содержать 11 цифр" };
+
+            if (await _librarianRepository.IsLibrarianExists(requestRegistrate.Login))
+                return new LibrarianResponseRegistrate { IsSuccess = false, Error = "Библиотекарь с таким логином уже существует" };
+            
+            var fullName = GetFullName(requestRegistrate.LastName, requestRegistrate.Name, requestRegistrate.Patronymic);
+
+            try
+            {
+                var resultLibrarianEntity = await _accountRepository.RegistrateLibrarian(fullName,
+                    requestRegistrate.MobilePhone,  requestRegistrate.Login, requestRegistrate.Password);
+
+                if (resultLibrarianEntity == null)
+                    return new LibrarianResponseRegistrate { IsSuccess = false, Error = "Ошибка при регистрации" };
+
+                return new LibrarianResponseRegistrate { IsSuccess = true, Id = resultLibrarianEntity.Id };
+            }
+            catch (Exception)
+            {
+                return new LibrarianResponseRegistrate { IsSuccess = false, Error = "Ошибка при сохранении данных" };
+            }
+        }
+
+        public async Task<LibrarianResponseLogin> LoginLibrarian(LibrarianRequestLogin requestLogin)
+        {
+            if (requestLogin == null)
+                return new LibrarianResponseLogin { IsSuccess = false, Error = "Неизвестная ошибка" };
+
+            var librarianEntity = await _accountRepository.LoginLibrarian(requestLogin.Login, requestLogin.Password);
+
+            if (librarianEntity == null)
+                return new LibrarianResponseLogin { IsSuccess = false, Error = "Неверный логин или пароль" };
+
+            return new LibrarianResponseLogin { IsSuccess = true, Id =  librarianEntity.Id};
         }
     }
 }

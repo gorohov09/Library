@@ -8,5 +8,9 @@ namespace Library.Application.Interfaces
         Task<ResponseRegistrate> Registrate(RequestRegistrate requestRegistrate);
 
         Task<ResponseLogin> Login(RequestLogin requestLogin);
+
+        Task<LibrarianResponseRegistrate> RegistrateLibrarian(LibrarianRequestRegistrate requestRegistrate);
+
+        Task<LibrarianResponseLogin> LoginLibrarian(LibrarianRequestLogin requestLogin);
     }
 }
