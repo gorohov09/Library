@@ -198,7 +198,8 @@ namespace Library.Application.Services
                 return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Читатель отсутствует в библиотеке" };
 
             order.Librarian = librarianEntity;
-            order.ExecutionDate = DateTime.Now; 
+            order.ExecutionDate = DateTime.Now;
+            order.Status = StatusOrder.DONE;
 
             var result = await _orderRepository.UpdateOrder(order);
             if (result)
