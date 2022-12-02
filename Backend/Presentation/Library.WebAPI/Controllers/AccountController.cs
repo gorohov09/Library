@@ -29,5 +29,19 @@ namespace Library.WebAPI.Controllers
             var result = await _accountService.Login(request);
             return Ok(result);
         }
+        
+        [HttpPost("registrate/librarian")]
+        public async Task<IActionResult> Registrate([FromBody] LibrarianRequestRegistrate request)
+        {
+            var result = await _accountService.RegistrateLibrarian(request);
+            return Ok(result);
+        }
+
+        [HttpPost("logIn/librarian")]
+        public async Task<IActionResult> LogIn([FromBody] LibrarianRequestLogin request)
+        {
+            var result = await _accountService.LoginLibrarian(request);
+            return Ok(result);
+        }
     }
 }
