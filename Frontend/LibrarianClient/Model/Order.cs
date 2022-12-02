@@ -28,6 +28,7 @@ namespace LibrarianClient.Model
                 return approve ??
                     (approve = new RelayCommand(obj =>
                     {
+                        MainWindow._mng.SelectedOrder = this;
                         MainWindow._mng.Approve();
                     }));
             }
@@ -41,6 +42,7 @@ namespace LibrarianClient.Model
                 return disApprove ??
                     (disApprove = new RelayCommand(obj =>
                     {
+                        MainWindow._mng.SelectedOrder = this;
                         MainWindow._mng.DisApprove();
                     }));
             }
