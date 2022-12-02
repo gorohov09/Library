@@ -7,5 +7,8 @@ namespace Library.DAL.Interfaces
         Task<LibrarianEntity> GetFirstLibrarian();
 
         Task<LibrarianEntity> GetLibrarianById(int librarianId);
+
+        Task<bool> IsLibrarianExists(string login);
+        
     }
 }
