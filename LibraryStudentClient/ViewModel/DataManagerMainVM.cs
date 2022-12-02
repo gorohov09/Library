@@ -153,6 +153,7 @@ namespace LibraryStudentClient.ViewModel
             string message = MyHttpClient.MyHttpClient.CreateOrder(tempbook.ISBN);
             if (message == "Заяка успешно создана")
             {
+                RefreshDataAndAlertAboutIt();
                 tempbook.Count = (int.Parse(tempbook.Count) - 1).ToString();
                 ViewBookOnNewPage();
             }
@@ -333,6 +334,12 @@ namespace LibraryStudentClient.ViewModel
             while (iterator != oldList.Count)
             {
                 var item = oldList[iterator];
+
+                if (item.Status != "В ожидании")
+                {
+                    break;
+                }
+
                 var temp = OrderList.Find(p => p.Id == item.Id);
                 if (temp.Status == item.Status && temp != null)
                 {
