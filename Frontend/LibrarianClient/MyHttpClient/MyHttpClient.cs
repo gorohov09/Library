@@ -71,91 +71,22 @@ namespace LibrarianClient.MyHttpClient
         #region Работа с Заявками
         public static List<Order> GetOrders(string type)
         {
-            //HttpClient Client = new HttpClient();
+            HttpClient Client = new HttpClient();
 
-            //var response = Client.GetAsync($"http://localhost:5162/api/Reader/{currentLibraryCard}/orders");
+            var response = Client.GetAsync($"http://localhost:5162/api/Librarian/orders?typeOrders={type}");
 
-            //var result = response.Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<OrderListDTO>().Result;
+            var result = response.Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<OrderListDTO>().Result;
 
-            //var orders = result.orders.Select(x => new Order
-            //{
-            //    Title = x.BookName,
-            //    Authors = x.Authors,
-            //    Publisher = x.BookPublisher,
-            //    Year = x.BookYear,
-            //    DateOfCreate = x.CreationDate,
-            //    Status = x.Status,
-
-            //}).ToList();
-
-            List<Order> orders = new List<Order>();
-
-            orders = new List<Order>
+            var orders = result.orders.Select(x => new Order
             {
-                new Order
-                {
-                    Id = 0,
-                    LibraryCard = "505405",
-                    FullName = "Check Checkovich Checkk",
-                    Title = "Евгений Онегин",
-                    DateOfCreation = "30.11.2022",
-                    RowNumber = 15,
-                    Year = "2005",
-                    Publisher = "Альпина",
-                    Authors = "А.С. Пушкин"
-                },
-                new Order
-                {
-                    Id = 0,
-                    LibraryCard = "505405",
-                    FullName = "Check Checkovich Checkk",
-                    Title = "Война и мир",
-                    DateOfCreation = "30.11.2022",
-                    RowNumber = 15,
-                    Year = "2005",
-                    Publisher = "Альпина",
-                    Authors = "А.С. Пушкин"
-                },
-                new Order
-                {
-                    Id = 0,
-                    LibraryCard = "505405",
-                    FullName = "Check Checkovich Checkk",
-                    Title = "Война и мир",
-                    DateOfCreation = "30.11.2022",
-                    RowNumber = 15,
-                    Year = "2005",
-                    Publisher = "Альпина",
-                    Authors = "А.С. Пушкин"
-                },
-                new Order
-                {
-                    Id = 0,
-                    LibraryCard = "505405",
-                    FullName = "Check Checkovich Checkk",
-                    Title = "Война и мир",
-                    DateOfCreation = "30.11.2022",
-                    RowNumber = 15,
-                    Year = "2005",
-                    Publisher = "Альпина",
-                    Authors = "А.С. Пушкин"
-                },
-                new Order
-                {
-                    Id = 0,
-                    LibraryCard = "505405",
-                    FullName = "Check Checkovich Checkk",
-                    Title = "Евгений Онегин",
-                    DateOfCreation = "30.11.2022",
-                    RowNumber = 15,
-                    Year = "2005",
-                    Publisher = "Альпина",
-                    Authors = "А.С. Пушкин"
-                }
-            };
+                Title = x.BookName,
+                Authors = x.Authors,
+                Publisher = x.BookPublisher,
+                Year = x.BookYear,
+                DateOfCreate = x.CreationDate,
+                Status = x.Status,
 
-
-
+            }).ToList();
 
             return orders;
         }
@@ -164,9 +95,37 @@ namespace LibrarianClient.MyHttpClient
 
         #region Добавление нового библиотекаря
     
-        public static bool AddNewLibrarian(string name, string surname, string patronymic, string mobilephone, string login, string password, ref string error)
+        public static bool AddNewLibrarian(string lastName, string name, string patronymic, string mobilephone, string login, string password, ref string error)
         {
-            return true;
+            HttpClient Client = new HttpClient();
+
+            var request = new RequestRegistrateDTO
+            {
+                LastName = lastName
+                ,
+                Name = name
+                ,
+                Patronymic = patronymic
+                ,
+                MobilePhone = mobilephone
+                ,
+                Login = login
+                ,
+                Password = password
+            };
+
+            var response = Client.PostAsJsonAsync("http://localhost:5162/api/account/registrate/librarian", request)
+                .Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ResponseLoginDTO>().Result;
+
+            if (response.IsSuccess)
+            {
+                currentLibrarianID = response.Id;
+                return true;
+            }
+
+
+            error = response.Error;
+            return false;
         }
 
         #endregion

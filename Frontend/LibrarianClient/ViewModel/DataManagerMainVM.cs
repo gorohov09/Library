@@ -200,8 +200,8 @@ namespace LibrarianClient.ViewModel
 
         public void RefreshLists()
         {
-            AllOrdersToGive = MyHttpClient.MyHttpClient.GetOrders("ToGive");
-            AllOrdersToReturn = MyHttpClient.MyHttpClient.GetOrders("ToReturn");
+            AllOrdersToGive = MyHttpClient.MyHttpClient.GetOrders("recieve");
+            AllOrdersToReturn = MyHttpClient.MyHttpClient.GetOrders("return");
         }
 
 
@@ -335,6 +335,8 @@ namespace LibrarianClient.ViewModel
                         string error = "";
                         if (MyHttpClient.MyHttpClient.AddNewLibrarian(Name, SurName, Patronimyc, MobilePhone, Login, Password, ref error))
                         {
+                            MessageBox.Show("Библиотекарь успешно добавлен.");
+
                             Name = "";
                             SurName = "";
                             Patronimyc = "";
