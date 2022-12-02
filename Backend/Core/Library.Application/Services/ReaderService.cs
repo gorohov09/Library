@@ -30,6 +30,7 @@ namespace Library.Application.Services
             if (reader == null)
             {
                 return null;
+
             }
 
             var readerInfoVm = _mapper.Map<ReaderVm>(reader);
