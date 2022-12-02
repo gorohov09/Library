@@ -16,8 +16,8 @@ namespace Library.DAL.Repository
         public Task<RecordEntity> GetFreeRecord(int bookInstanceId)
         {
             var freeHistory = _libraryContext.Records
-                .Where(r => r.BookId == bookInstanceId && r.ReturnDate == null)
-                .FirstOrDefaultAsync();
+                .Where(r => r.BookId == bookInstanceId && r.ReturnDate != null)
+                .FirstOrDefaultAsync(r => r.ReturnDate.Value.Year == 1970);
 
             return freeHistory;
         }
