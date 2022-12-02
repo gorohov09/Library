@@ -10,4 +10,5 @@ public class BriefOrderInfoForLibrarians
     public int RowNumber { get; set; }
     public string ReaderFullName { get; set; }
     public string BookAuthors { get; set; }
+    public string ReaderId { get; set; }
 }
