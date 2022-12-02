@@ -124,8 +124,8 @@ namespace LibrarianClient.ViewModel
                 {
                     if (SelectedOrder != null)
                     {
-                        //MyHttpClient.MyHttpClient.GetDetailUSerInrofmation(SelectedOrder.LibraryCard);
-                        MyHttpClient.MyHttpClient.GetDetailUSerInrofmation("505405");
+                        MyHttpClient.MyHttpClient.GetDetailUSerInrofmation(SelectedOrder.LibraryCard);
+                        //MyHttpClient.MyHttpClient.GetDetailUSerInrofmation("505405");
                         ViewReaderDetailInformation();
                     }
                 }
@@ -209,12 +209,34 @@ namespace LibrarianClient.ViewModel
 
         public void Approve()
         {
+            string error = "";
+            if (selectedTabItem.Name == "OrderToGive")
+            {
+                if (!MyHttpClient.MyHttpClient.OrderToRecieve(SelectedOrder.Id, true, ref error))
+                {
+                    MessageBox.Show(error);
+                }
 
+            }
+            else if (selectedTabItem.Name == "OrdersToReturn")
+            {
+                if (!MyHttpClient.MyHttpClient.OrderToReturn(SelectedOrder.Id, ref error))
+                {
+                    MessageBox.Show(error);
+                }
+            }
+            RefreshLists();
         }
 
         public void DisApprove()
         {
+            string error = "";
+            if (!MyHttpClient.MyHttpClient.OrderToRecieve(SelectedOrder.Id, false, ref error))
+            {
+                MessageBox.Show(error);
+            }
 
+            RefreshLists();
         }
 
         #endregion

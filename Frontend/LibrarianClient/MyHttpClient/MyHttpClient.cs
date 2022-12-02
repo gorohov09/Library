@@ -69,6 +69,12 @@ namespace LibrarianClient.MyHttpClient
         #endregion
 
         #region Работа с Заявками
+        
+        /// <summary>
+        /// Получение всех заявок по заданному типу
+        /// </summary>
+        /// <param name="type">Либо recieve - выдача книг. Либо return - возврат книг</param>
+        /// <returns></returns>
         public static List<Order> GetOrders(string type)
         {
             HttpClient Client = new HttpClient();
@@ -93,10 +99,56 @@ namespace LibrarianClient.MyHttpClient
             return orders;
         }
 
+        public static bool OrderToRecieve(int orderID, bool isapproved, ref string error)
+        {
+            HttpClient Client = new HttpClient();
+
+            var request = new RequestOrderToRecieve
+            {
+                OrderId = orderID,
+                IsApproved = isapproved,
+                LibrarianId = currentLibrarianID
+            };
+
+            var response = Client.PostAsJsonAsync("http://localhost:5162/api/orders/approve", request)
+                .Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ResponseOrderGiveOrReciveDTO>().Result;
+
+            if (response.IsSuccess)
+            {
+                return true;
+            }
+
+            error = response.ErrorMessage;
+            return response.IsSuccess;
+        }
+
+        public static bool OrderToReturn(int orderID, ref string error)
+        {
+            HttpClient Client = new HttpClient();
+
+            var request = new RequestOrderToRecieve
+            {
+                OrderId = orderID,
+                IsApproved = true,
+                LibrarianId = currentLibrarianID
+            };
+
+            var response = Client.PostAsJsonAsync("http://localhost:5162/api/orders/return", request)
+                .Result.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<ResponseOrderGiveOrReciveDTO>().Result;
+
+            if (response.IsSuccess)
+            {
+                return true;
+            }
+
+            error = response.ErrorMessage;
+            return response.IsSuccess;
+        }
+
         #endregion
 
         #region Добавление нового библиотекаря
-    
+
         public static bool AddNewLibrarian(string lastName, string name, string patronymic, string mobilephone, string login, string password, ref string error)
         {
             HttpClient Client = new HttpClient();
@@ -121,7 +173,6 @@ namespace LibrarianClient.MyHttpClient
 
             if (response.IsSuccess)
             {
-                currentLibrarianID = response.Id;
                 return true;
             }
 
