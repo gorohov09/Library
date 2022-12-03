@@ -13,6 +13,18 @@ namespace Library.DAL.Repository
             _libraryContext = context;
         }
 
+        /// <summary>
+        /// Метод используется, для поиска истории, которая была создана другим библиотекарем
+        /// </summary>
+        /// <param name="bookInstanceId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<RecordEntity> GetCreatedRecord(int bookInstanceId)
+        {
+            return await _libraryContext.Records
+                .FirstOrDefaultAsync(x => x.BookInsatnce.Id == bookInstanceId && x.ReturnDate == null);
+        }
+
         public Task<RecordEntity> GetFreeRecord(int bookInstanceId)
         {
             var freeHistory = _libraryContext.Records

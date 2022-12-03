@@ -10,6 +10,8 @@ namespace Library.DAL.Interfaces
 
         Task<RecordEntity> GetFreeRecord(int bookInstanceId);
 
+        Task<RecordEntity> GetCreatedRecord(int bookInstanceId);
+
         Task<RecordEntity> GetRecordById(int recordId);
     }
 }
