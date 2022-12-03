@@ -31,7 +31,6 @@ namespace Library.DAL.Repository
                 FullName = fullName,
                 StudentCard = studentCard,
                 MobilePhone = mobilePhone,
-                IsHasDebt = false,
                 Password = password
             };
 
