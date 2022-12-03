@@ -64,6 +64,15 @@ namespace Library.Application.Services
                     IssueDate = DateTime.Now,
                 };
 
+                var history = await _recordRepository.GetCreatedRecord(orderEntity.BookInsatnce.Id);
+                if (history != null)
+                    return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Заявка уже обработана другим библиотекарем" };
+
+                //Получать экземпляр книги и смотреть
+                var bookInstance = await _bookRepository.GetInsatnceBookById(orderEntity.BookInsatnce.Id);
+                if (bookInstance.IsAvailable)
+                    return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Заявка уже обработана другим библиотекарем" };
+
                 var result = await _recordRepository.SaveRecord(recordEntity);
 
                 if (result)
