@@ -80,7 +80,7 @@ namespace Library.Application.Services
             }
             else
             {
-                var history = _recordRepository.GetFreeRecord(orderEntity.BookInsatnce.Id);
+                var history = await _recordRepository.GetFreeRecord(orderEntity.BookInsatnce.Id);
                 if (history != null)
                     return new ResponseApproveOrder { IsSuccess = false, ErrorMessage = "Заявка уже обработана другим библиотекарем" };
 
