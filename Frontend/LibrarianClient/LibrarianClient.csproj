@@ -5,10 +5,15 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>library-3d-illustration-png.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="View\InformationAboutReader\User-Profile.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="library-3d-illustration-png.ico" />
   </ItemGroup>
 
   <ItemGroup>

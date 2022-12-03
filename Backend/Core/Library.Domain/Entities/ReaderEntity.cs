@@ -21,9 +21,6 @@ namespace Library.Domain.Entities
         public string StudentCard { get; set; }
 
         [Required]
-        public bool IsHasDebt { get; set; }
-
-        [Required]
         [Column(TypeName = "char(11)")]
         public string MobilePhone { get; set; }
 
