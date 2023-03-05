@@ -1,0 +1,29 @@
+version: "3.4"
+
+services:
+    api:
+        build:
+          context: .
+          dockerfile: Backend\Presentation\Library.WebAPI\Dockerfile
+        container_name: mywebapi
+        ports:
+          - "8080:80"
+        environment:
+          - ASPNETCORE_ENVIRONMENT=Development
+        depends_on:
+          - mssql
+
+    mssql:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        container_name: database
+        ports:
+          - 1433:1433
+        volumes:
+            - sql_data_volume:/var/opt/mssql
+        environment:
+            SA_PASSWORD: "S3cur3P@ssW0rd!"
+            ACCEPT_EULA: "Y"
+
+
+volumes: 
+    sql_data_volume:
